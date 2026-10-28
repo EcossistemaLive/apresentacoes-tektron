@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico Estratégico & Governança de Quarteirizados | Grupo Tektron</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* marca Grupo Tektron */
+      --petroleo: #0F293C;
+      --petroleo-esc: #091825;
+      --petroleo-med: #1C4257;
+      --petroleo-cl: #3E6E8E;
+      --vermelho: #D10404;
+      --vermelho-esc: #A00303;
+      --verde: #16694A;
+
+      /* superfícies */
+      --papel: #FBF7F3;
+      --papel-fundo: #F2EBE3;
+      --branco: #ffffff;
+
+      /* tinta */
+      --tinta: #16212B;
+      --tinta-med: #4C5862;
+      --tinta-fraca: #78838D;
+      --linha: #E2DAD1;
+      --linha-forte: #C9BDB0;
+
+      /* compatibilidade com as regras herdadas */
+      --primary: #0F293C;
+      --primary-light: #1C4257;
+      --accent: #D10404;
+      --accent-hover: #A00303;
+      --success: #16694A;
+      --success-bg: #EDF6F1;
+      --warning: #B45309;
+      --warning-bg: #FDF6EC;
+      --danger: #D10404;
+      --danger-bg: #FDF0F0;
+      --bg: #FBF7F3;
+      --card-bg: #ffffff;
+      --text-main: #16212B;
+      --text-muted: #5E6A75;
+      --border: #E2DAD1;
+      --shadow-sm: none;
+      --shadow-md: 0 2px 8px rgb(15 41 60 / 0.07);
+      --shadow-lg: 0 10px 34px rgb(15 41 60 / 0.13);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Navigation */
+    .navbar {
+      background: rgba(15, 39, 68, 0.96);
+      backdrop-filter: blur(12px);
+      color: #fff;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-mark {
+      background: #fff;
+      border-radius: 7px;
+      padding: 0.3rem 0.6rem;
+      line-height: 0;
+      flex-shrink: 0;
+    }
+
+    .brand-mark img { height: 30px; width: auto; display: block; }
+
+    .brand-text {
+      padding-left: 0.9rem;
+      border-left: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .brand-text span {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      display: block;
+    }
+
+    .nav-tags {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .nav-link { padding: 0.3rem 0.85rem; border-radius: 9999px; font-size: 0.75rem;
+      font-weight: 600; color: #dbeafe; background: rgba(59, 130, 246, 0.22);
+      border: 1px solid rgba(59, 130, 246, 0.4); text-decoration: none;
+      transition: background .15s, color .15s; white-space: nowrap; }
+    .nav-link:hover { background: rgba(59, 130, 246, 0.4); color: #fff; }
+
+    .badge-blue { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-gold { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-green { background: var(--success-bg); color: var(--success); border: 1px solid #a7f3d0; }
+    .badge-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid #fecaca; }
+
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    /* Hero Header */
+    .hero {
+      background: linear-gradient(135deg, #0f2744 0%, #1e3a8a 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      max-width: 850px;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.75rem;
+      font-size: 0.875rem;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 1.25rem;
+    }
+
+    .hero-meta strong {
+      color: #f8fafc;
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 1.15rem;
+      margin-bottom: 2rem;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .kpi-card.highlight-kpi {
+      border-top: 4px solid var(--success);
+      background: linear-gradient(to bottom, #f0fdf4, #ffffff);
+    }
+
+    .kpi-card.highlight-kpi .kpi-value {
+      color: var(--success);
+    }
+
+    .kpi-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+    }
+
+    .kpi-value {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .kpi-sub {
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: -0.3px;
+    }
+
+    /* Cards & Containers */
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.75rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2rem;
+    }
+
+    /* Audit Box */
+    .audit-alert-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .audit-alert-title {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Gargalos Accordion / Grid */
+    .gargalos-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .gargalo-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--accent);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .gargalo-card.danger { border-left-color: var(--danger); }
+    .gargalo-card.warning { border-left-color: var(--warning); }
+    .gargalo-card.blue { border-left-color: var(--accent); }
+    .gargalo-card.success { border-left-color: var(--success); }
+
+    .gargalo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.85rem;
+      gap: 1rem;
+    }
+
+    .gargalo-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .gargalo-body p {
+      font-size: 0.925rem;
+      color: #334155;
+      margin-bottom: 0.75rem;
+    }
+
+    .highlight-box {
+      border-radius: 8px;
+      padding: 0.85rem 1.15rem;
+      font-size: 0.875rem;
+      margin-top: 0.75rem;
+      background: #f1f5f9;
+      border-left: 3px solid #94a3b8;
+    }
+
+    .highlight-box.alert {
+      background: var(--danger-bg);
+      border-left-color: var(--danger);
+      color: #991b1b;
+    }
+
+    .highlight-box.action {
+      background: var(--success-bg);
+      border-left-color: var(--success);
+      color: #065f46;
+    }
+
+    .highlight-box.info {
+      background: #f0f9ff;
+      border-left-color: #0284c7;
+      color: #0369a1;
+    }
+
+    /* The 2 Root Bottlenecks Box */
+    .two-bottlenecks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .bottleneck-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.35rem;
+    }
+
+    .bottleneck-box h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Pipeline 7 Steps Grid */
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .pipeline-step {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 0.85rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .step-num {
+      width: 26px;
+      height: 26px;
+      background: var(--primary-light);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin: 0 auto 0.5rem auto;
+    }
+
+    .step-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .step-desc {
+      font-size: 0.72rem;
+      color: #64748b;
+      line-height: 1.3;
+    }
+
+    /* Architecture Layers */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .arch-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.15rem;
+    }
+
+    .arch-card h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .arch-card p {
+      font-size: 0.825rem;
+      color: #64748b;
+    }
+
+    /* Decision List */
+    .propostas-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .proposta-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.15rem;
+      background: #f8fafc;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .proposta-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .proposta-content h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .proposta-content p {
+      font-size: 0.875rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 2rem 1.5rem; }
+      .hero-title { font-size: 1.75rem; }
+      .pipeline-grid { grid-template-columns: 1fr; }
+      .hero-meta { flex-direction: column; gap: 0.5rem; }
+    }
+
+    /* ---- Registro de atividades ---- */
+    .timeline { position: relative; padding-left: 1.75rem; }
+    .timeline::before { content: ''; position: absolute; left: 7px; top: 6px; bottom: 6px;
+      width: 2px; background: var(--border); }
+    .tl-day { position: relative; margin-bottom: 1.75rem; }
+    .tl-day:last-child { margin-bottom: 0; }
+    .tl-day::before { content: ''; position: absolute; left: -1.75rem; top: 5px; width: 16px;
+      height: 16px; border-radius: 50%; background: var(--accent); border: 3px solid var(--card-bg);
+      box-shadow: 0 0 0 2px var(--accent); }
+    .tl-day.is-today::before { background: var(--success); box-shadow: 0 0 0 2px var(--success); }
+    .tl-date { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 600;
+      color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; }
+    .tl-title { font-size: 1.05rem; font-weight: 700; margin: 0.15rem 0 0.6rem; color: var(--primary); }
+    .tl-items { list-style: none; display: grid; gap: 0.45rem; }
+    .tl-items li { position: relative; padding-left: 1.1rem; font-size: 0.93rem; color: #334155; }
+    .tl-items li::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 5px;
+      height: 5px; border-radius: 50%; background: var(--text-muted); }
+    .tl-items li strong { color: var(--primary); font-weight: 600; }
+
+    /* ---- Barras de esforço ---- */
+    .ebars { display: grid; gap: 0.85rem; margin-top: 0.4rem; }
+    .ebar-row { display: grid; grid-template-columns: 220px 1fr 92px; align-items: center;
+      gap: 0.85rem; font-size: 0.9rem; }
+    .ebar-label { color: #334155; }
+    .ebar-track { height: 12px; background: #eef2f7; border-radius: 4px; overflow: hidden; }
+    .ebar-fill { height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+    .ebar-val { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+      color: var(--text-muted); font-weight: 600; }
+    .ebar-label span { display: block; font-weight: 400; font-size: 0.76rem;
+      color: var(--text-muted); margin-top: 0.1rem; }
+
+    .ebar-note { margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted); }
+
+    /* ---- Métricas de volume ---- */
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 0.85rem; margin-top: 0.4rem; }
+    .metric-tile { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.95rem 1rem; }
+    .metric-tile b { display: block; font-size: 1.5rem; font-weight: 800; color: var(--primary);
+      line-height: 1.15; letter-spacing: -0.02em; }
+    .metric-tile span { display: block; font-size: 0.78rem; color: var(--text-muted);
+      margin-top: 0.25rem; line-height: 1.4; }
+
+    @media (max-width: 720px) {
+      .ebar-row { grid-template-columns: 1fr; gap: 0.3rem; }
+      .ebar-val { text-align: left; }
+    }
+
+    /* ---- Quadro de prestadoras ---- */
+    .bloco-prest { border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+      margin-bottom: 0.85rem; }
+    .bloco-head { display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 0.75rem 1rem; background: #f8fafc; border-bottom: 1px solid var(--border); }
+    .bloco-nome { font-weight: 700; font-size: 0.92rem; color: var(--primary); }
+    .bloco-qtd { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+      color: var(--text-muted); white-space: nowrap; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0.9rem 1rem; }
+    .chip { display: inline-flex; align-items: baseline; gap: 0.4rem; padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border); border-radius: 999px; font-size: 0.85rem; background: #fff; }
+    .chip b { font-weight: 600; color: var(--primary); }
+    .chip span { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-muted); }
+    .chip.corrigido { border-color: #fcd34d; background: #fffbeb; }
+    .chip.corrigido b { color: var(--warning); }
+
+    /* ---- Convergência de demandas ---- */
+    .conv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.75rem; margin: 0.4rem 0 1.25rem; }
+    .conv-item { border: 1px solid var(--border); border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0; padding: 0.8rem 0.9rem; background: #f8fafc; }
+    .conv-item b { display: block; font-size: 0.88rem; color: var(--primary); font-weight: 600; }
+    .conv-item span { display: block; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .quote-doc { background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid var(--text-muted);
+      border-radius: 0 8px 8px 0; padding: 1rem 1.15rem; margin: 1rem 0;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.84rem; line-height: 1.75; color: #334155; }
+    .falhas { counter-reset: falha; list-style: none; display: grid; gap: 0.6rem; margin: 0.4rem 0 1rem; }
+    .falhas li { counter-increment: falha; position: relative; padding-left: 2.2rem;
+      font-size: 0.92rem; color: #334155; }
+    .falhas li::before { content: counter(falha); position: absolute; left: 0; top: 0;
+      width: 1.55rem; height: 1.55rem; border-radius: 50%; background: var(--danger-bg);
+      color: var(--danger); font-size: 0.78rem; font-weight: 700; display: flex;
+      align-items: center; justify-content: center; }
+
+    /* ---- Seção de IA e custos ---- */
+    .ia-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.85rem; margin: 0.4rem 0 1.5rem; }
+    .ia-card { border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem;
+      background: #fff; }
+    .ia-card b { display: block; font-size: 0.9rem; color: var(--primary); font-weight: 700;
+      margin-bottom: 0.3rem; }
+    .ia-card p { font-size: 0.85rem; color: #475569; line-height: 1.6; margin: 0; }
+    .plano-destaque { background: var(--success-bg) !important; border-color: #6ee7b7 !important; }
+    .tbl-preco { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .tbl-preco th { text-align: left; padding: 0.55rem 0.7rem; color: var(--text-muted);
+      font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--border); white-space: nowrap; }
+    .tbl-preco td { padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--border); }
+    .tbl-preco tr:last-child td { border-bottom: 0; }
+    .tbl-preco .num { text-align: right; font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .tbl-preco tr.destaque td { background: var(--success-bg); font-weight: 600; }
+    .tbl-preco tr.total td { background: #f1f5f9; font-weight: 700; color: var(--primary);
+      border-top: 2px solid var(--border); }
+    .fonte { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.8rem; line-height: 1.6; }
+ { gap: 0.3rem; }
+
+
+    /* ---------- Passe visual: hierarquia e leitura ---------- */
+
+    /* Cartões: hairline em vez de sombra uniforme. A elevação fica
+       reservada ao herói e ao palco interativo, que são os dois focos. */
+    .card { box-shadow: none; border-color: #dfe6ef; padding: 2rem 2.25rem; }
+
+    /* Tipagem de seção: a cor da régua esquerda diz a natureza do conteúdo. */
+    .card.sec-diag   { border-left: 4px solid var(--warning); }
+    .card.sec-achado { border-left: 4px solid var(--accent); }
+    .card.sec-prop   { border-left: 4px solid var(--success); }
+    .card.sec-dec    { border-left: 4px solid var(--primary); }
+
+    /* Escala tipográfica com degraus visíveis entre os níveis. */
+    .section-title { font-size: 1.65rem; line-height: 1.25; letter-spacing: -0.5px;
+      margin-bottom: 1.1rem; display: block; }
+    .h-bloco { font-size: 1.05rem; font-weight: 700; color: var(--primary);
+      letter-spacing: -0.2px; margin: 2rem 0 1rem; }
+    .card > h4:first-of-type, .card .h-bloco:first-of-type { margin-top: 0; }
+
+    /* Largura de leitura: prosa corrida nunca atravessa os 1200px do contêiner.
+       Tabelas, grades e o palco interativo seguem usando a largura toda. */
+    .card > p, .card > ul, .card > ol { max-width: 76ch; }
+
+    /* Números sempre na monoespaçada, para alinhar coluna a coluna. */
+    .metric-tile b, .kpi-value { font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums; }
+
+    @media (max-width: 680px) {
+      .card { padding: 1.35rem 1.15rem; }
+      .section-title { font-size: 1.3rem; }
+      .h-bloco { font-size: 0.98rem; }
+    }
+
+
+    /* ---------- Natureza de cada seção ---------- */
+    .section-title { display: flex; align-items: baseline; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap; }
+
+    .sec-pill { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.01em;
+      padding: 0.28rem 0.7rem; border-radius: 9999px; white-space: nowrap;
+      flex-shrink: 0; line-height: 1.3; }
+    .sec-pill-atual    { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .sec-pill-entregue { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+    .sec-pill-proposta { background: #ccfbf1; color: #115e59; border: 1px solid #5eead4; }
+    .sec-pill-decisao  { background: #e2e8f0; color: #0f2744; border: 1px solid #cbd5e1; }
+
+    .card.sec-atual    { border-left: 4px solid #d97706; }
+    .card.sec-entregue { border-left: 4px solid #2563eb; }
+    .card.sec-proposta { border-left: 4px solid #0d9488; }
+    .card.sec-decisao  { border-left: 4px solid #0f2744; }
+
+    .mini-pill { display: inline-block; font-size: 0.68rem; font-weight: 700; color: #115e59;
+      background: #ccfbf1; border: 1px solid #5eead4; border-radius: 9999px;
+      padding: 0.1rem 0.5rem; margin-left: 0.2rem; vertical-align: 0.08em; }
+
+    /* ---------- Guia de leitura ---------- */
+    .guia { border-left: 4px solid var(--primary); }
+    .guia-intro { font-size: 0.95rem; color: var(--text-muted); max-width: 76ch;
+      margin-bottom: 1.5rem; }
+    .guia-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+      gap: 1rem; }
+    .guia-item { padding: 1.1rem 1.2rem; border-radius: 10px; border: 1px solid var(--border);
+      background: #f8fafc; }
+    .guia-item p { font-size: 0.87rem; color: #334155; margin-top: 0.7rem; line-height: 1.6; }
+    .guia-atual    { border-top: 3px solid #d97706; }
+    .guia-entregue { border-top: 3px solid #2563eb; }
+    .guia-proposta { border-top: 3px solid #0d9488; }
+    .guia-decisao  { border-top: 3px solid #0f2744; }
+    .guia-nota { margin-top: 1.5rem; padding: 1.2rem 1.35rem; border-radius: 10px;
+      background: #ecfdf5; border: 1px solid #a7f3d0; border-left: 4px solid var(--success); }
+    .guia-nota p { font-size: 0.92rem; color: #065f46; line-height: 1.7; max-width: 82ch; }
+    .guia-nota strong { color: #064e3b; }
+
+    @media (max-width: 680px) {
+      .section-title { gap: 0.5rem; }
+      .sec-pill { font-size: 0.66rem; padding: 0.22rem 0.55rem; }
+      .brand-mark img { height: 24px; }
+      .brand-text { padding-left: 0.6rem; }
+    }
+
+
+    /* ======================================================================
+       CAMADA EDITORIAL — Grupo Tektron
+       Registro de publicação especializada: papel quente, serifa no corpo,
+       grotesca nos títulos e tabelas, filetes no lugar de cartões.
+       ====================================================================== */
+
+    body { font-family: 'Source Serif 4', Georgia, serif; background: var(--papel);
+      color: var(--tinta); font-size: 1.02rem; line-height: 1.7; }
+
+    h1, h2, h3, h4, h5, .ix-titulo, .badge, .sec-pill, .mini-pill,
+    table, .kpi-value, .kpi-label, .metric-tile, .tl-date, .ebar-label,
+    .ebar-val, button, .nav-link, .step-title, .step-num, .fonte, .ix-lista {
+      font-family: 'Archivo', system-ui, sans-serif; }
+
+    /* ---------- cabeçalho institucional ---------- */
+    .navbar { background: var(--petroleo); backdrop-filter: none;
+      border-bottom: 3px solid var(--vermelho); padding: 0.85rem 2rem; gap: 1.25rem; }
+    .brand-mark { background: var(--branco); border-radius: 4px; padding: 0.32rem 0.6rem; }
+    .brand-mark img { height: 28px; }
+    .brand-text { border-left: 1px solid rgba(255,255,255,0.2); padding-left: 1rem; }
+    .brand-text span { font-family: 'Archivo', sans-serif; font-size: 0.76rem;
+      color: #AFC2CE; letter-spacing: 0.01em; }
+    .badge { border-radius: 3px; font-size: 0.7rem; letter-spacing: 0.02em;
+      padding: 0.3rem 0.65rem; }
+    .badge-gold { background: rgba(209,4,4,0.16); color: #FFC9C9;
+      border: 1px solid rgba(209,4,4,0.45); }
+    .badge-blue { background: rgba(255,255,255,0.1); color: #C7D6E0;
+      border: 1px solid rgba(255,255,255,0.2); }
+    .nav-link { border-radius: 3px; background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.22); color: #DCE6ED; font-size: 0.72rem; }
+    .nav-link:hover { background: var(--vermelho); border-color: var(--vermelho); color: #fff; }
+
+    /* ---------- folha: índice + corpo ---------- */
+    .folha { display: grid; grid-template-columns: 250px minmax(0, 1fr);
+      gap: 3.5rem; max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem 0; }
+    .corpo { min-width: 0; }
+    .container { max-width: none; margin: 0; padding: 0; }
+
+    .indice { position: sticky; top: 92px; align-self: start;
+      max-height: calc(100vh - 120px); overflow-y: auto; padding-right: 0.5rem;
+      border-right: 1px solid var(--linha); }
+    .ix-titulo { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--tinta-fraca); margin-bottom: 0.9rem; }
+    .ix-lista { list-style: none; counter-reset: ix; margin: 0 0 1.5rem; padding: 0; }
+    .ix-lista li { counter-increment: ix; }
+    .ix-lista a { display: flex; align-items: baseline; gap: 0.5rem;
+      padding: 0.42rem 0.6rem 0.42rem 0.5rem; font-size: 0.8rem; line-height: 1.35;
+      color: var(--tinta-med); text-decoration: none; border-left: 2px solid transparent;
+      transition: color .12s, border-color .12s, background .12s; }
+    .ix-lista a:hover { color: var(--petroleo); background: rgba(15,41,60,0.045); }
+    .ix-lista a.ativo { color: var(--petroleo); font-weight: 600;
+      border-left-color: var(--vermelho); background: rgba(209,4,4,0.05); }
+    .ix-ponto { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+      transform: translateY(-1px); }
+    .ix-atual    { background: var(--vermelho); }
+    .ix-entregue { background: var(--petroleo-cl); }
+    .ix-proposta { background: var(--verde); }
+    .ix-decisao  { background: var(--petroleo); }
+    .ix-guia     { background: var(--linha-forte); }
+    .ix-legenda { border-top: 1px solid var(--linha); padding-top: 0.9rem; }
+    .ix-legenda p { display: flex; align-items: center; gap: 0.5rem; font-size: 0.72rem;
+      color: var(--tinta-fraca); font-family: 'Archivo', sans-serif; margin-bottom: 0.4rem; }
+
+    /* ---------- abertura ---------- */
+    .hero { background: var(--petroleo); border-radius: 0; padding: 3.25rem 3rem;
+      box-shadow: none; border-top: 3px solid var(--vermelho); }
+    .hero::after { display: none; }
+    .hero-title { font-family: 'Archivo', sans-serif; font-size: 2.6rem; font-weight: 800;
+      letter-spacing: -1.2px; line-height: 1.08; }
+    .hero-subtitle { font-family: 'Source Serif 4', serif; font-size: 1.08rem;
+      color: #C3D2DC; max-width: 62ch; }
+    .hero-meta { border-top-color: rgba(255,255,255,0.16); font-family: 'Archivo', sans-serif;
+      font-size: 0.8rem; color: #AFC2CE; }
+    .hero-meta strong { color: #E88A8A; }
+
+    /* ---------- seções como matéria, não como cartão ---------- */
+    .card { background: transparent; border: 0; border-radius: 0; box-shadow: none;
+      border-bottom: 1px solid var(--linha); padding: 3.25rem 0 3rem; margin: 0; }
+    .card:last-of-type { border-bottom: 0; }
+    .card.sec-atual, .card.sec-entregue, .card.sec-proposta,
+    .card.sec-decisao, .guia { border-left: 0; }
+    .card[class*="sec-"]::before, .guia::before { content: ''; display: block;
+      width: 46px; height: 3px; margin-bottom: 1.4rem; background: var(--linha-forte); }
+    .sec-atual::before    { background: var(--vermelho) !important; }
+    .sec-entregue::before { background: var(--petroleo-cl) !important; }
+    .sec-proposta::before { background: var(--verde) !important; }
+    .sec-decisao::before  { background: var(--petroleo) !important; }
+
+    .section-title { font-family: 'Archivo', sans-serif; font-size: 1.85rem; font-weight: 700;
+      letter-spacing: -0.7px; line-height: 1.18; color: var(--petroleo);
+      margin-bottom: 1.35rem; }
+    .h-bloco { font-family: 'Archivo', sans-serif; font-size: 1.02rem; font-weight: 700;
+      color: var(--petroleo); letter-spacing: -0.1px; margin: 2.25rem 0 1rem; }
+    .card > p, .card > ul, .card > ol { max-width: 68ch; }
+    .card > p { margin-bottom: 1.15rem; }
+
+    .sec-pill { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.03em;
+      border-radius: 3px; padding: 0.3rem 0.6rem; }
+    .sec-pill-atual    { background: #FBE9E9; color: #9A0404; border-color: #EEC2C2; }
+    .sec-pill-entregue { background: #E8EFF4; color: #1C4257; border-color: #C3D4DF; }
+    .sec-pill-proposta { background: #E8F3EE; color: #0F4C36; border-color: #BCDCCD; }
+    .sec-pill-decisao  { background: #E9E5E0; color: #0F293C; border-color: #D2C8BD; }
+    .mini-pill { border-radius: 3px; background: #E8F3EE; color: #0F4C36;
+      border-color: #BCDCCD; font-family: 'Archivo', sans-serif; }
+
+    /* ---------- guia de leitura ---------- */
+    .guia-item { background: var(--branco); border-color: var(--linha); border-radius: 4px; }
+    .guia-item p { font-family: 'Source Serif 4', serif; font-size: 0.92rem; }
+    .guia-atual    { border-top-color: var(--vermelho); }
+    .guia-entregue { border-top-color: var(--petroleo-cl); }
+    .guia-proposta { border-top-color: var(--verde); }
+    .guia-decisao  { border-top-color: var(--petroleo); }
+    .guia-nota { background: #F3F7F5; border-color: #C9E0D5;
+      border-left-color: var(--verde); border-radius: 4px; }
+    .guia-nota p { font-family: 'Source Serif 4', serif; color: #14402F; }
+    .guia-nota strong { color: #0B2C20; }
+    .guia-intro { font-family: 'Source Serif 4', serif; color: var(--tinta-med); }
+
+    /* ---------- números ---------- */
+    .kpi-grid { gap: 0; border-top: 1px solid var(--linha);
+      border-bottom: 1px solid var(--linha); }
+    .kpi-card { background: transparent; border: 0; border-right: 1px solid var(--linha);
+      border-radius: 0; box-shadow: none; padding: 1.5rem 1.4rem; }
+    .kpi-card:last-child { border-right: 0; }
+    .kpi-value { font-family: 'JetBrains Mono', monospace; color: var(--petroleo);
+      font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+    .kpi-label { font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--tinta-fraca); font-weight: 600; }
+    .kpi-sub { font-family: 'Source Serif 4', serif; color: var(--tinta-med); }
+
+    .metric-tile { background: var(--branco); border-color: var(--linha); border-radius: 4px; }
+    .metric-tile b { font-family: 'JetBrains Mono', monospace; color: var(--petroleo);
+      font-variant-numeric: tabular-nums; }
+    .metric-tile span { font-family: 'Source Serif 4', serif; color: var(--tinta-med); }
+
+    /* ---------- tabelas ---------- */
+    table { font-family: 'Archivo', sans-serif !important; font-size: 0.86rem !important; }
+    table th { text-transform: none !important; letter-spacing: 0.01em !important;
+      font-size: 0.74rem !important; font-weight: 600 !important;
+      color: var(--tinta-fraca) !important; border-bottom-color: var(--linha-forte) !important; }
+    table td { border-bottom-color: var(--linha) !important; }
+    .tbl-preco tr.destaque td { background: #F0F6F3; }
+    .tbl-preco tr.total td { background: var(--papel-fundo); color: var(--petroleo); }
+
+    /* ---------- listas e blocos herdados ---------- */
+    .tl-items li, .tl-items li strong { font-family: 'Source Serif 4', serif; }
+    .tl-items li strong { color: var(--petroleo); font-weight: 600; }
+    .tl-items li::before { background: var(--linha-forte); }
+    .tl-date { font-size: 0.7rem; letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--vermelho); font-weight: 700; }
+    .ebar-fill { background: var(--petroleo) !important; }
+    .ebar-label span { font-family: 'Source Serif 4', serif; }
+    .fonte { font-size: 0.76rem; color: var(--tinta-fraca); }
+    .audit-alert-box { background: #FDF0F0; border-color: #EEC2C2;
+      border-left-color: var(--vermelho); border-radius: 4px; }
+    .audit-alert-title { color: #9A0404; }
+    code { background: var(--papel-fundo); color: var(--petroleo-med); border-radius: 3px; }
+
+    footer { background: var(--petroleo); color: #AFC2CE; border-top: 3px solid var(--vermelho);
+      margin-top: 3.5rem; font-family: 'Archivo', sans-serif; }
+
+    /* ---------- responsivo ---------- */
+    @media (max-width: 1040px) {
+      .folha { grid-template-columns: 1fr; gap: 1.75rem; padding: 1.5rem 1.25rem 0; }
+      .indice { position: static; max-height: none; border-right: 0;
+        border-bottom: 1px solid var(--linha); padding-bottom: 1.1rem; }
+      .ix-lista { columns: 2; column-gap: 1.25rem; margin-bottom: 1rem; }
+      .ix-legenda { display: flex; flex-wrap: wrap; gap: 0 1.1rem; }
+      .kpi-card { border-bottom: 1px solid var(--linha); }
+    }
+    @media (max-width: 680px) {
+      body { font-size: 0.98rem; }
+      .hero { padding: 2rem 1.35rem; }
+      .hero-title { font-size: 1.75rem; }
+      .section-title { font-size: 1.4rem; }
+      .card { padding: 2.25rem 0 2rem; }
+      .ix-lista { columns: 1; }
+      .navbar { padding: 0.7rem 1rem; }
+    }
+    @media print {
+      .indice { display: none; }
+      .folha { display: block; max-width: none; padding: 0; }
+      .navbar { position: static; }
+      .card { break-inside: avoid; }
+    }
+
+
+    /* ---------- ajustes finos ---------- */
+    code { font-size: 0.8em; padding: 0.1em 0.34em; }
+    .section-title { max-width: 72ch; }
+    .card > p[style*="text-muted"], .guia-intro { font-size: 1rem; color: var(--tinta-med); }
+    .ix-lista a:focus-visible, .nav-link:focus-visible { outline: 2px solid var(--vermelho);
+      outline-offset: 2px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 110px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+
+    /* ---------- contenção horizontal ---------- */
+    .scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    .navbar { flex-wrap: wrap; }
+    .nav-tags { flex-wrap: wrap; min-width: 0; }
+    img, table { max-width: 100%; }
+    @media (max-width: 680px) {
+      .navbar { gap: 0.6rem; }
+      .nav-tags { width: 100%; }
+      .badge, .nav-link { font-size: 0.66rem; padding: 0.24rem 0.5rem; }
+    }
+
+
+    /* ---------- selos: o cabeçalho é escuro, o corpo é claro ---------- */
+    .navbar .badge-gold { background: rgba(209,4,4,0.16); color: #FFC9C9;
+      border: 1px solid rgba(209,4,4,0.45); }
+    .navbar .badge-blue { background: rgba(255,255,255,0.1); color: #C7D6E0;
+      border: 1px solid rgba(255,255,255,0.2); }
+
+    .badge { font-weight: 600; letter-spacing: 0.01em; }
+    .badge-gold { background: #FBE9E9; color: #8F0404; border: 1px solid #EEC2C2; }
+    .badge-blue { background: #E4EDF3; color: #16425B; border: 1px solid #BDD1DE; }
+    .badge-green { background: #E6F2EC; color: #0F4C36; border: 1px solid #B9DACB; }
+    .badge-danger { background: #FBE4E4; color: #8F0404; border: 1px solid #EEB8B8; }
+
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <div class="brand">
+      <h1 class="brand-mark">
+        <img src="logo-tektron.png" alt="Grupo Tektron" width="282" height="91">
+      </h1>
+      <div class="brand-text">
+        <span>Diretoria Estratégica &bull; Análise de Contratos e Serviços Quarteirizados</span>
+      </div>
+    </div>
+    <div class="nav-tags">
+      <span class="badge badge-gold">Diagnóstico &bull; Versão 2.0 Auditada</span>
+      <span class="badge badge-blue">Meta de economia: 30%</span>
+      <a class="nav-link" href="conferencia-defasagem-tektron.html">Conferência da defasagem &rarr;</a>
+    </div>
+  </header>
+
+  <div class="folha">
+      <nav class="indice" aria-label="Índice do documento">
+        <p class="ix-titulo">Neste documento</p>
+        <ol class="ix-lista">
+        <li><a href="#como-ler-este-documento" data-alvo="como-ler-este-documento"><span class="ix-ponto ix-guia"></span>Como ler este documento</a></li>
+        <li><a href="#panorama" data-alvo="panorama"><span class="ix-ponto ix-guia"></span>Panorama da carteira</a></li>
+        <li><a href="#como-a-auditoria-foi-conduzida" data-alvo="como-a-auditoria-foi-conduzida"><span class="ix-ponto ix-atual"></span>Como a auditoria foi conduzida</a></li>
+        <li><a href="#como-o-custo-se-forma" data-alvo="como-o-custo-se-forma"><span class="ix-ponto ix-atual"></span>Como o custo se forma</a></li>
+        <li><a href="#o-diagnostico-real-os-dois-gargalos-que-consom" data-alvo="o-diagnostico-real-os-dois-gargalos-que-consom"><span class="ix-ponto ix-atual"></span>Os dois gargalos do dia a dia</a></li>
+        <li><a href="#quadro-oficial-de-prestadoras-homologadas" data-alvo="quadro-oficial-de-prestadoras-homologadas"><span class="ix-ponto ix-atual"></span>Prestadoras homologadas</a></li>
+        <li><a href="#os-seis-maiores-gargalos-operacionais-e-riscos" data-alvo="os-seis-maiores-gargalos-operacionais-e-riscos"><span class="ix-ponto ix-atual"></span>Seis gargalos e riscos de campo</a></li>
+        <li><a href="#o-pipeline-mensal-de-fechamento-em-sete-etapas" data-alvo="o-pipeline-mensal-de-fechamento-em-sete-etapas"><span class="ix-ponto ix-atual"></span>O pipeline mensal de fechamento</a></li>
+        <li><a href="#nova-arquitetura-de-governanca-digital" data-alvo="nova-arquitetura-de-governanca-digital"><span class="ix-ponto ix-proposta"></span>Nova arquitetura de governança digital</a></li>
+        <li><a href="#registro-de-atividades-nos-primeiros-cinco-dia" data-alvo="registro-de-atividades-nos-primeiros-cinco-dia"><span class="ix-ponto ix-entregue"></span>Registro de atividades</a></li>
+        <li><a href="#painel-de-esforco-o-que-foi-processado-e-produ" data-alvo="painel-de-esforco-o-que-foi-processado-e-produ"><span class="ix-ponto ix-entregue"></span>Painel de esforço</a></li>
+        <li><a href="#frente-de-relacionamento-e-base-de-contatos" data-alvo="frente-de-relacionamento-e-base-de-contatos"><span class="ix-ponto ix-entregue"></span>Frente de relacionamento</a></li>
+        <li><a href="#convergencia-de-demandas-e-vazio-de-registro" data-alvo="convergencia-de-demandas-e-vazio-de-registro"><span class="ix-ponto ix-atual"></span>Convergência de demandas e vazio de registro</a></li>
+        <li><a href="#decisoes-solicitadas-governanca-da-informacao" data-alvo="decisoes-solicitadas-governanca-da-informacao"><span class="ix-ponto ix-decisao"></span>Governança da informação</a></li>
+        <li><a href="#como-este-diagnostico-foi-produzido-com-inteli" data-alvo="como-este-diagnostico-foi-produzido-com-inteli"><span class="ix-ponto ix-entregue"></span>Produção com inteligência artificial</a></li>
+        <li><a href="#planos-claude-comparativo-e-recomendacao" data-alvo="planos-claude-comparativo-e-recomendacao"><span class="ix-ponto ix-proposta"></span>Planos Claude: comparativo e recomendação</a></li>
+        <li><a href="#custo-de-operacao-dos-agentes-na-api" data-alvo="custo-de-operacao-dos-agentes-na-api"><span class="ix-ponto ix-proposta"></span>Custo de operação dos agentes na API</a></li>
+        <li><a href="#custo-total-da-infraestrutura-do-sistema" data-alvo="custo-total-da-infraestrutura-do-sistema"><span class="ix-ponto ix-proposta"></span>Custo total da infraestrutura do sistema</a></li>
+        <li><a href="#solicitacao-a-diretoria" data-alvo="solicitacao-a-diretoria"><span class="ix-ponto ix-decisao"></span>Solicitação à diretoria</a></li>
+        <li><a href="#decisoes-e-encaminhamentos-com-a-diretoria-est" data-alvo="decisoes-e-encaminhamentos-com-a-diretoria-est"><span class="ix-ponto ix-decisao"></span>Decisões e encaminhamentos</a></li>
+        </ol>
+        <div class="ix-legenda">
+          <p><span class="ix-ponto ix-atual"></span>Situação atual</p>
+          <p><span class="ix-ponto ix-entregue"></span>Já entregue</p>
+          <p><span class="ix-ponto ix-proposta"></span>Proposta</p>
+          <p><span class="ix-ponto ix-decisao"></span>Decisão</p>
+        </div>
+      </nav>
+
+    <main class="corpo">
+
+    <!-- Hero Header -->
+    <section class="hero">
+      <h2 class="hero-title">Diagnóstico Estratégico & Governança de Quarteirizados</h2>
+      <p class="hero-subtitle">
+        Auditoria estrutural da carteira de 2026, eliminação de distorções herdadas, arquitetura digital em camadas e diretrizes para captura de 30% de economia anual.
+      </p>
+      <div class="hero-meta">
+        <div><strong>Responsável:</strong> Cléber Donato (Analista de Contratos e Serviços)</div>
+        <div><strong>Subordinação Direta:</strong> Diretoria Estratégica (Coronel Campos Filho)</div>
+        <div><strong>Data Base:</strong> Outubro de 2026</div>
+        <div><strong>Escopo Real:</strong> 137 Condomínios / 17 Prestadoras / 7 Especialidades</div>
+      </div>
+    </section>
+
+    <!-- Como ler este documento -->
+    <section class="card guia" id="como-ler-este-documento">
+      <h3 class="section-title">Como ler este documento</h3>
+      <p class="guia-intro">
+        O documento reúne quatro tipos de conteúdo, e eles não têm o mesmo peso. Cada seção traz,
+        ao lado do título, a etiqueta que diz a qual deles pertence.
+      </p>
+      <div class="guia-grid">
+        <div class="guia-item guia-atual">
+          <span class="sec-pill sec-pill-atual">Situação atual</span>
+          <p>O que foi encontrado no departamento e verificado documento a documento. É
+             diagnóstico: descreve o que existe hoje, não o que se propõe mudar.</p>
+        </div>
+        <div class="guia-item guia-entregue">
+          <span class="sec-pill sec-pill-entregue">Já entregue</span>
+          <p>Trabalho concluído e disponível, sem custo adicional e sem depender de decisão —
+             auditoria, base saneada, planilhas de conferência e documentação do departamento.</p>
+        </div>
+        <div class="guia-item guia-proposta">
+          <span class="sec-pill sec-pill-proposta">Proposta</span>
+          <p>Sugestão de melhoria que <strong>ainda depende de autorização da diretoria</strong>.
+             Nada aqui está implantado como política da empresa nem gera despesa antes do aval.</p>
+        </div>
+        <div class="guia-item guia-decisao">
+          <span class="sec-pill sec-pill-decisao">Decisão</span>
+          <p>O que se pede à Diretoria Estratégica: definições formais, autorizações e
+             encaminhamentos com responsável e prazo.</p>
+        </div>
+      </div>
+      <div class="guia-nota">
+        <p>
+          <strong>Sobre o sistema de gestão.</strong> O sistema descrito nas seções marcadas como
+          proposta é uma sugestão, não uma decisão tomada. Para que a diretoria avalie sobre algo
+          concreto em vez de uma descrição no papel, está sendo construída
+          <strong>uma primeira versão funcional, por conta própria e sem custo para a empresa</strong>,
+          com a base real já auditada. A intenção é demonstrar que a solução é completa e eficaz
+          antes de pedir qualquer investimento — e a implantação definitiva, com domínio, contas
+          corporativas e política de uso, só ocorre mediante autorização.
+        </p>
+      </div>
+    </section>
+
+    <!-- KPI Grid -->
+    <section class="kpi-grid" id="panorama">
+      <div class="kpi-card">
+        <div class="kpi-label">Condomínios Ativos</div>
+        <div class="kpi-value">137</div>
+        <div class="kpi-sub">Postos com contratos vigentes</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Serviços Sob Gestão</div>
+        <div class="kpi-value">513</div>
+        <div class="kpi-sub">382 faturados &middot; 104 cortesia &middot; 27 a confirmar</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Prestadores Homologados</div>
+        <div class="kpi-value">17</div>
+        <div class="kpi-sub">Quadro oficial homologado</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Custo anual apurado</div>
+        <div class="kpi-value">R$ 1,31 Mi</div>
+        <div class="kpi-sub">média de R$ 108.866/mês</div>
+      </div>
+      <div class="kpi-card highlight-kpi">
+        <div class="kpi-label">Meta de economia (30%)</div>
+        <div class="kpi-value">R$ 391.919</div>
+        <div class="kpi-sub">por ano &middot; média de R$ 32.660/mês</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">CNPJs Tomadores</div>
+        <div class="kpi-value">4</div>
+        <div class="kpi-sub">TCL, TSL, GYN, TAS</div>
+      </div>
+    </section>
+
+    <!-- Alerta de Auditoria Financeira -->
+    <section class="audit-alert-box">
+      <div class="audit-alert-title">
+        <span>⚠️</span> <strong>Achado Crítico de Auditoria: A Distorção do Consolidado Herdado da Gestão Anterior</strong>
+      </div>
+      <p style="font-size: 0.9rem; color: #0F293C;">
+        O número que circulava como referência financeira do setor estava
+        <strong>R$ 19.228,49 abaixo do valor real</strong> — uma defasagem de 11,4%. A seguir, como se
+        chegou a essa conclusão.
+      </p>
+    </section>
+
+    <section class="card sec-atual" id="como-a-auditoria-foi-conduzida">
+      <h3 class="section-title">Como a auditoria foi conduzida<span class="sec-pill sec-pill-atual">Situação atual</span></h3>
+
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+        O arquivo auditado foi <code>PROGRAMAÇÃO ANUAL 2026 - 4,26%.xlsx</code>, a planilha que a gestão
+        anterior utilizava como controle único de toda a carteira de quarteirizados. A auditoria
+        percorreu <strong>13 abas, 1.093 linhas e 9.946 células</strong>, conferindo registro por registro.
+      </p>
+
+      <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 0.9rem;">
+        Etapa 1 — Entendimento da estrutura do arquivo
+      </h4>
+      <p style="font-size: 0.92rem; color: #2C3842; margin-bottom: 1.25rem;">
+        A planilha opera em duas camadas que deveriam espelhar uma à outra. A aba <code>2026</code> é a
+        <strong>mestra</strong>: cada linha é um condomínio, com pares de colunas
+        <em>EMPRESA + VALOR</em> para cada um dos 7 serviços. As demais abas
+        (<code>cx gordura 26</code>, <code>cx dágua 26</code>, <code>Dedetização 26</code>,
+        <code>Prumadas 26</code>, <code>Jardim 26</code>, <code>Piscina 26</code>,
+        <code>Vidros 26</code>) são o <strong>detalhamento por serviço</strong>, com o cálculo do
+        reajuste de 4,26% linha a linha. Uma terceira aba, <code>valor total</code>, consolidava os
+        somatórios — e era dela que saía o número divulgado.
+      </p>
+
+      <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 0.9rem;">
+        Etapa 2 — Reconciliação cruzada, registro por registro
+      </h4>
+      <p style="font-size: 0.92rem; color: #2C3842; margin-bottom: 0.75rem;">
+        Cada par <em>condomínio × serviço</em> da aba mestra foi confrontado com o mesmo par na aba de
+        serviço correspondente. O processo foi automatizado para eliminar erro de conferência manual e
+        aplicou cinco tratamentos antes da comparação:
+      </p>
+      <ul class="tl-items" style="margin-bottom: 1.25rem;">
+        <li><strong>Normalização de grafias</strong> — <code>Universal Services</code> e
+            <code>Universal services</code>, <code>SEMPRE LIMPA</code> e <code>Sempre Limpa</code>
+            eram contados como empresas diferentes.</li>
+        <li><strong>Separação de escopo do nome</strong> — <code>TN - Gordura</code>,
+            <code>TN - Fluvial</code> e <code>TN esgoto</code> são a mesma empresa com escopos distintos,
+            e estavam inflando a contagem de fornecedores.</li>
+        <li><strong>Propagação de linhas compostas</strong> — em Prumadas, o condomínio aparece só na
+            primeira linha e os serviços seguintes ficam com a célula vazia; sem tratamento, esses
+            registros se perdem.</li>
+        <li><strong>Descarte de duplicatas</strong> — a aba <code>Cópia de cx dágua 26</code> replica a
+            aba original com valores arredondados, e a aba <code>cx dágua 26</code> carrega dois blocos
+            de valores lado a lado para os mesmos postos.</li>
+        <li><strong>Exclusão de linhas de totalização</strong> — havia linhas de <code>total</code>
+            misturadas ao corpo de dados em Prumadas e Jardim, que dobravam a soma se não filtradas.</li>
+      </ul>
+
+      <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 0.9rem;">
+        Etapa 3 — O que a comparação revelou
+      </h4>
+
+      <div class="metric-grid" style="margin-bottom: 1.5rem;">
+        <div class="metric-tile"><b>R$ 168.135,36</b><span>Valor que a aba <code>valor total</code> informava</span></div>
+        <div class="metric-tile"><b>R$ 187.363,85</b><span>Soma real das linhas da aba mestra <code>2026</code></span></div>
+        <div class="metric-tile" style="border-color: #F3C6C6; background: #FDF0F0;"><b style="color: var(--danger);">R$ 19.228,49</b><span>Defasagem apurada — 11,4% a menos</span></div>
+      </div>
+
+      <div style="background: #F1F5F8; border: 1px solid #CBD9E3; border-left: 5px solid var(--accent); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;">
+        <p style="font-size: 0.93rem; font-weight: 700; color: var(--primary); margin-bottom: 0.6rem;">
+          A defasagem está aberta para conferência &mdash; em documento próprio
+        </p>
+        <p style="font-size: 0.89rem; color: #0F293C; margin-bottom: 0.6rem;">
+          Nenhum número desta auditoria precisa ser aceito por confiança. A apuração completa está no
+          anexo técnico <strong>Conferência da Defasagem</strong>: a comparação das três camadas
+          serviço por serviço, os <strong>61 lançamentos divergentes com o número da linha de origem
+          em cada aba</strong>, o roteiro de conferência de 30 segundos e a planilha de apoio
+          <code>Conferencia_Defasagem_2026.xlsx</code>, construída com fórmulas vivas para que o
+          cálculo possa ser refeito do zero.
+        </p>
+        <p style="font-size: 0.89rem; color: #0F293C; margin-bottom: 0.9rem;">
+          O anexo também expõe o achado que o total geral esconde: <strong>em Prumadas a relação se
+          inverte</strong> &mdash; a aba mestra registra R$ 13.439,27 <em>a menos</em> que a aba de
+          serviço. As pontas se compensam, e a divergência bruta entre as camadas chega a
+          <strong>R$ 46.107,25</strong> antes de se anular até os R$ 19.228 líquidos.
+        </p>
+        <a class="nav-link" style="color: var(--accent); background: #DEE8EF; border-color: #9FB9CA; padding: 0.5rem 1.1rem; display: inline-block; font-size: 0.82rem;" href="conferencia-defasagem-tektron.html">Abrir a conferência da defasagem &rarr;</a>
+      </div>
+
+      <p style="font-size: 0.92rem; color: #2C3842; margin-bottom: 0.75rem;">
+        A diferença não vem de um erro único de digitação: ela é o acúmulo de registros que existiam na
+        operação mas não chegavam ao consolidado. A reconciliação apontou, inicialmente,
+        <strong>32 divergências entre as duas camadas</strong>. Reexaminadas uma a uma contra as regras
+        reais de contratação, <strong>a maior parte tem causa estrutural conhecida e não é erro de
+        cadastro</strong>:
+      </p>
+      <ul class="tl-items" style="margin-bottom: 1.25rem;">
+        <li><strong>12 trocas de prestadora</strong> &mdash; o mesmo serviço aparece com empresas
+            diferentes conforme a aba, mas <strong>com o valor idêntico nas duas</strong>. É a
+            substituição de fornecedor registrada em uma camada e não propagada para a outra: o
+            contrato e o preço não mudaram, mudou quem executa. No <em>America Tower</em>, a mestra já
+            registra a TN e a aba de serviço ainda registra a Royal, ambas a R$ 252,39 na caixa d'água.
+            Quando a troca ocorre no meio do mês, o valor ainda é rateado por dia entre as duas
+            empresas &mdash; e nenhuma das duas camadas comporta esse rateio.</li>
+        <li><strong>9 lançamentos de prumadas</strong> &mdash; explicados pela estrutura do serviço, que
+            tem três componentes (gordura, esgoto e pluvial) e só cabe uma vez na aba mestra. Somam
+            R$ 13.439,27 e são a causa integral da inversão descrita no anexo de conferência.</li>
+        <li><strong>5 divergências de valor efetivas</strong> &mdash; somam R$ 1.195,62 e se concentram
+            em <strong>dois condomínios</strong>. No <em>Goyazes</em>, a caixa d'água aparece a
+            R$ 1.200,00 na mestra e a R$ 630,97 na aba; no <em>Alegria</em>, a caixa de gordura a
+            R$ 419,00 contra R$ 701,08. O padrão sugere duas bases de preço convivendo: valor comercial
+            arredondado na mestra, valor de tabela com o reajuste de 4,26% na aba. Um sexto caso, no
+            <em>Atmosphere</em>, é diferença de R$ 1,00 por arredondamento.</li>
+        <li><strong>4 serviços invisíveis</strong> &mdash; existem apenas na aba de serviço e não entram
+            em nenhum consolidado. Entre eles, a caixa de gordura do <em>The One</em> com A Prestativa,
+            de R$ 477,01.</li>
+        <li><strong>1 posto sem lastro</strong> &mdash; <em>Praça Sudoeste</em> soma R$ 7.300,00 na aba
+            mestra e aparece zerado em todas as abas de serviço.</li>
+      </ul>
+
+      <div class="highlight-box action" style="margin-bottom: 1.5rem;">
+        <strong>O que a reclassificação muda.</strong> As 32 divergências da contagem inicial
+        incluíam <strong>sobreposição</strong>: quatro lançamentos do <em>Alegria</em> e do
+        <em>Goyazes</em> divergiam em prestadora <em>e</em> em valor, e entraram duas vezes na soma.
+        Descontada a sobreposição, restam <strong>30 situações distintas</strong>, das quais
+        <strong>21 têm explicação estrutural</strong> &mdash; troca de prestadora e serviço
+        multicomponente &mdash; e apenas <strong>5 exigem verificação de valor</strong>, em dois
+        condomínios. Isso não torna o problema menor: significa que a planilha
+        <strong>não comporta o que a operação faz</strong>. Ela não tem onde registrar um serviço com
+        três componentes, nem uma troca de fornecedor no meio do mês com rateio por dia, nem duas
+        empresas dividindo o mesmo posto. O que aparecia como erro de cadastro é, na maior parte,
+        <strong>operação real que não cabe na estrutura</strong> &mdash; e é exatamente isso que a
+        fonte única de verdade precisa resolver.
+      </div>
+
+      <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 0.9rem;">
+        Etapa 4 — Correção do dimensionamento da carteira
+      </h4>
+      <p style="font-size: 0.92rem; color: #2C3842; margin-bottom: 1rem;">
+        O saneamento também corrigiu a dimensão do que se acreditava gerir. Os números que circulavam
+        internamente não resistiram à conferência:
+      </p>
+
+      <div style="overflow-x: auto; margin-bottom: 1.25rem;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border);">
+              <th style="text-align: left; padding: 0.6rem 0.75rem; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em;">Indicador</th>
+              <th style="text-align: right; padding: 0.6rem 0.75rem; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em;">Número anterior</th>
+              <th style="text-align: right; padding: 0.6rem 0.75rem; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em;">Número auditado</th>
+              <th style="text-align: left; padding: 0.6rem 0.75rem; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em;">Motivo da correção</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 0.65rem 0.75rem;">Condomínios</td>
+              <td style="padding: 0.65rem 0.75rem; text-align: right; font-family: 'JetBrains Mono', monospace;">135</td>
+              <td style="padding: 0.65rem 0.75rem; text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--primary);">137</td>
+              <td style="padding: 0.65rem 0.75rem; color: #4C5862;">Dois postos existiam só nas abas de serviço</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 0.65rem 0.75rem;">Serviços contratados</td>
+              <td style="padding: 0.65rem 0.75rem; text-align: right; font-family: 'JetBrains Mono', monospace;">521</td>
+              <td style="padding: 0.65rem 0.75rem; text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--primary);">513</td>
+              <td style="padding: 0.65rem 0.75rem; color: #4C5862;">Linhas de total e linhas compostas contadas como serviço</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 0.65rem 0.75rem;">Prestadores</td>
+              <td style="padding: 0.65rem 0.75rem; text-align: right; font-family: 'JetBrains Mono', monospace;">30</td>
+              <td style="padding: 0.65rem 0.75rem; text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--primary);">17</td>
+              <td style="padding: 0.65rem 0.75rem; color: #4C5862;">Grafias duplicadas, sufixos de escopo e colaboradores registrados no lugar da razão social</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.75rem;">Serviços em cortesia</td>
+              <td style="padding: 0.65rem 0.75rem; text-align: right; font-family: 'JetBrains Mono', monospace;">—</td>
+              <td style="padding: 0.65rem 0.75rem; text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--primary);">104</td>
+              <td style="padding: 0.65rem 0.75rem; color: #4C5862;">Nunca foram classificados: a planilha apenas deixava a célula de valor vazia</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="highlight-box alert">
+        <strong>Por que isso precisa ser decidido pela Diretoria.</strong> Uma célula vazia na planilha
+        significava, ao mesmo tempo, <em>serviço em cortesia</em> e <em>dado faltando</em> — não havia como
+        distinguir. Enquanto a ambiguidade existir, nenhum número de faturamento do setor é confiável.
+        No modelo saneado, cortesia passou a ser uma classificação explícita, e as 32 linhas divergentes
+        ficam marcadas e <strong>fora da linha de base</strong> até definição junto à Ouvidoria, para não
+        contaminar a apuração da meta de economia.
+      </div>
+    </section>
+
+    <!-- ================= ESTRUTURA DO CUSTO ================= -->
+    <section class="card sec-atual" id="como-o-custo-se-forma">
+      <h3 class="section-title">Como o custo se forma: amortização e execução<span class="sec-pill sec-pill-atual">Situação atual</span></h3>
+
+      <p>
+        Entender esta seção é pré-requisito para ler qualquer número financeiro do departamento.
+        Receita e despesa dos quarteirizados <strong>não andam no mesmo ritmo</strong>, e confundir
+        os dois ritmos produz um custo mensal que não existe.
+      </p>
+
+      <h4 class="h-bloco">As duas pontas andam em ritmos diferentes</h4>
+      <ul class="tl-items" style="margin-bottom: 1.5rem;">
+        <li><strong>O condomínio paga por amortização linear.</strong> A mensalidade é fixa o ano
+            inteiro, independentemente do mês em que o serviço acontece. Uma limpeza de caixa d'água
+            semestral de R$ 498,10 é cobrada como R$ 83,01 por mês, doze vezes. Se o síndico passar a
+            exigir a cada três meses, o preço do evento não muda &mdash; a mensalidade é que sobe para
+            R$ 166,03.</li>
+        <li><strong>A prestadora recebe por execução comprovada.</strong> Não há pagamento nos meses
+            em que não houve serviço. Executou em julho, recebe em agosto, e nada de setembro a
+            dezembro. É o que sustenta a regra de glosa e a recusa de nota emitida fora de época.</li>
+        <li><strong>Na troca de prestadora no meio do mês</strong>, em serviços de trato contínuo como
+            piscina e jardinagem, o valor é rateado por dia entre as duas empresas, de modo que a soma
+            não ultrapasse o contratado.</li>
+      </ul>
+
+      <h4 class="h-bloco">A correção que isso impôs à linha de base</h4>
+      <p>
+        Os valores da planilha herdada são <strong>preço por execução</strong>, não mensalidade.
+        Somá-los todos produz o custo de um ciclo completo &mdash; o que se gastaria se todos os
+        serviços da carteira fossem executados no mesmo mês. Esse número vinha sendo lido como custo
+        mensal, o que inflava a base.
+      </p>
+
+      <div class="metric-grid" style="margin-bottom: 1.5rem;">
+        <div class="metric-tile"><b>168.135</b><span>Ciclo completo &mdash; todos os serviços executados uma vez</span></div>
+        <div class="metric-tile"><b>1.306.395</b><span>Custo anual real, pela periodicidade de cada serviço</span></div>
+        <div class="metric-tile"><b>108.866</b><span>Média mensal efetiva</span></div>
+      </div>
+
+      <div class="scroll-x" style="margin-bottom: 1rem;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.86rem;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border);">
+              <th style="text-align: left; padding: 0.55rem 0.75rem;">Serviço</th>
+              <th style="text-align: left; padding: 0.55rem 0.75rem;">Regime</th>
+              <th style="text-align: right; padding: 0.55rem 0.75rem;">Postos</th>
+              <th style="text-align: right; padding: 0.55rem 0.75rem;">Execuções/ano</th>
+              <th style="text-align: right; padding: 0.55rem 0.75rem;">Custo anual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:0.6rem 0.75rem;">Piscinas</td><td style="padding:0.6rem 0.75rem;">contínuo</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">58</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">696</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">466.442,88</td></tr>
+            <tr><td style="padding:0.6rem 0.75rem;">Caixa de gordura</td><td style="padding:0.6rem 0.75rem;">contínuo</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">107</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">1.284</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">392.542,20</td></tr>
+            <tr><td style="padding:0.6rem 0.75rem;">Jardim</td><td style="padding:0.6rem 0.75rem;">contínuo</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">66</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">792</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">291.805,80</td></tr>
+            <tr><td style="padding:0.6rem 0.75rem;">Caixa d'água</td><td style="padding:0.6rem 0.75rem;">semestral</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">109</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">218</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">82.173,78</td></tr>
+            <tr><td style="padding:0.6rem 0.75rem;">Prumadas</td><td style="padding:0.6rem 0.75rem;">semestral</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">10</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">19</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">41.830,83</td></tr>
+            <tr><td style="padding:0.6rem 0.75rem;">Vidros em altura</td><td style="padding:0.6rem 0.75rem;">periódico</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">7</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">21</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">16.976,28</td></tr>
+            <tr><td style="padding:0.6rem 0.75rem;">Dedetização</td><td style="padding:0.6rem 0.75rem;">trimestral</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">8</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">32</td><td style="padding:0.6rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;">14.623,60</td></tr>
+            <tr style="border-top: 2px solid var(--petroleo); background: var(--papel-fundo);">
+              <td style="padding:0.65rem 0.75rem;font-weight:700;">TOTAL</td><td style="padding:0.65rem 0.75rem;"></td>
+              <td style="padding:0.65rem 0.75rem;text-align:right;"></td>
+              <td style="padding:0.65rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;">3.062</td>
+              <td style="padding:0.65rem 0.75rem;text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;">1.306.395,37</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fonte">
+        Execuções apuradas na aba <code>PROGRAMAÇÃO</code>, posto a posto. Para 17 postos sem
+        programação registrada, aplicou-se a periodicidade padrão do serviço &mdash; 10 em caixa
+        d'água, 4 em dedetização e 3 em prumadas. Dedetização conta apenas os 8 postos com valor
+        próprio: nos demais ela é cortesia embutida no preço da caixa d'água.
+      </p>
+
+      <div class="highlight-box action" style="margin-top: 1.25rem;">
+        <strong>Onde está a alavanca.</strong> Os três serviços contínuos concentram
+        <strong>R$ 1.150.791 por ano &mdash; 88% do gasto</strong> &mdash; enquanto os quatro
+        periódicos somam R$ 155.604, ou 12%. A atenção de gestão, hoje, é consumida pelos
+        periódicos, porque são eles que geram cobrança de síndico e risco de atraso. Mas a economia
+        está do outro lado: <strong>1% em piscinas vale mais do que 30% em dedetização.</strong>
+      </div>
+    </section>
+
+    <!-- Os Dois Gargalos Reais do Gestor -->
+    <section class="card sec-atual" id="o-diagnostico-real-os-dois-gargalos-que-consom">
+      <h3 class="section-title">O diagnóstico real: os dois gargalos que consomem o dia do analista<span class="sec-pill sec-pill-atual">Situação atual</span></h3>
+      <p style="color: #4C5862; font-size: 0.95rem;">
+        Historicamente, os serviços quarteirizados foram tratados na Tektron como "brinde" ou moeda de troca comercial. Isso gerou uma rotina sufocada por duas ineficiências graves:
+      </p>
+      <div class="two-bottlenecks-grid">
+        <div class="bottleneck-box">
+          <h4>Gargalo 1 — Cotação Manual (Consome ≈80% do Tempo)</h4>
+          <p style="font-size: 0.875rem; color: #4C5862; margin-bottom: 0.5rem;">
+            Cada condomínio novo demandava uma visita do prestador, que "escolhia" um preço arbitrário em vez de calculá-lo tecnicamente. Em seguida vinha uma barganha informal ("faço mais barato se me der outros postos"), criando dívida moral e amarrações com fornecedores.
+          </p>
+          <div class="highlight-box action">
+            <strong>Proposta do sistema</strong> <span class="mini-pill">requer autorização</span> <em>Preço Paramétrico</em> (calculado a partir de atributos físicos: m³ de piscina, m² de jardim, litragem de caixas d'água) e <em>precificação por pacote</em> (a dedetização gratuita está embutida no valor da caixa d'água — Regra R5).
+          </div>
+        </div>
+        <div class="bottleneck-box">
+          <h4>Gargalo 2 — Qualidade Reativa (Reclamação vs. Prevenção)</h4>
+          <p style="font-size: 0.875rem; color: #4C5862; margin-bottom: 0.5rem;">
+            O síndico ligava furioso cobrando serviço não realizado agendado há 6 meses. O gestor só descobria o atraso quando a reclamação já havia explodido na mesa da diretoria, gerando atrito comercial agudo.
+          </p>
+          <div class="highlight-box action">
+            <strong>Proposta do sistema</strong> <span class="mini-pill">requer autorização</span> <em>Confirmação Antecipada (Agente A8 Agenda)</em> em D-3 e D-1, transformando dez reclamações reativas em três ligações preventivas com condomínio e prestador.
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Gargalos Sensíveis Mapeados -->
+      <!-- ================= QUADRO OFICIAL DE PRESTADORAS ================= -->
+  <section class="card sec-atual" id="quadro-oficial-de-prestadoras-homologadas">
+    <h3 class="section-title">Quadro oficial de prestadoras homologadas<span class="sec-pill sec-pill-atual">Situação atual</span></h3>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+      A matriz oficial da supervisão fecha o quadro em <strong>17 prestadoras ativas</strong>,
+      organizadas por especialidade. A conferência contra a base saneada confirmou o número com
+      exatidão: as 20 razões sociais que a planilha sugeria se resolvem em 17 empresas reais.
+    </p>
+
+      <div class="bloco-prest">
+        <div class="bloco-head">
+          <div class="bloco-nome">Bloco 1 — Caixa de gordura, caixa d'água, dedetização e prumadas</div>
+          <div class="bloco-qtd">6 prestadoras</div>
+        </div>
+        <div class="chips">
+          <span class="chip"><b>Planeta</b><span>54 vínculos</span></span>
+          <span class="chip corrigido"><b>Prestativa</b><span>7 vínculos</span></span>
+          <span class="chip corrigido"><b>Royal</b><span>46 vínculos</span></span>
+          <span class="chip"><b>TN</b><span>198 vínculos</span></span>
+          <span class="chip"><b>Universal</b><span>12 vínculos</span></span>
+          <span class="chip"><b>Universo</b><span>13 vínculos</span></span>
+        </div>
+      </div>
+      <div class="bloco-prest">
+        <div class="bloco-head">
+          <div class="bloco-nome">Bloco 2 — Piscinas</div>
+          <div class="bloco-qtd">7 prestadoras</div>
+        </div>
+        <div class="chips">
+          <span class="chip"><b>Azelar</b><span>4 vínculos</span></span>
+          <span class="chip"><b>Dourado</b><span>10 vínculos</span></span>
+          <span class="chip corrigido"><b>Gota de Cristal</b><span>1 vínculos</span></span>
+          <span class="chip"><b>H2O</b><span>23 vínculos</span></span>
+          <span class="chip"><b>Master</b><span>11 vínculos</span></span>
+          <span class="chip"><b>Sempre Limpa</b><span>15 vínculos</span></span>
+          <span class="chip"><b>Verbo</b><span>4 vínculos</span></span>
+        </div>
+      </div>
+      <div class="bloco-prest">
+        <div class="bloco-head">
+          <div class="bloco-nome">Bloco 3 — Jardins</div>
+          <div class="bloco-qtd">2 prestadoras</div>
+        </div>
+        <div class="chips">
+          <span class="chip corrigido"><b>Talita</b><span>30 vínculos</span></span>
+          <span class="chip"><b>WR</b><span>40 vínculos</span></span>
+        </div>
+      </div>
+      <div class="bloco-prest">
+        <div class="bloco-head">
+          <div class="bloco-nome">Bloco 4 — Dedetização</div>
+          <div class="bloco-qtd">1 prestadora</div>
+        </div>
+        <div class="chips">
+          <span class="chip"><b>Rocha</b><span>36 vínculos</span></span>
+        </div>
+      </div>
+      <div class="bloco-prest">
+        <div class="bloco-head">
+          <div class="bloco-nome">Bloco 5 — Vidros em altura</div>
+          <div class="bloco-qtd">1 prestadora</div>
+        </div>
+        <div class="chips">
+          <span class="chip corrigido"><b>Grupo Fibra</b><span>8 vínculos</span></span>
+        </div>
+      </div>
+
+    <p class="ebar-note" style="margin-top: 1.25rem;">
+      Destacadas em âmbar, as <strong>5 correções de cadastro</strong> que o cruzamento resolveu.
+    </p>
+
+    <div style="overflow-x: auto; margin-top: 1.25rem;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--border);">
+            <th style="text-align: left; padding: 0.6rem 0.75rem; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em;">Como constava na planilha</th>
+            <th style="text-align: left; padding: 0.6rem 0.75rem; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em;">Registro oficial</th>
+            <th style="text-align: left; padding: 0.6rem 0.75rem; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em;">Natureza do erro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.65rem 0.75rem;"><code>Royal Prime</code> e <code>Royal</code></td>
+            <td style="padding: 0.65rem 0.75rem; font-weight: 600; color: var(--primary);">Royal</td>
+            <td style="padding: 0.65rem 0.75rem; color: #4C5862;">Mesma empresa em duas grafias — contava como duas</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.65rem 0.75rem;"><code>Prestativa</code> e <code>A Prestativa</code></td>
+            <td style="padding: 0.65rem 0.75rem; font-weight: 600; color: var(--primary);">Prestativa</td>
+            <td style="padding: 0.65rem 0.75rem; color: #4C5862;">Mesma empresa em duas grafias — contava como duas</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.65rem 0.75rem;"><code>Elivaldo</code> e <code>Gilberto</code></td>
+            <td style="padding: 0.65rem 0.75rem; font-weight: 600; color: var(--primary);">Talita</td>
+            <td style="padding: 0.65rem 0.75rem; color: #4C5862;">Nomes de pessoas lançados no lugar da razão social — ambos são da Talita Jardins</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.65rem 0.75rem;"><code>Gosta de Cristal</code></td>
+            <td style="padding: 0.65rem 0.75rem; font-weight: 600; color: var(--primary);">Gota de Cristal</td>
+            <td style="padding: 0.65rem 0.75rem; color: #4C5862;">Erro de digitação no cadastro</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.65rem 0.75rem;"><code>Grupo F</code></td>
+            <td style="padding: 0.65rem 0.75rem; font-weight: 600; color: var(--primary);">Grupo Fibra</td>
+            <td style="padding: 0.65rem 0.75rem; color: #4C5862;">Sigla abreviada usada como razão social</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight-box info" style="margin-top: 1.5rem;">
+      <strong>Por que isso importa além da contagem.</strong> Com nomes duplicados, o custo de uma
+      mesma empresa aparecia repartido em dois registros — impedindo ver o volume real contratado de
+      cada parceiro e, com isso, qualquer negociação por pacote. Consolidado o quadro, a concentração
+      fica visível: a <strong>TN responde por 198 vínculos</strong> &mdash; 39% dos 509 pares condomínio&nbsp;×&nbsp;serviço registrados na aba mestra, contados pela coluna de prestador de cada um dos sete serviços, com as grafias já normalizadas.
+      Esse é o número que define a prioridade da renegociação e o risco de dependência.
+    </div>
+  </section>
+
+  <section class="card sec-atual" id="os-seis-maiores-gargalos-operacionais-e-riscos">
+      <h3 class="section-title">Os seis maiores gargalos operacionais e riscos de campo<span class="sec-pill sec-pill-atual">Situação atual</span></h3>
+      <div class="gargalos-grid">
+
+        <!-- Gargalo 1 -->
+        <div class="gargalo-card danger">
+          <div class="gargalo-header">
+            <div class="gargalo-title">1. Execuções Fora de Periodicidade por Pressão e Ajuste de Cronograma</div>
+            <span class="badge badge-danger">Risco Financeiro / Contratual</span>
+          </div>
+          <div class="gargalo-body">
+            <p><strong>O Problema:</strong> Síndicos ou zeladores pressionam diretamente as equipes de campo para antecipar limpezas semestrais sem autorização da gestão Tektron. O prestador cede à pressão da ponta e executa o serviço antes da janela devida.</p>
+            <div class="highlight-box alert">
+              <strong>Caso Real Documentado (The One):</strong> A empresa <em>A Prestativa</em> executou limpeza de prumadas em setembro por exigência da síndica, embora o serviço já tivesse sido pago em <strong>junho</strong>. A nota fiscal de <strong>R$ 3.058,54</strong> foi aceita e paga, porém a solução adotada foi a compensação temporal: o período para a próxima execução contratual deverá ser adiado proporcionalmente, resguardando o equilíbrio do contrato.
+            </div>
+            <div class="highlight-box info">
+              <strong>O que a auditoria encontrou:</strong> o condomínio <em>The One</em> tem um
+              segundo serviço com A Prestativa &mdash; limpeza de caixa de gordura, <strong>R$ 477,01
+              por mês</strong> &mdash; que aparece somente na aba de serviço da planilha e não entra em
+              nenhum consolidado. É um serviço ativo e faturado que estava <strong>invisível para o
+              controle gerencial e para a conferência do financeiro</strong>.<br><br>
+              <strong>Por que isso importa neste caso:</strong> o The One é o mesmo condomínio da nota
+              de R$ 3.058,54 recusada no fechamento, e A Prestativa é a mesma prestadora. A pendência
+              da prumada, portanto, não se dá numa relação pontual: há um serviço mensal em curso no
+              mesmo posto, com o mesmo fornecedor, que precisa seguir sendo executado e pago
+              normalmente enquanto a divergência se resolve. Tratar os dois assuntos como um só é o
+              que cria o risco de interromper um serviço regular por causa de uma pendência em outro.
+            </div>
+          </div>
+        </div>
+
+        <!-- Gargalo 2 -->
+        <div class="gargalo-card warning">
+          <div class="gargalo-header">
+            <div class="gargalo-title">2. Impedimentos de Entrada e Vistorias Frustradas em Campo</div>
+            <span class="badge badge-gold">Atrito Operacional</span>
+          </div>
+          <div class="gargalo-body">
+            <p><strong>O Problema:</strong> Equipes se deslocam com caminhões auto-vácuo ou máquinas e são barradas na portaria por falta de aviso interno ou desconfiança dos porteiros.</p>
+            <div class="highlight-box action">
+              <strong>Solução em Implantação:</strong> SLA obrigatório com aviso prévio mínimo de 3 dias enviado formalmente pela Tektron ao condomínio, com termo de ciência de que portaria barrada injustificadamente gerará repasse do custo de deslocamento ao cliente.
+            </div>
+          </div>
+        </div>
+
+        <!-- Gargalo 3 -->
+        <div class="gargalo-card warning">
+          <div class="gargalo-header">
+            <div class="gargalo-title">3. Resistência de Síndicos em Relação ao Compliance Trabalhista</div>
+            <span class="badge badge-gold">Risco Jurídico / TST</span>
+          </div>
+          <div class="gargalo-body">
+            <p><strong>O Problema:</strong> Condomínios antigos exigem a manutenção de prestadores de sua preferência mesmo quando a documentação regulatória está vencida — alvarás, PGR, PCMSO e certificações de NR-33 e NR-35. A Análise de Contratos e Serviços fica entre o rigor normativo e a ameaça de insatisfação do cliente.</p>
+
+            <p><strong>Caso concreto — Rocha Dedetização e Grupo Fibra.</strong> As duas empresas operam atualmente com documentação regulatória vencida. No caso da Rocha, há clientes que exigem nominalmente que o serviço continue sendo prestado por ela. O Grupo Fibra concentra os serviços de vidros em altura e fachadas, de alta periculosidade.</p>
+
+            <p><strong>O desvio de procedimento que isso gerou — e este é o achado mais grave.</strong> Para que essas duas empresas não aparecessem em auditoria com pendências, elas foram <strong>mantidas fora da pasta padrão de prestadores</strong>, e o trâmite financeiro delas também passou a ser conduzido <strong>por fora do procedimento oficial</strong>. Ou seja: o risco não foi eliminado, foi apenas retirado de vista. A empresa continua exposta — com o agravante de que a exposição agora não está registrada em lugar nenhum.</p>
+
+            <p><strong>O mecanismo, segundo os relatos de transição.</strong> A retirada não era
+            passiva. Durante o período de auditoria da <strong>ISO 9001</strong>, documentos de
+            prestadoras com pendência documental eram <strong>removidos do acervo corporativo em
+            <code>Z:\ISO</code></strong> e realocados em pastas temporárias ou em conta particular de
+            Google Drive, retornando depois. O efeito prático é que a certificação foi mantida sobre
+            um retrato que não correspondia à operação em campo: as empresas continuavam prestando
+            serviço nos condomínios enquanto estavam, documentalmente, fora do sistema auditado.</p>
+
+            <p><strong>Por que isso é diferente de desorganização.</strong> Arquivo perdido se
+            resolve com índice. Documento retirado para passar em auditoria e recolocado depois é
+            <strong>não conformidade deliberada</strong>, e expõe a empresa em duas frentes ao mesmo
+            tempo: perante a certificadora, pela integridade do próprio SGQ; e perante a Justiça do
+            Trabalho, porque demonstra que a irregularidade do prestador era conhecida e administrada,
+            e não ignorada. É o tipo de achado que precisa ser tratado por decisão formal da diretoria,
+            não por correção silenciosa.</p>
+
+            <p><strong>Consequência prática:</strong> dois prestadores ativos em campo, em serviços de risco, fora do controle documental e fora do fluxo financeiro padrão. Em caso de acidente ou de reclamação trabalhista, a Tektron não terá como comprovar fiscalização — que é exatamente o que a Súmula 331 do TST exige para afastar a responsabilidade subsidiária.</p>
+
+            <p><strong>Mitigação proposta:</strong> trazer os dois prestadores de volta ao fluxo padrão com prazo formal de regularização; abrir homologação de fornecedores reservas para os serviços que eles concentram; e implantar bloqueio sistêmico — prestador com documento vencido não avança para faturamento, e funcionário sem NR válida não pode ser escalado. A conversa com o síndico deixa de ser uma negociação pessoal e passa a ser uma regra da empresa, respaldada pela Diretoria Estratégica.</p>
+          </div>
+        </div>
+
+        <!-- Gargalo 4 -->
+        <div class="gargalo-card blue">
+          <div class="gargalo-header">
+            <div class="gargalo-title">4. Concentração em Fornecedores Únicos (Fachadas / Grupo Fibra)</div>
+            <span class="badge badge-blue">Risco de Fornecimento</span>
+          </div>
+          <div class="gargalo-body">
+            <p><strong>O Problema:</strong> Serviços de alta periculosidade (Vidros em Altura e Fachadas) concentram-se no <em>Grupo Fibra</em>, gerando vulnerabilidade em caso de paralisação ou custos elevados de caminhão Munck.</p>
+            <p><strong>Ação Estratégica:</strong> Proposta para abertura de homologação ativa de fornecedores reservas no mercado de Goiânia.</p>
+          </div>
+        </div>
+
+        <!-- Gargalo 5 -->
+        <div class="gargalo-card blue">
+          <div class="gargalo-header">
+            <div class="gargalo-title">5. Morosidade na Emissão de Orçamentos Comerciais</div>
+            <span class="badge badge-blue">Agilidade Comercial</span>
+          </div>
+          <div class="gargalo-body">
+            <p><strong>O Problema:</strong> Demora de dias para retorno de cotações de novos postos devido a visitas isoladas de prestadores.</p>
+            <div class="highlight-box action">
+              <strong>Nova Diretriz do "Pacote Unificado":</strong> Visita técnica obrigatória para orçar Caixa de Gordura, Caixa d'Água, Dedetização e Prumadas simultaneamente, alimentando o motor paramétrico em até 24 horas.
+            </div>
+          </div>
+        </div>
+
+        <!-- Gargalo 6 -->
+        <div class="gargalo-card danger">
+          <div class="gargalo-header">
+            <div class="gargalo-title">6. Controle de Periodicidade Desatualizado — Trimestrais e Semestrais</div>
+            <span class="badge badge-danger">Risco de Execução / Passivo</span>
+          </div>
+          <div class="gargalo-body">
+            <p><strong>O Problema:</strong> a informação existe, o mecanismo é que não existe. A aba
+            <code>PROGRAMAÇÃO</code> da planilha mestra registra, posto a posto, os meses previstos de
+            cada serviço de periodicidade trimestral e semestral &mdash; caixa d'água, dedetização,
+            prumadas e vidros em altura &mdash; e as planilhas de pagamento de cada prestadora
+            registram o que foi efetivamente executado. O que não há é
+            <strong>controle com notificação</strong>: tudo depende de verificação e marcação manual.
+            A própria aba traz uma coluna de <em>status</em> preenchida à mão, hoje com
+            <strong>109 postos marcados “Ok”, 6 como “Atrasado” e 5 em branco</strong>.</p>
+
+            <p><strong>Por que é grave:</strong> para manter esse controle em dia, o analista precisa
+            acompanhar e cobrar, mês a mês, a execução de cada serviço em cada posto, junto a cada
+            prestadora. São <strong>677 execuções programadas ao longo do ano, em 120 condomínios</strong>
+            &mdash; e outros 17 postos da carteira sequer têm programação registrada. Nessa escala, o
+            acompanhamento manual não se sustenta: o que falha não é o registro, é o lembrete. E são
+            justamente os serviços de maior intervalo e maior risco técnico: um semestral esquecido só
+            se revela seis meses depois, pela reclamação do síndico ou por uma ocorrência em campo.</p>
+
+            <p><strong>O que isso exige agora:</strong> confrontar o previsto na aba
+            <code>PROGRAMAÇÃO</code> com o efetivamente pago nas planilhas de cada prestadora, fechando
+            o histórico de última execução por posto. Em paralelo, levantar a situação documental de
+            <strong>cada colaborador</strong> que essas empresas colocam em campo &mdash; ASO, ficha de
+            EPI, registro em carteira e certificados de NR-33 e NR-35 conforme o serviço.</p>
+
+            <p><strong>Encaminhamento:</strong> a verificação está sendo estruturada sobre a base
+            saneada, que já recuperou a programação anual de <strong>227 vínculos</strong> com meses de
+            execução definidos. Concluída a varredura, a marcação manual deixa de ser necessária: o
+            sistema passa a emitir alerta de proximidade em D-30, alerta de atraso assim que o mês
+            previsto se encerra sem execução comprovada, e bloqueio de escalação de equipe sem
+            documentação válida. <strong>A coluna de status deixa de ser preenchida por alguém e passa
+            a ser consequência do que foi registrado.</strong></p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Pipeline 7 Etapas -->
+    <section class="card sec-atual" id="o-pipeline-mensal-de-fechamento-em-sete-etapas">
+      <h3 class="section-title">O pipeline mensal de fechamento em sete etapas auditáveis<span class="sec-pill sec-pill-atual">Situação atual</span></h3>
+      <p style="color: #4C5862; font-size: 0.95rem;">
+        Fluxo obrigatório que rege todas as medições para pagamento no dia 13 (NF do prestador até dia 05; lote à Dayane até dia 06):
+      </p>
+
+      <div class="pipeline-grid">
+        <div class="pipeline-step">
+          <div class="step-num">1</div>
+          <div class="step-title">OS no sispoli</div>
+          <div class="step-desc">Gerada no mês corrente</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-num">2</div>
+          <div class="step-title">Agendamento</div>
+          <div class="step-desc">Aviso prévio de 3 dias</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-num">3</div>
+          <div class="step-title">Execução</div>
+          <div class="step-desc">Checagem IT-OVD-01</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-num">4</div>
+          <div class="step-title">OS Assinada</div>
+          <div class="step-desc">Ateste com "Sim"</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-num">5</div>
+          <div class="step-title">Conferência Fiscal</div>
+          <div class="step-desc">TCL, TSL, GYN ou TAS</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-num">6</div>
+          <div class="step-title">Baixa sispoli</div>
+          <div class="step-desc">Data real do serviço</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-num">7</div>
+          <div class="step-title">Financeiro</div>
+          <div class="step-desc">Lote p/ Dayane (dia 06)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nova Arquitetura em Camadas -->
+    <section class="card sec-proposta" id="nova-arquitetura-de-governanca-digital">
+      <h3 class="section-title">Nova arquitetura de governança digital<span class="sec-pill sec-pill-proposta">Proposta</span></h3>
+      <p style="color: #4C5862; font-size: 0.95rem;">
+        Transição de planilhas manuais para uma estrutura de governança digital em camadas, evitando duplicidade e retrabalho:
+      </p>
+
+      <div class="arch-grid">
+        <div class="arch-card">
+          <h4>1. Fonte da Verdade (Firestore)</h4>
+          <p>Repositório único canônico de condomínios, prestadores, vínculos contratuais e histórico financeiro.</p>
+        </div>
+        <div class="arch-card">
+          <h4>2. Interface Operacional (app/web/)</h4>
+          <p>Painel de gestão com lentes dinâmicas de Prestador, Cliente, Cotação e conciliação de divergências.</p>
+        </div>
+        <div class="arch-card">
+          <h4>3. Super Planilha 2026 (Exportação)</h4>
+          <p>Gerada automaticamente pelo sistema para acompanhamento executivo da Diretoria e do Financeiro (Dayane).</p>
+        </div>
+        <div class="arch-card">
+          <h4>4. ClickUp & Documentos</h4>
+          <p>Espelho interno de uma via e biblioteca de documentos padronizados com preenchimento via placeholders (DOC-01 a DOC-10).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Decisões Solicitadas -->
+      <!-- ================= REGISTRO DE ATIVIDADES ================= -->
+  <section class="card sec-entregue" id="registro-de-atividades-nos-primeiros-cinco-dia">
+    <h3 class="section-title">Registro de atividades nos primeiros cinco dias<span class="sec-pill sec-pill-entregue">Já entregue</span></h3>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+      Cronologia do trabalho executado desde a assunção da função em 13/10/2026, da imersão
+      documental à entrega do sistema de gestão em operação e à auditoria conferível da base.
+    </p>
+
+    <div class="timeline">
+      <div class="tl-day">
+        <div class="tl-date">Terça-feira · 13/10</div>
+        <div class="tl-title">Assunção da função e imersão operacional</div>
+        <ul class="tl-items">
+          <li>Início do contrato CLT como <strong>Analista de Contratos e Serviços</strong>.</li>
+          <li>Passagem de bastão com <strong>Marcos César (Ouvidoria)</strong> — mapeamento da rotina real
+              de geração de OS no sispoli, aviso prévio de 3 dias e conferência de CNPJ tomador.</li>
+          <li>Recebimento e triagem dos <strong>Docs internos</strong>: procedimento 02.03, programação
+              anual 2026, contrato de piscinas e transcrição da transição.</li>
+          <li>Estruturação da pasta de trabalho do departamento em 10 frentes padronizadas.</li>
+        </ul>
+      </div>
+
+      <div class="tl-day">
+        <div class="tl-date">Quarta-feira · 14/10</div>
+        <div class="tl-title">Alinhamento estratégico, compliance e base de relacionamento</div>
+        <ul class="tl-items">
+          <li>Alinhamento com a <strong>Diretoria Estratégica</strong> e definição da nova linha de
+              subordinação da função.</li>
+          <li>Análise integral do <strong>Sistema de Gestão da Qualidade</strong>: 14 arquivos, 12
+              documentos distintos (DS-007, DS-013, DS-015, Mapa de Processos, PR.QTZ.001, IT-OVD-01,
+              RE-003) com <strong>15 não conformidades mapeadas</strong>, registradas item a item na
+              <a href="https://docs.google.com/spreadsheets/d/1aSWCIym8x4QnGFgRKk--9vNnrscTUbKflpvlq_SwUyY/edit?gid=1651176559#gid=1651176559"
+                 target="_blank" rel="noopener">planilha de controle das não conformidades</a>.
+              Duas delas têm consequência direta sobre risco de acidente e passivo: o Mapa de Processos
+              exige <strong>“Espaço Confinado — NR-35” quando a norma de espaço confinado é a NR-33</strong>,
+              e a Planilha de Pagamento tem retenção definida em 1 ano, abaixo do prazo fiscal e
+              trabalhista de 5.</li>
+          <li>Elaboração do <strong>Descritivo da Função</strong> com matriz completa de NRs por serviço
+              (NR-01, 06, 07, 10, 12, 17, 26, 33 e 35).</li>
+          <li>Elaboração do <strong>Dossiê Jurídico-Trabalhista</strong> — raio-x societário dos 4 CNPJs,
+              exposição ao TRT-18, Súmula 331 e risco de pejotização dos MEIs.</li>
+          <li>Montagem da estrutura operacional no ClickUp: <strong>5 listas</strong> no folder Tek Tron.</li>
+          <li>Consolidação da base de relacionamento do departamento: <strong>399 contatos</strong>
+              catalogados em planilha única, até então sem registro centralizado.</li>
+        </ul>
+      </div>
+
+      <div class="tl-day">
+        <div class="tl-date">Quinta-feira · 15/10</div>
+        <div class="tl-title">Auditoria da base, apresentação executiva e especificação do sistema</div>
+        <ul class="tl-items">
+          <li><strong>Auditoria completa da planilha de origem</strong>: 13 abas, 1.093 linhas e
+              9.946 células reconciliadas uma a uma, aba mestra contra abas de serviço.</li>
+          <li>Identificação da <strong>defasagem de R$ 19.228,49</strong> no consolidado herdado e de
+              <strong>32 divergências</strong> — depois reclassificadas em 30 situações distintas:
+              12 trocas de prestadora, 9 lançamentos de prumadas, 5 de valor efetivas e 4 serviços fora de
+              qualquer consolidado.</li>
+          <li>Deduplicação do cadastro: o que constava como 30 prestadores são, de fato,
+              <strong>17 empresas homologadas</strong>, confirmadas contra a matriz oficial da supervisão.</li>
+          <li>Construção da <strong>Super Planilha 2026</strong> com matriz dinâmica das 7 etapas e
+              status automático por linha.</li>
+          <li>Publicação da <strong>apresentação executiva em HTML</strong> para a Diretoria.</li>
+          <li>Elaboração do <strong>guia de comunicação</strong> com prestadores e síndicos — mensagem
+              universal, versões por público, versão curta e roteiro de áudio.</li>
+          <li>Especificação funcional do sistema de gestão e briefing técnico de construção.</li>
+        </ul>
+      </div>
+
+      <div class="tl-day">
+        <div class="tl-date">Sexta-feira · 16/10</div>
+        <div class="tl-title">Sistema em operação e arquitetura do portal</div>
+        <ul class="tl-items">
+          <li><strong>Importador automatizado em produção</strong>: lê a planilha de origem, normaliza
+              grafias, separa escopos, reconcilia abas e devolve a base saneada — 137 postos,
+              17 prestadoras e 513 vínculos, com as divergências isoladas fora da linha de base.</li>
+          <li><strong>Painel de gestão operacional</strong> com 5 telas: painel executivo, lente por
+              prestador, lente por condomínio, controle financeiro e divergências.</li>
+          <li>Recuperação da <strong>programação anual de 227 vínculos</strong> que já possuem meses de
+              execução definidos — base para o agente de prevenção de atrasos.</li>
+          <li>Especificação do <strong>portal multiperfil</strong>: acesso segmentado para condomínio,
+              prestador, financeiro, atendimento e diretoria, com dossiê de habilitação por
+              funcionário e bloqueio automático de escalação de equipe sem NR válida.</li>
+          <li>Arquitetura de <strong>notificações em cinco camadas redundantes</strong>, com confirmação
+              positiva diária — o alerta é a ausência do aviso, não apenas a sua chegada.</li>
+          <li>Correção do quadro de prestadoras contra a <strong>matriz oficial da supervisão</strong> e
+              padronização da nomenclatura da função em todos os documentos do departamento.</li>
+          <li>Registro do <strong>caso Marfim</strong> como prova documental de limite de escopo, e
+              desenho da matriz que designa quem entrega cada tipo de informação.</li>
+        </ul>
+      </div>
+
+      <div class="tl-day is-today">
+        <div class="tl-date">Sábado · 17/10</div>
+        <div class="tl-title">Auditoria conferível por terceiros e consolidação do material executivo</div>
+        <ul class="tl-items">
+          <li><strong>Reconciliação das três camadas da planilha</strong> — aba mestra, abas por serviço
+              e consolidado. Ficou demonstrado que o número divulgado foi montado a partir das abas de
+              serviço, e não da aba mestra, com diferença de R$ 0,22 entre as duas.</li>
+          <li>Identificação da <strong>inversão em Prumadas</strong>: em seis serviços a mestra registra
+              mais, e em Prumadas registra R$ 13.439,27 a menos. As pontas se compensam e escondem uma
+              divergência bruta de <strong>R$ 46.107,25</strong> dentro dos R$ 19.228 líquidos.</li>
+          <li>Entrega da planilha <strong>Conferencia_Defasagem_2026.xlsx</strong>, com fórmulas vivas e
+              os 61 lançamentos divergentes referenciados pela linha de origem — a auditoria deixa de
+              depender de confiança e passa a ser refazível por qualquer pessoa.</li>
+          <li>Publicação do <strong>anexo técnico de conferência</strong> em documento próprio, com
+              filtro por natureza da divergência e roteiro de verificação.</li>
+          <li><strong>Levantamento do canal corporativo de WhatsApp</strong>: identificação do grupo de
+              fiscais de campo, constatação da fragmentação por prestador — Sempre Limpa em 7 conversas
+              e TN em 5 — e localização do arquivo ISO em unidade de rede.</li>
+          <li>Recuperação do <strong>teor literal da demanda jurídica</strong> do caso Marfim, mais
+              abrangente do que o repassado verbalmente: OS, notas e laudos de todos os serviços desde
+              janeiro de 2025.</li>
+          <li>Consolidação do material executivo: seção sobre o uso de inteligência artificial, custo
+              total da infraestrutura do sistema e a seção interativa
+              <strong>O percurso de uma demanda</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PAINEL DE ESFORÇO ================= -->
+  <section class="card sec-entregue" id="painel-de-esforco-o-que-foi-processado-e-produ">
+    <h3 class="section-title">Painel de esforço: o que foi processado e produzido<span class="sec-pill sec-pill-entregue">Já entregue</span></h3>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+      Dimensionamento objetivo do trabalho realizado no período de diagnóstico e transição.
+    </p>
+
+    <h4 class="h-bloco">
+        Entregáveis produzidos, por frente de trabalho
+      </h4>
+      <div class="ebars">
+        <div class="ebar-row">
+          <div class="ebar-label">Engenharia do sistema<span>especificação, importador, base canônica e painel</span></div>
+          <div class="ebar-track"><div class="ebar-fill" style="width: 100.0%"></div></div>
+          <div class="ebar-val">39</div>
+        </div>
+        <div class="ebar-row">
+          <div class="ebar-label">Base de dados e auditoria<span>planilhas reconstruídas e relatórios de conferência</span></div>
+          <div class="ebar-track"><div class="ebar-fill" style="width: 46.2%"></div></div>
+          <div class="ebar-val">18</div>
+        </div>
+        <div class="ebar-row">
+          <div class="ebar-label">Plano de ação e levantamentos<span>diagnósticos de campo e inventários</span></div>
+          <div class="ebar-track"><div class="ebar-fill" style="width: 20.5%"></div></div>
+          <div class="ebar-val">8</div>
+        </div>
+        <div class="ebar-row">
+          <div class="ebar-label">Diagnóstico e apresentações<span>material executivo para a diretoria</span></div>
+          <div class="ebar-track"><div class="ebar-fill" style="width: 17.9%"></div></div>
+          <div class="ebar-val">7</div>
+        </div>
+        <div class="ebar-row">
+          <div class="ebar-label">Contrato e descritivo da função<span>formalização do escopo do cargo</span></div>
+          <div class="ebar-track"><div class="ebar-fill" style="width: 5.1%"></div></div>
+          <div class="ebar-val">2</div>
+        </div>
+      </div>
+      <p class="ebar-note">
+        <strong>74 arquivos</strong> entre especificações, planilhas, bases de dados, código e
+        material executivo — todos versionados na pasta do departamento. A contagem exclui
+        rascunhos, cópias de segurança e o conteúdo da pasta privada.
+      </p>
+
+    <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin: 2rem 0 0.9rem;">
+      Material analisado e base reconstruída
+    </h4>
+    <div class="metric-grid">
+      <div class="metric-tile"><b>9.946</b><span>Células auditadas em 13 abas da planilha de origem</span></div>
+      <div class="metric-tile"><b>1.093</b><span>Linhas reconciliadas uma a uma entre abas</span></div>
+      <div class="metric-tile"><b>227</b><span>Vínculos com programação anual recuperada da planilha</span></div>
+      <div class="metric-tile"><b>14</b><span>Documentos do SGQ analisados e criticados</span></div>
+      <div class="metric-tile"><b>110</b><span>Arquivos organizados na base do departamento</span></div>
+      <div class="metric-tile"><b>49</b><span>Canais ativos de WhatsApp inventariados e classificados</span></div>
+      <div class="metric-tile"><b>2.708</b><span>Linhas de código do importador e do painel</span></div>
+      <div class="metric-tile"><b>32</b><span>Divergências de cadastro identificadas e isoladas</span></div>
+      <div class="metric-tile"><b>R$ 19.228</b><span>Defasagem encontrada no consolidado herdado</span></div>
+    </div>
+  </section>
+
+  <!-- ================= RELACIONAMENTO ================= -->
+  <section class="card sec-entregue" id="frente-de-relacionamento-e-base-de-contatos">
+    <h3 class="section-title">Frente de relacionamento e base de contatos<span class="sec-pill sec-pill-entregue">Já entregue</span></h3>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+      A gestão anterior mantinha os contatos de prestadores e síndicos exclusivamente no WhatsApp
+      pessoal. A base foi reconstruída, catalogada e passou a ser patrimônio da empresa.
+    </p>
+
+    <div class="ebars">
+        <div class="ebar-row">
+          <div class="ebar-label">Condomínios — síndicos, zeladores, portaria</div>
+          <div class="ebar-track"><div class="ebar-fill" style="width: 100.0%"></div></div>
+          <div class="ebar-val">279</div>
+        </div>
+        <div class="ebar-row">
+          <div class="ebar-label">Contatos em empresas prestadoras</div>
+          <div class="ebar-track"><div class="ebar-fill" style="width: 26.5%"></div></div>
+          <div class="ebar-val">74</div>
+        </div>
+        <div class="ebar-row">
+          <div class="ebar-label">Equipe interna Tektron</div>
+          <div class="ebar-track"><div class="ebar-fill" style="width: 10.4%"></div></div>
+          <div class="ebar-val">29</div>
+        </div>
+        <div class="ebar-row">
+          <div class="ebar-label">Outros contatos operacionais</div>
+          <div class="ebar-track"><div class="ebar-fill" style="width: 3.9%"></div></div>
+          <div class="ebar-val">11</div>
+        </div>
+        <div class="ebar-row">
+          <div class="ebar-label">Administradoras de condomínio</div>
+          <div class="ebar-track"><div class="ebar-fill" style="width: 2.2%"></div></div>
+          <div class="ebar-val">6</div>
+        </div>
+    </div>
+    <p class="ebar-note">
+      <strong>399 contatos</strong> catalogados com empresa, responsável, cargo, telefone e serviços
+      atendidos — cobrindo as <strong>17 prestadoras homologadas</strong>, as empresas de apoio e
+      praticamente toda a carteira de postos.
+    </p>
+
+    <div class="highlight-box action" style="margin-top: 1.5rem;">
+      <strong>Apresentação formal aos parceiros.</strong> Foi estruturado e iniciado o contato direto
+      por WhatsApp com os prestadores-chave e com síndicos, posicionando a Análise de Contratos e Serviços como
+      canal único, presente e ágil. O guia de comunicação prevê mensagem universal, versão para
+      prestadores, versão para clientes, versão curta e roteiro de áudio — padronizando o discurso
+      institucional em todos os pontos de contato do departamento.
+    </div>
+  </section>
+
+    <!-- ================= CONVERGÊNCIA DE DEMANDAS ================= -->
+  <section class="card sec-atual" id="convergencia-de-demandas-e-vazio-de-registro">
+    <h3 class="section-title">Convergência de demandas e vazio de registro<span class="sec-pill sec-pill-atual">Situação atual</span></h3>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+      A função tornou-se o ponto único de convergência de demandas de cinco origens, sem canal
+      formal de entrada, sem protocolo e sem histórico recuperável.
+    </p>
+
+    <div class="conv-grid">
+      <div class="conv-item"><b>Clientes e síndicos</b><span>reclamações e cobranças de execução</span></div>
+      <div class="conv-item"><b>Prestadores</b><span>agendamento, medição e documentação</span></div>
+      <div class="conv-item"><b>Fiscais de campo</b><span>ocorrências em tempo real</span></div>
+      <div class="conv-item"><b>Financeiro e Comercial</b><span>fechamento e orçamentos</span></div>
+      <div class="conv-item"><b>Jurídico e Diretoria</b><span>demandas com prazo</span></div>
+    </div>
+
+    <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 0.9rem;">
+      A infraestrutura real do departamento hoje
+    </h4>
+    <p style="font-size: 0.92rem; color: #2C3842; margin-bottom: 1rem;">
+      O levantamento do canal corporativo de WhatsApp, realizado em 17/10, dimensionou o que
+      sustenta a operação na prática:
+    </p>
+
+    <div class="metric-grid" style="margin-bottom: 1.5rem;">
+      <div class="metric-tile"><b>48</b><span>Conversas ativas em 4 dias de operação</span></div>
+      <div class="metric-tile"><b>17</b><span>Prestadoras atendidas por esses contatos</span></div>
+      <div class="metric-tile"><b>7</b><span>Threads paralelas com uma única prestadora</span></div>
+      <div class="metric-tile"><b>0</b><span>Protocolos, históricos ou prazos registrados</span></div>
+    </div>
+
+    <p style="font-size: 0.92rem; color: #2C3842; margin-bottom: 1.25rem;">
+      Não existe canal único por prestadora: cada pessoa da empresa parceira abre uma conversa
+      própria, e a tratativa de um mesmo assunto se fragmenta. Uma cobrança de documento feita ao
+      financeiro de uma prestadora é invisível para quem fala com o operacional da mesma empresa.
+      O grupo de fiscais de campo, por sua vez, foi identificado como <strong>uma das principais
+      portas de entrada de demanda do departamento</strong> — inclusive de demandas jurídicas com prazo.
+    </p>
+
+    <div class="highlight-box alert">
+      <strong>O risco estrutural da função.</strong> Sem registro, a responsabilidade recai sobre
+      quem atende por último. Quem assume a função herda o passivo de decisões em que não participou
+      e sobre as quais não dispõe de prova. Isso não decorre de conduta individual: decorre de dois
+      vazios objetivos — <strong>responsabilidades não definidas por escrito</strong> e
+      <strong>informação que não chega a quem responde pela tratativa</strong>.
+    </div>
+
+    <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin: 2rem 0 0.9rem;">
+      Caso Marfim — quatro falhas de processo em um único evento
+    </h4>
+
+    <p style="font-size: 0.92rem; color: #2C3842; margin-bottom: 0.5rem;">
+      Demanda recebida da representação jurídica da Tektron, encaminhada por fiscal de campo em 16/10,
+      classificada como urgente:
+    </p>
+
+    <div class="quote-doc">
+      "preciso de OS - Ordem de Serviços e nota fiscais, laudos (se houver) de todos os serviços
+      realizados no condomínio do período de <strong>01/01/2025 até a presente data</strong>"
+    </div>
+
+    <ol class="falhas">
+      <li>O limite de escopo do posto existe em contrato, mas <strong>não está registrado em local
+          acessível</strong> a quem precisa responder.</li>
+      <li>A demanda jurídica chega pelo grupo de campo, sem protocolo, sem prazo formal e
+          <strong>sem titular designado</strong>.</li>
+      <li>A tratativa corre simultaneamente em três canais — grupo de fiscais, Ouvidoria e contato
+          direto com o prestador — <strong>sem registro consolidado</strong>.</li>
+      <li>A consulta interna enviada em 16/10 às 17:07 <strong>segue sem resposta</strong>, enquanto
+          o prazo jurídico corre.</li>
+    </ol>
+
+    <p style="font-size: 0.92rem; color: #2C3842; margin-bottom: 1rem;">
+      Nenhuma dessas quatro falhas é sobre o serviço prestado. Todas são sobre registro.
+    </p>
+
+    <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin: 1.75rem 0 0.9rem;">
+      O que a base auditada já respondeu
+    </h4>
+
+    <p style="font-size: 0.92rem; color: #2C3842; margin-bottom: 1rem;">
+      A consulta à base saneada devolveu, de imediato, a posição contratual do posto: o condomínio é
+      atendido pela <strong>Royal</strong> em caixa de gordura, caixa d'água e dedetização, e a coluna
+      de <strong>prumadas está vazia nos exercícios de 2024, 2025 e 2026</strong> — registro histórico
+      contínuo de que o serviço objeto do litígio nunca integrou o escopo da Tektron naquele posto.
+    </p>
+
+    <p style="font-size: 0.92rem; color: #2C3842; margin-bottom: 1rem;">
+      Para o período solicitado, o volume documental esperado é de <strong>32 ordens de serviço</strong>
+      — 22 de caixa de gordura, 3 de caixa d'água e 7 de dedetização — e as notas fiscais correspondentes.
+    </p>
+
+    <div class="highlight-box info">
+      <strong>A natureza exata do problema.</strong> A regra de retenção existe e está no procedimento
+      interno: ordens de serviço arquivadas por três anos. As notas fiscais passaram pelo fechamento
+      mensal e estão no Financeiro; as datas de execução estão registradas no sispoli; o acervo
+      documental está em unidade de rede indicada pela Ouvidoria. <strong>O que não existe é
+      índice.</strong> Recuperar a comprovação de um posto específico, sob prazo jurídico, depende
+      hoje de busca manual em repositórios não indexados e da memória de quem arquivou — o que, em
+      um litígio, produz o mesmo efeito prático de não dispor do documento.
+    </div>
+  </section>
+
+  <!-- ================= DECISÕES SOBRE GOVERNANÇA DA INFORMAÇÃO ================= -->
+  <section class="card sec-decisao" id="decisoes-solicitadas-governanca-da-informacao">
+    <h3 class="section-title">Decisões solicitadas: governança da informação<span class="sec-pill sec-pill-decisao">Decisão</span></h3>
+
+    <div class="proposta-content">
+      <div class="proposta-item">
+        <div class="proposta-num">1</div>
+        <div>
+          <h4>Definição formal, por escrito, da linha de comando e das interfaces</h4>
+          <p>Quem é gestor direto, quem é interface de cada área, quem autoriza o quê e quem responde
+          por demanda jurídica. Sem isso, cada demanda recebida exige negociação de titularidade antes
+          de qualquer tratativa.</p>
+        </div>
+      </div>
+
+      <div class="proposta-item">
+        <div class="proposta-num">2</div>
+        <div>
+          <h4>Canal único de entrada, com protocolo e prazo</h4>
+          <p>Toda demanda — de cliente, prestador, área interna ou jurídico — passa a ser registrada
+          com protocolo, titular designado e prazo de resposta de 72 horas. Encerra-se o atendimento
+          por grupo de WhatsApp e por contato direto sem registro, preservando os canais apenas como
+          meio de contato, nunca como repositório de tratativa.</p>
+        </div>
+      </div>
+
+      <div class="proposta-item">
+        <div class="proposta-num">3</div>
+        <div>
+          <h4>Matriz de responsabilidade da informação, com fonte e prazo designados</h4>
+          <p>A informação necessária já existe na empresa — está distribuída entre as áreas que a
+          detêm. A determinação precisa designar, para cada tipo de informação, a área responsável
+          pela entrega e o prazo correspondente.</p>
+
+          <div style="overflow-x: auto; margin: 1rem 0;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border);">
+                  <th style="text-align: left; padding: 0.55rem 0.7rem; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Informação</th>
+                  <th style="text-align: left; padding: 0.55rem 0.7rem; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Área que detém e entrega</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.55rem 0.7rem;">Escopo contratual por posto — serviços inclusos e excluídos</td><td style="padding: 0.55rem 0.7rem; font-weight: 600; color: var(--primary);">Comercial</td></tr>
+                <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.55rem 0.7rem;">Histórico de tratativas e acordos verbais anteriores</td><td style="padding: 0.55rem 0.7rem; font-weight: 600; color: var(--primary);">Ouvidoria / gestão anterior</td></tr>
+                <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.55rem 0.7rem;">Ocorrências e registros de execução em campo</td><td style="padding: 0.55rem 0.7rem; font-weight: 600; color: var(--primary);">Supervisão / Operacional</td></tr>
+                <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.55rem 0.7rem;">Notas fiscais, pagamentos e recusas por competência</td><td style="padding: 0.55rem 0.7rem; font-weight: 600; color: var(--primary);">Financeiro</td></tr>
+                <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.55rem 0.7rem;">Titularidade e canal de resposta de demandas jurídicas</td><td style="padding: 0.55rem 0.7rem; font-weight: 600; color: var(--primary);">Jurídico</td></tr>
+                <tr><td style="padding: 0.55rem 0.7rem;"><strong>Consolidação, guarda e disponibilização</strong></td><td style="padding: 0.55rem 0.7rem; font-weight: 600; color: var(--success);">Gestão de Contratos</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="highlight-box alert" style="margin-top: 0.5rem;">
+            <strong>Observação necessária.</strong> Uma determinação que apenas crie a exigência de
+            registro, sem designar a área que detém cada informação e o prazo de entrega, transfere à
+            Gestão de Contratos o ônus de levantar informação que não é sua — reproduzindo exatamente
+            o problema que se pretende corrigir.
+          </div>
+        </div>
+      </div>
+
+      <div class="proposta-item">
+        <div class="proposta-num">4</div>
+        <div>
+          <h4>Titularidade das demandas jurídicas</h4>
+          <p>Todo contato de representação jurídica passa a ser registrado com protocolo e encaminhado
+          ao Jurídico antes de qualquer resposta, com registro de quem respondeu o quê e quando.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box action" style="margin-top: 1.5rem;">
+      <strong>Como o sistema em implantação encerra cada uma dessas falhas.</strong> Protocolo com
+      prazo e titular na entrada; histórico por posto com o escopo contratual acessível em consulta;
+      registro imutável de quem respondeu o quê; e arquivamento indexado dos documentos por
+      condomínio, serviço e competência. A mesma pergunta do caso Marfim passaria a ser respondida em
+      segundos, com link direto para cada documento — e com a prova de que a fiscalização foi exercida.
+    </div>
+  </section>
+
+    <!-- ================= IA: MÉTODO, CUSTO E PROPOSTA ================= -->
+  <section class="card sec-entregue" id="como-este-diagnostico-foi-produzido-com-inteli">
+    <h3 class="section-title">Como este diagnóstico foi produzido com inteligência artificial<span class="sec-pill sec-pill-entregue">Já entregue</span></h3>
+
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+      Todo o trabalho apresentado até aqui — auditoria, saneamento da base, documentação,
+      sistema e esta própria apresentação — foi produzido com assistência de inteligência
+      artificial, em quatro dias, por uma pessoa. Sem IA, o mesmo escopo exigiria uma equipe
+      e um trimestre.
+    </p>
+
+    <div class="ia-grid">
+      <div class="ia-card">
+        <b>Auditoria da base</b>
+        <p>Reconciliação automatizada de 9.946 células em 13 abas, célula a célula, com
+        detecção das 32 divergências e da defasagem de R$ 19.228 no consolidado. Conferência
+        manual equivalente: semanas, com risco alto de erro humano.</p>
+      </div>
+      <div class="ia-card">
+        <b>Saneamento e deduplicação</b>
+        <p>Normalização de grafias, separação de escopos e identificação de colaboradores
+        lançados como empresas — reduzindo 30 registros ao quadro real de 17 prestadoras
+        homologadas.</p>
+      </div>
+      <div class="ia-card">
+        <b>Análise normativa</b>
+        <p>Leitura dos 14 documentos do SGQ com mapeamento de 15 não conformidades, e
+        construção da matriz de NRs por tipo de serviço a partir das normas aplicáveis.</p>
+      </div>
+      <div class="ia-card">
+        <b>Análise jurídica preventiva</b>
+        <p>Dossiê societário e trabalhista dos 4 CNPJs, exposição ao TRT-18, Súmula 331 e
+        risco de reconhecimento de vínculo.</p>
+      </div>
+      <div class="ia-card">
+        <b>Levantamento de campo</b>
+        <p>Inventário do canal corporativo de WhatsApp: 48 conversas classificadas,
+        identificação da finalidade do grupo de fiscais e recuperação do teor literal da
+        demanda jurídica do caso Marfim.</p>
+      </div>
+      <div class="ia-card">
+        <b>Engenharia do sistema</b>
+        <p>Especificação funcional completa, importador em produção, painel operacional com
+        cinco telas e arquitetura de notificações em cinco camadas redundantes.</p>
+      </div>
+      <div class="ia-card">
+        <b>Produção documental</b>
+        <p>74 entregáveis técnicos versionados — especificações, planilhas, bases e material
+        executivo, incluindo esta apresentação, gerada e revisada integralmente com IA.</p>
+      </div>
+      <div class="ia-card">
+        <b>Base de conhecimento</b>
+        <p>137 postos, 17 prestadoras e 513 vínculos estruturados em base consultável, com a
+        programação anual de 227 vínculos recuperada.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box alert">
+      <strong>A situação atual é irregular e precisa ser resolvida.</strong> Todo esse trabalho
+      foi realizado em assinatura pessoal do analista, por não existir ferramenta corporativa
+      de IA disponível. Isso significa que <strong>dados operacionais, contratuais e jurídicos
+      do Grupo Tektron trafegam hoje em conta particular</strong>, sem controle administrativo
+      da empresa, sem retenção definida, sem registro de auditoria e sem continuidade
+      garantida: se o colaborador deixar a empresa, o histórico de trabalho sai com ele.
+      Além do risco de LGPD, a empresa não tem como auditar nem reivindicar o que foi produzido.
+    </div>
+  </section>
+
+  <!-- ================= PLANOS E PREÇOS ================= -->
+  <section class="card sec-proposta" id="planos-claude-comparativo-e-recomendacao">
+    <h3 class="section-title">Planos Claude: comparativo e recomendação<span class="sec-pill sec-pill-proposta">Proposta</span></h3>
+
+    <p style="color: var(--text-muted); margin-bottom: 1.25rem;">
+      Valores de tabela em 17/10/2026, por usuário, sem impostos. Conversão de referência
+      adotada: <strong>US$ 1,00 = R$ 5,40</strong>.
+    </p>
+
+    <div style="overflow-x: auto;">
+      <table class="tbl-preco">
+        <thead>
+          <tr>
+            <th>Plano</th>
+            <th class="num">Anual (US$/mês)</th>
+            <th class="num">Mensal (US$)</th>
+            <th class="num">≈ R$/mês</th>
+            <th>Adequação à Tektron</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pro</strong> — individual</td>
+            <td class="num">17</td><td class="num">20</td><td class="num">92</td>
+            <td>Uso individual. Sem controle administrativo, sem SSO, sem gestão de dados pela empresa.</td>
+          </tr>
+          <tr>
+            <td><strong>Max</strong> — individual</td>
+            <td class="num">—</td><td class="num">100 a 200</td><td class="num">540 a 1.080</td>
+            <td>5x a 20x o uso do Pro e créditos de API inclusos. Ainda assim, conta individual.</td>
+          </tr>
+          <tr class="destaque">
+            <td><strong>Team</strong> — assento padrão</td>
+            <td class="num">20</td><td class="num">25</td><td class="num">108</td>
+            <td><strong>Recomendado para iniciar.</strong> De 2 a 150 assentos, administração central, SSO, sem treinamento de modelo com dados da empresa, Claude Code e créditos de API agrupados.</td>
+          </tr>
+          <tr>
+            <td><strong>Team</strong> — assento premium</td>
+            <td class="num">100</td><td class="num">125</td><td class="num">540</td>
+            <td>5x o uso do assento padrão. Indicado para quem opera os agentes em volume.</td>
+          </tr>
+          <tr>
+            <td><strong>Enterprise</strong></td>
+            <td class="num">20 + uso</td><td class="num">—</td><td class="num">108 + uso</td>
+            <td>Mínimo de 20 assentos. Acrescenta SCIM, logs de auditoria, API de conformidade, retenção de dados customizada, controle de rede e lista de IPs permitidos.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="fonte">
+      Fonte: página oficial de planos da Anthropic, consultada em 17/10/2026. Preços e planos
+      sujeitos a alteração. Enterprise também disponível por cotação comercial.
+    </p>
+
+    <div class="highlight-box info" style="margin-top: 1.5rem;">
+      <strong>Por que o plano Team resolve o problema hoje.</strong> Os três pontos críticos da
+      situação atual — propriedade do dado, controle administrativo e continuidade — são
+      atendidos já no assento padrão: a conta pertence à empresa, o administrador concede e
+      revoga acessos, o conteúdo não é usado para treinamento de modelo por padrão, e o
+      histórico de trabalho permanece na organização independentemente de quem o produziu.
+      O Enterprise passa a fazer sentido quando a operação exigir trilha de auditoria formal
+      e integração com diretório corporativo — cenário natural após a implantação do sistema.
+    </div>
+  </section>
+
+  <!-- ================= CUSTO DE API ================= -->
+  <section class="card sec-proposta" id="custo-de-operacao-dos-agentes-na-api">
+    <h3 class="section-title">Custo de operação dos agentes na API<span class="sec-pill sec-pill-proposta">Proposta</span></h3>
+
+    <p style="color: var(--text-muted); margin-bottom: 1.25rem;">
+      Os agentes que operam dentro do sistema — leitura de ordens de serviço, conferência
+      documental, busca inteligente e briefing executivo — consomem API, cobrada por volume
+      de texto processado, não por assinatura.
+    </p>
+
+    <div style="overflow-x: auto;">
+      <table class="tbl-preco">
+        <thead>
+          <tr>
+            <th>Modelo</th>
+            <th class="num">Entrada US$/MTok</th>
+            <th class="num">Saída US$/MTok</th>
+            <th>Aplicação no sistema</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Haiku 5.5</strong></td>
+            <td class="num">0,10</td><td class="num">0,50</td>
+            <td>Alertas, classificação de demandas, rotinas de alta frequência</td>
+          </tr>
+          <tr class="destaque">
+            <td><strong>Sonnet 5.5</strong></td>
+            <td class="num">2,00</td><td class="num">10,00</td>
+            <td><strong>Operação diária.</strong> Leitura de OS, conferência documental, busca inteligente</td>
+          </tr>
+          <tr>
+            <td><strong>Opus 5</strong></td>
+            <td class="num">5,00</td><td class="num">25,00</td>
+            <td>Análise de contratos, pareceres e briefings executivos</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="fonte">
+      Fonte: tabela oficial de preços da plataforma Anthropic, consultada em 17/10/2026.
+      Processamento em lote reduz 50% sobre entrada e saída, e cache de contexto reduz as
+      leituras repetidas a uma fração do valor de entrada — ambos aplicáveis à rotina do sistema.
+    </p>
+
+    <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin: 1.75rem 0 0.9rem;">
+      Estimativa de consumo mensal da operação
+    </h4>
+
+    <div style="overflow-x: auto;">
+      <table class="tbl-preco">
+        <thead>
+          <tr>
+            <th>Rotina</th>
+            <th class="num">Volume/mês</th>
+            <th>Modelo</th>
+            <th class="num">≈ R$/mês</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Leitura e validação de OS e folhas de ponto</td><td class="num">~500 docs</td><td>Sonnet 5.5</td><td class="num">60 a 110</td></tr>
+          <tr><td>Conferência documental do fechamento</td><td class="num">17 prestadoras</td><td>Sonnet 5.5</td><td class="num">20 a 40</td></tr>
+          <tr><td>Rotina diária de alertas e agenda</td><td class="num">30 execuções</td><td>Haiku 5.5</td><td class="num">5 a 15</td></tr>
+          <tr><td>Busca inteligente</td><td class="num">~300 consultas</td><td>Sonnet 5.5</td><td class="num">25 a 50</td></tr>
+          <tr><td>Briefing executivo e relatórios</td><td class="num">mensal</td><td>Opus 5</td><td class="num">30 a 60</td></tr>
+          <tr class="total"><td>Total estimado de API</td><td class="num">—</td><td>—</td><td class="num">140 a 275</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="fonte">
+      Estimativa com base no volume real da carteira — 137 postos, 513 serviços, 17 prestadoras —
+      já considerando desconto de lote e cache. O plano Team inclui créditos de API agrupados,
+      que devem absorver parte relevante desse consumo no início da operação.
+    </p>
+  </section>
+
+  <!-- ================= CUSTO TOTAL DA INFRAESTRUTURA ================= -->
+  <section class="card sec-proposta" id="custo-total-da-infraestrutura-do-sistema">
+    <h3 class="section-title">Custo total da infraestrutura do sistema<span class="sec-pill sec-pill-proposta">Proposta</span></h3>
+
+    <div style="overflow-x: auto;">
+      <table class="tbl-preco">
+        <thead>
+          <tr>
+            <th>Recurso</th>
+            <th>Função no sistema</th>
+            <th class="num">≈ R$/mês</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="destaque">
+            <td><strong>Claude Team</strong> — 2 assentos</td>
+            <td>Ferramenta corporativa de IA, conta da empresa, administração e continuidade</td>
+            <td class="num">216</td>
+          </tr>
+          <tr>
+            <td><strong>API Anthropic</strong></td>
+            <td>Operação dos agentes dentro do sistema</td>
+            <td class="num">140 a 275</td>
+          </tr>
+          <tr>
+            <td><strong>Firebase — plano Blaze</strong></td>
+            <td>Banco de dados, autenticação, funções e armazenamento</td>
+            <td class="num">0 a 60</td>
+          </tr>
+          <tr>
+            <td><strong>Google Workspace</strong> — Business Standard</td>
+            <td>Drive corporativo para guarda fiscal dos documentos, 2 TB por usuário</td>
+            <td class="num">76 por usuário</td>
+          </tr>
+          <tr>
+            <td><strong>Domínio do portal</strong></td>
+            <td>Endereço do portal de acesso</td>
+            <td class="num">~4</td>
+          </tr>
+          <tr class="total">
+            <td>Total estimado</td>
+            <td>Configuração mínima operacional</td>
+            <td class="num">436 a 631</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="fonte">
+      Firebase: o plano Blaze é cobrado por uso, com faixa gratuita mensal que cobre 50 mil
+      leituras e 20 mil escritas por dia no banco, 2 milhões de execuções de função e 50 mil
+      usuários autenticados — limites acima do volume projetado para esta operação. A cobrança
+      ocorre apenas no que exceder. Google Workspace: US$ 14 por usuário/mês, necessário apenas
+      se a guarda documental migrar para drive compartilhado corporativo. Fontes consultadas em
+      17/10/2026.
+    </p>
+
+    <div class="highlight-box action" style="margin-top: 1.5rem;">
+      <strong>Comparação com o valor em jogo.</strong> O custo total da infraestrutura situa-se
+      entre <strong>R$ 436 e R$ 631 por mês</strong>. A meta de economia estabelecida para o
+      setor é de <strong>R$ 32.660 por mês</strong>, em média. A infraestrutura completa
+      representa, no limite superior, <strong>menos de 2% da economia pretendida</strong> — e a
+      defasagem de R$ 19.228 já identificada na auditoria, sozinha, cobriria mais de dois anos e
+      meio de operação do sistema.
+    </div>
+  </section>
+
+  <!-- ================= PEDIDO ================= -->
+  <section class="card sec-decisao" id="solicitacao-a-diretoria">
+    <h3 class="section-title">Solicitação à diretoria<span class="sec-pill sec-pill-decisao">Decisão</span></h3>
+
+    <div class="proposta-content">
+      <div class="proposta-item">
+        <div class="proposta-num">1</div>
+        <div>
+          <h4>Contratação do plano Claude Team em nome do Grupo Tektron</h4>
+          <p>Mínimo de 2 assentos — Gestão de Contratos e um segundo assento para a área que a
+          Diretoria indicar. Custo aproximado de R$ 216 por mês. Encerra a irregularidade do uso
+          de conta pessoal, transfere a propriedade do trabalho para a empresa e habilita o
+          controle administrativo de acessos.</p>
+        </div>
+      </div>
+
+      <div class="proposta-item">
+        <div class="proposta-num">2</div>
+        <div>
+          <h4>Conta de API corporativa com limite de gasto definido</h4>
+          <p>Para operação dos agentes dentro do sistema, com teto mensal estabelecido pela
+          Diretoria. Sugestão de limite inicial: R$ 300 por mês, com relatório de consumo.</p>
+        </div>
+      </div>
+
+      <div class="proposta-item">
+        <div class="proposta-num">3</div>
+        <div>
+          <h4>Projeto Firebase e domínio em titularidade da empresa</h4>
+          <p>Banco de dados e portal registrados em conta corporativa desde a origem, evitando
+          nova migração futura e garantindo que o sistema pertença ao Grupo Tektron.</p>
+        </div>
+      </div>
+
+      <div class="proposta-item">
+        <div class="proposta-num">4</div>
+        <div>
+          <h4>Definição sobre a guarda documental</h4>
+          <p>Google Workspace com drive compartilhado é o formato adequado para documento fiscal
+          com guarda de cinco anos, por pertencer à organização e não a uma pessoa. Enquanto não
+          houver definição, a guarda segue em conta pessoal autorizada — com a mesma fragilidade
+          de continuidade descrita acima.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box info" style="margin-top: 1.5rem;">
+      <strong>Transição para Enterprise.</strong> Quando a operação do sistema estiver consolidada
+      e os portais de prestadores e condomínios estiverem ativos, o plano Enterprise passa a ser
+      indicado: acrescenta trilha de auditoria formal, provisionamento automático de usuários,
+      API de conformidade, retenção de dados customizada e controle de acesso por rede — recursos
+      diretamente aplicáveis ao tratamento de dados de terceiros e à adequação à LGPD. O mínimo
+      é de 20 assentos, o que o torna adequado a um estágio de adoção mais amplo pelo Grupo, não
+      ao início.
+    </div>
+  </section>
+
+  <section class="card sec-decisao" id="decisoes-e-encaminhamentos-com-a-diretoria-est">
+      <h3 class="section-title">Decisões e encaminhamentos com a diretoria estratégica<span class="sec-pill sec-pill-decisao">Decisão</span></h3>
+      <div class="propostas-list">
+        
+        <div class="proposta-item">
+          <div class="proposta-num">1</div>
+          <div class="proposta-content">
+            <h4>Pactuação da meta de economia de 30% &mdash; R$ 391.919 por ano</h4>
+            <p>Homologação da linha de base de <strong>R$ 1.306.395/ano</strong>, apurada sobre a
+            periodicidade real de cada serviço, e início da captura de <strong>R$ 32.660/mês em
+            média</strong> por renegociação de pacote e precificação paramétrica. A base substitui a
+            estimativa anterior de R$ 1.413.638, que tratava como mensal um valor que era de ciclo.
+            Como <strong>88% do gasto está nos três serviços contínuos</strong>, é neles que a meta
+            precisa ser perseguida &mdash; uma redução de 1% em piscinas vale mais do que 30% em
+            dedetização.</p>
+          </div>
+        </div>
+
+        <div class="proposta-item">
+          <div class="proposta-num">2</div>
+          <div class="proposta-content">
+            <h4>Autorização para Levantamento de Atributos Físicos</h4>
+            <p>Disparo das 5 planilhas pré-preenchidas para os maiores prestadores informarem as medições físicas dos postos (m³ de piscina, m² de jardim, litragem de caixas d'água) para alimentar o motor paramétrico.</p>
+          </div>
+        </div>
+
+        <div class="proposta-item">
+          <div class="proposta-num">3</div>
+          <div class="proposta-content">
+            <h4>Alinhamento Operacional para o Caso The One (Prestativa)</h4>
+            <p>Formalizar por escrito o adiamento da próxima execução de prumadas, compensando a
+            nota de R$ 3.058,54 recusada no fechamento, e manter o serviço mensal de caixa de gordura
+            (R$ 477,01) em execução e pagamento regulares &mdash; registrando-o no controle, já que
+            hoje não consta de nenhum consolidado.</p>
+          </div>
+        </div>
+
+        <div class="proposta-item">
+          <div class="proposta-num">4</div>
+          <div class="proposta-content">
+            <h4>Implementação da Agenda Preventiva (D-3 e D-1)</h4>
+            <p>Ativação de rotina automatizada para confirmação de datas e emissão de comunicados aos condomínios, eliminando faltas de prestadores e visitas frustradas na portaria.</p>
+          </div>
+        </div>
+
+        <div class="proposta-item">
+          <div class="proposta-num">5</div>
+          <div class="proposta-content">
+            <h4>Homologação de Prestadores Reservas para Serviços Críticos</h4>
+            <p>Abertura de cotação com novos parceiros em Goiânia para quebrar o monopólio em vidros de fachadas verticais e prumadas complexas.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>Grupo Tektron &bull; Diretoria Estratégica &bull; Análise de Contratos e Serviços Quarteirizados</p>
+    <p style="margin-top: 0.25rem; font-size: 0.75rem;">Elaborado por Cléber Donato &bull; Outubro de 2026 &bull; Versão 2.0 Auditada</p>
+  </footer>
+
+
+
+  <script>
+    (function () {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.ix-lista a'));
+      if (!links.length) return;
+      var pares = links.map(function (a) {
+        return { link: a, sec: document.getElementById(a.getAttribute('data-alvo')) };
+      }).filter(function (p) { return p.sec; });
+      if (!pares.length) return;
+
+      var pendente = false;
+
+      function marcar() {
+        pendente = false;
+        var limite = window.scrollY + 150;
+        var atual = pares[0];
+        pares.forEach(function (p) {
+          if (p.sec.getBoundingClientRect().top + window.scrollY <= limite) atual = p;
+        });
+        pares.forEach(function (p) {
+          p.link.classList.toggle('ativo', p === atual);
+        });
+      }
+
+      function agendar() {
+        if (pendente) return;
+        pendente = true;
+        window.requestAnimationFrame(marcar);
+      }
+
+      window.addEventListener('scroll', agendar, { passive: true });
+      window.addEventListener('resize', agendar, { passive: true });
+      marcar();
+    })();
+  </script>
+
+</body>
+</html>

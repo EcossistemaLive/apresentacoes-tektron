@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conferência da Defasagem do Consolidado 2026 | Grupo Tektron</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --petroleo: #0F293C; --petroleo-esc: #091825; --petroleo-med: #1C4257;
+      --petroleo-cl: #3E6E8E; --vermelho: #D10404; --vermelho-esc: #A00303;
+      --verde: #16694A;
+      --papel: #FBF7F3; --papel-fundo: #F2EBE3; --branco: #ffffff;
+      --tinta: #16212B; --tinta-med: #4C5862; --tinta-fraca: #5E6A75;
+      --linha: #E2DAD1; --linha-forte: #C9BDB0;
+
+      --primary: #0F293C; --primary-light: #1C4257; --accent: #D10404;
+      --accent-hover: #A00303; --success: #16694A; --success-bg: #EDF6F1;
+      --warning: #B45309; --warning-bg: #FDF6EC; --danger: #D10404;
+      --danger-bg: #FDF0F0; --bg: #FBF7F3; --card-bg: #ffffff;
+      --text-main: #16212B; --text-muted: #5E6A75; --border: #E2DAD1;
+      --shadow-sm: none; --shadow-md: 0 2px 8px rgb(15 41 60 / 0.07);
+      --shadow-lg: 0 10px 34px rgb(15 41 60 / 0.13);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg);
+      color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    .navbar { background: rgba(15, 39, 68, 0.96); backdrop-filter: blur(12px); color: #fff;
+      padding: 1rem 2rem; position: sticky; top: 0; z-index: 50;
+      border-bottom: 1px solid rgba(255,255,255,0.1); display: flex;
+      justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .brand { display: flex; align-items: center; gap: 0.75rem; }
+    .brand-logo { background: linear-gradient(135deg, #3b82f6, #1d4ed8); width: 38px; height: 38px;
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; }
+    .brand-text h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.3px; }
+    .brand-text span { font-size: 0.75rem; color: #94a3b8; display: block; }
+    .nav-tags { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem;
+      font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .badge-gold { background: rgba(245,158,11,0.2); color: #fde68a; border: 1px solid rgba(245,158,11,0.3); }
+    .nav-link { padding: 0.3rem 0.85rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600;
+      color: #dbeafe; background: rgba(59,130,246,0.22); border: 1px solid rgba(59,130,246,0.4);
+      text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; }
+    .nav-link:hover { background: rgba(59,130,246,0.4); color: #fff; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+    .hero { background: linear-gradient(135deg, #0f2744 0%, #1e3a8a 100%); color: #fff;
+      border-radius: 16px; padding: 3rem 2.5rem; margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+    .hero::after { content: ''; position: absolute; top: -50%; right: -20%; width: 400px;
+      height: 400px; background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%);
+      border-radius: 50%; }
+    .hero-eyebrow { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em;
+      color: #93c5fd; font-weight: 700; margin-bottom: 0.7rem; }
+    .hero-title { font-size: 2rem; font-weight: 800; letter-spacing: -0.8px; line-height: 1.2;
+      margin-bottom: 0.9rem; position: relative; z-index: 1; }
+    .hero-subtitle { font-size: 1rem; color: #cbd5e1; max-width: 70ch; position: relative; z-index: 1; }
+    .hero-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.8rem 1.75rem; margin-top: 1.75rem; padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.82rem; color: #cbd5e1;
+      position: relative; z-index: 1; }
+    .hero-meta strong { color: #fff; font-weight: 600; display: block; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.06em; color: #93c5fd; margin-bottom: 0.15rem; }
+
+    .card { background: var(--card-bg); border-radius: 12px; padding: 1.75rem;
+      border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 2rem; }
+    .section-title { font-size: 1.45rem; font-weight: 800; color: var(--primary);
+      margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;
+      letter-spacing: -0.3px; }
+    .sub-title { font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 0.9rem; }
+    .p { font-size: 0.93rem; color: #334155; margin-bottom: 1.1rem; }
+    .p:last-child { margin-bottom: 0; }
+
+    .audit-alert-box { background: #eff6ff; border: 1px solid #bfdbfe;
+      border-left: 5px solid var(--accent); border-radius: 8px; padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .audit-alert-title { font-weight: 700; color: var(--primary); font-size: 1rem;
+      display: flex; align-items: center; gap: 0.5rem; }
+
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 0.85rem; margin-top: 0.4rem; }
+    .metric-tile { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.95rem 1rem; }
+    .metric-tile b { display: block; font-size: 1.5rem; font-weight: 800; color: var(--primary);
+      line-height: 1.15; letter-spacing: -0.02em; font-family: 'JetBrains Mono', monospace; }
+    .metric-tile span { display: block; font-size: 0.78rem; color: var(--text-muted);
+      margin-top: 0.25rem; line-height: 1.4; }
+    .metric-tile.alerta { border-color: #fecaca; background: var(--danger-bg); }
+    .metric-tile.alerta b { color: var(--danger); }
+
+    .tl-items { list-style: none; display: grid; gap: 0.5rem; }
+    .tl-items li { position: relative; padding-left: 1.1rem; font-size: 0.92rem; color: #334155; }
+    .tl-items li::before { content: ''; position: absolute; left: 0; top: 0.65em; width: 5px;
+      height: 5px; border-radius: 50%; background: var(--text-muted); }
+    .tl-items li strong { color: var(--primary); font-weight: 600; }
+
+    .scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table.tbl { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
+    table.tbl th { text-align: left; padding: 0.6rem 0.75rem; color: var(--text-muted);
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.045em;
+      border-bottom: 2px solid var(--border); white-space: nowrap; vertical-align: bottom; }
+    table.tbl th.num, table.tbl td.num { text-align: right;
+      font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums;
+      white-space: nowrap; }
+    table.tbl td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); }
+    table.tbl tr.invertido td { background: var(--danger-bg); }
+    table.tbl tr.total td { background: #f1f5f9; font-weight: 700; color: var(--primary);
+      border-top: 2px solid var(--primary); border-bottom: 0; }
+    .transcrito { color: #2563eb; }
+    .mono-dim { color: var(--text-muted); font-size: 0.8rem; }
+
+    .nota { background: var(--warning-bg); border: 1px solid #fcd34d;
+      border-left: 4px solid var(--warning); border-radius: 8px; padding: 1.1rem 1.25rem;
+      margin: 1.25rem 0; }
+    .nota p { font-size: 0.89rem; color: #78350f; margin-bottom: 0.6rem; }
+    .nota p:last-child { margin-bottom: 0; }
+    .nota .nota-t { font-size: 0.92rem; font-weight: 700; color: #92400e; }
+
+    .verde { background: var(--success-bg); border: 1px solid #a7f3d0;
+      border-left: 4px solid var(--success); border-radius: 8px; padding: 1.1rem 1.25rem;
+      margin: 1.25rem 0; }
+    .verde p { font-size: 0.89rem; color: #065f46; margin-bottom: 0.6rem; }
+    .verde p:last-child { margin-bottom: 0; }
+    .verde .nota-t { font-size: 0.92rem; font-weight: 700; color: #065f46; }
+
+    .filtros { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
+    .filtro { padding: 0.4rem 0.9rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 600;
+      border: 1px solid var(--border); background: #fff; color: var(--text-muted);
+      cursor: pointer; font-family: inherit; transition: all .15s; }
+    .filtro:hover { border-color: var(--accent); color: var(--accent); }
+    .filtro[aria-pressed="true"] { background: var(--primary); border-color: var(--primary);
+      color: #fff; }
+    .contador { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.8rem; }
+
+    .tag { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 5px;
+      font-size: 0.7rem; font-weight: 700; white-space: nowrap; }
+    .tag-mestra  { background: #fef3c7; color: #92400e; }
+    .tag-valor   { background: #e0e7ff; color: #3730a3; }
+    .tag-servico { background: #fee2e2; color: #991b1b; }
+
+    .passos { counter-reset: p; list-style: none; display: grid; gap: 0.9rem; }
+    .passos li { counter-increment: p; position: relative; padding-left: 2.4rem;
+      font-size: 0.92rem; color: #334155; }
+    .passos li::before { content: counter(p); position: absolute; left: 0; top: 0;
+      width: 1.65rem; height: 1.65rem; border-radius: 50%; background: var(--primary);
+      color: #fff; font-size: 0.78rem; font-weight: 700; display: flex;
+      align-items: center; justify-content: center; }
+
+    code { font-family: 'JetBrains Mono', monospace; font-size: 0.85em;
+      background: #f1f5f9; padding: 0.12em 0.4em; border-radius: 4px; color: var(--primary-light); }
+
+    .fonte { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.9rem; line-height: 1.6; }
+
+    footer { border-top: 1px solid var(--border); margin-top: 1rem; padding: 2rem 1.5rem 3rem;
+      text-align: center; font-size: 0.8rem; color: var(--text-muted); }
+
+    @media (max-width: 680px) {
+      .navbar { padding: 0.85rem 1rem; }
+      .hero { padding: 2rem 1.5rem; }
+      .hero-title { font-size: 1.5rem; }
+      .card { padding: 1.25rem; }
+      .container { padding: 1.5rem 1rem; }
+    }
+    @media print {
+      .navbar { position: static; }
+      .filtros { display: none; }
+      .card { break-inside: avoid; box-shadow: none; }
+      tr[data-t] { display: table-row !important; }
+    }
+
+    /* ====================== CAMADA EDITORIAL — Grupo Tektron ====================== */
+    body { font-family: 'Source Serif 4', Georgia, serif; background: var(--papel);
+      color: var(--tinta); font-size: 1.02rem; line-height: 1.7; }
+    h1, h2, h3, h4, .ix-titulo, .badge, .nav-link, .filtro, .tag, .metric-tile b,
+    table.tbl, .nota-t, .contador, .passos, .fonte, .ix-lista, .hero-eyebrow {
+      font-family: 'Archivo', system-ui, sans-serif; }
+
+    .navbar { background: var(--petroleo); backdrop-filter: none;
+      border-bottom: 3px solid var(--vermelho); padding: 0.85rem 2rem; flex-wrap: wrap; }
+    .brand-mark { background: var(--branco); border-radius: 4px; padding: 0.32rem 0.6rem;
+      line-height: 0; flex-shrink: 0; }
+    .brand-mark img { height: 28px; width: auto; display: block; }
+    .brand-text { border-left: 1px solid rgba(255,255,255,0.2); padding-left: 1rem; }
+    .brand-text span { font-family: 'Archivo', sans-serif; font-size: 0.76rem; color: #AFC2CE; }
+    .nav-tags { flex-wrap: wrap; min-width: 0; }
+    .badge-gold { background: rgba(209,4,4,0.16); color: #FFC9C9;
+      border: 1px solid rgba(209,4,4,0.45); border-radius: 3px; }
+    .nav-link { border-radius: 3px; background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.22); color: #DCE6ED; }
+    .nav-link:hover { background: var(--vermelho); border-color: var(--vermelho); color: #fff; }
+
+    .folha { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 3.25rem;
+      max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem 0; }
+    .corpo { min-width: 0; }
+    .container { max-width: none; margin: 0; padding: 0; }
+    .indice { position: sticky; top: 92px; align-self: start;
+      max-height: calc(100vh - 120px); overflow-y: auto; padding-right: 0.5rem;
+      border-right: 1px solid var(--linha); }
+    .ix-titulo { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--tinta-fraca); margin-bottom: 0.9rem; }
+    .ix-lista { list-style: none; margin: 0 0 1.4rem; padding: 0; }
+    .ix-lista a { display: block; padding: 0.42rem 0.6rem 0.42rem 0.55rem; font-size: 0.8rem;
+      line-height: 1.35; color: var(--tinta-med); text-decoration: none;
+      border-left: 2px solid transparent; transition: color .12s, border-color .12s, background .12s; }
+    .ix-lista a:hover { color: var(--petroleo); background: rgba(15,41,60,0.045); }
+    .ix-lista a.ativo { color: var(--petroleo); font-weight: 600;
+      border-left-color: var(--vermelho); background: rgba(209,4,4,0.05); }
+    .ix-legenda { border-top: 1px solid var(--linha); padding-top: 0.9rem; }
+    .ix-legenda p { font-family: 'Source Serif 4', serif; font-size: 0.78rem;
+      color: var(--tinta-fraca); line-height: 1.55; }
+
+    .hero { background: var(--petroleo); border-radius: 0; box-shadow: none;
+      border-top: 3px solid var(--vermelho); padding: 3rem 2.75rem; }
+    .hero::after { display: none; }
+    .hero-eyebrow { color: #E88A8A; }
+    .hero-title { font-family: 'Archivo', sans-serif; font-size: 2.4rem; font-weight: 800;
+      letter-spacing: -1.1px; }
+    .hero-subtitle { font-family: 'Source Serif 4', serif; color: #C3D2DC; }
+    .hero-meta { border-top-color: rgba(255,255,255,0.16); color: #AFC2CE; }
+    .hero-meta strong { color: #E88A8A; }
+
+    .card { background: transparent; border: 0; border-radius: 0; box-shadow: none;
+      border-bottom: 1px solid var(--linha); padding: 3rem 0 2.75rem; margin: 0; }
+    .card:last-of-type { border-bottom: 0; }
+    .card::before { content: ''; display: block; width: 46px; height: 3px;
+      margin-bottom: 1.3rem; background: var(--vermelho); }
+    .section-title { font-family: 'Archivo', sans-serif; font-size: 1.8rem; font-weight: 700;
+      letter-spacing: -0.7px; line-height: 1.18; color: var(--petroleo);
+      margin-bottom: 1.3rem; display: block; }
+    .sub-title { font-family: 'Archivo', sans-serif; font-size: 1.02rem; }
+    .p, .card p { max-width: 70ch; }
+
+    .audit-alert-box { background: #FDF0F0; border-color: #EEC2C2;
+      border-left-color: var(--vermelho); border-radius: 4px; }
+    .audit-alert-title { color: #8F0404; }
+    .audit-alert-box p { color: #6B1414 !important; font-family: 'Source Serif 4', serif; }
+
+    .metric-tile { background: var(--branco); border-color: var(--linha); border-radius: 4px; }
+    .metric-tile b { font-family: 'JetBrains Mono', monospace; color: var(--petroleo);
+      font-variant-numeric: tabular-nums; }
+    .metric-tile span { font-family: 'Source Serif 4', serif; color: var(--tinta-med); }
+    .metric-tile.alerta { background: #FDF0F0; border-color: #EEC2C2; }
+    .metric-tile.alerta b { color: var(--vermelho); }
+
+    table.tbl { font-size: 0.86rem; }
+    table.tbl th { text-transform: none; letter-spacing: 0.01em; font-size: 0.74rem;
+      font-weight: 600; color: var(--tinta-fraca); border-bottom-color: var(--linha-forte); }
+    table.tbl td { border-bottom-color: var(--linha); }
+    table.tbl tr.invertido td { background: #FDF0F0; }
+    table.tbl tr.total td { background: var(--papel-fundo); border-top-color: var(--petroleo); }
+    .transcrito { color: var(--petroleo-cl); }
+    .mono-dim { color: var(--tinta-fraca); }
+
+    .nota { background: #FDF6EC; border-color: #EBD7B8; border-left-color: #B45309;
+      border-radius: 4px; }
+    .nota p { font-family: 'Source Serif 4', serif; color: #6B3A12; }
+    .nota .nota-t { color: #7A3E0C; }
+    .verde { background: #EDF6F1; border-color: #BFDFCF; border-left-color: var(--verde);
+      border-radius: 4px; }
+    .verde p { font-family: 'Source Serif 4', serif; color: #114733; }
+    .verde .nota-t { color: #0B3326; }
+
+    .filtro { border-radius: 3px; border-color: var(--linha-forte); background: var(--branco);
+      color: var(--tinta-med); }
+    .filtro:hover { border-color: var(--vermelho); color: var(--vermelho); }
+    .filtro[aria-pressed="true"] { background: var(--petroleo); border-color: var(--petroleo); }
+    .tag { border-radius: 3px; }
+    .tag-mestra  { background: #FBE9E9; color: #8F0404; }
+    .tag-valor   { background: #E4EDF3; color: #16425B; }
+    .tag-servico { background: #F3E8DD; color: #6B3A12; }
+    .passos li::before { background: var(--petroleo); }
+    .passos li, .tl-items li { font-family: 'Source Serif 4', serif; }
+    code { background: var(--papel-fundo); color: var(--petroleo-med); border-radius: 3px;
+      font-size: 0.8em; }
+    .fonte { color: var(--tinta-fraca); font-size: 0.76rem; }
+    footer { background: var(--petroleo); color: #AFC2CE; border-top: 3px solid var(--vermelho);
+      margin-top: 3rem; padding: 2rem 1.5rem 2.5rem; font-family: 'Archivo', sans-serif; }
+    html { scroll-behavior: smooth; scroll-padding-top: 110px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    @media (max-width: 1040px) {
+      .folha { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem 1.25rem 0; }
+      .indice { position: static; max-height: none; border-right: 0;
+        border-bottom: 1px solid var(--linha); padding-bottom: 1rem; }
+      .ix-lista { columns: 2; column-gap: 1.25rem; }
+    }
+    @media (max-width: 680px) {
+      .navbar { padding: 0.7rem 1rem; gap: 0.6rem; }
+      .nav-tags { width: 100%; }
+      .hero { padding: 2rem 1.35rem; }
+      .hero-title { font-size: 1.7rem; }
+      .section-title { font-size: 1.35rem; }
+      .ix-lista { columns: 1; }
+    }
+    @media print { .indice, .filtros { display: none; }
+      .folha { display: block; padding: 0; } .navbar { position: static; } }
+
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="brand">
+      <h1 class="brand-mark">
+        <img src="logo-tektron.png" alt="Grupo Tektron" width="282" height="91">
+      </h1>
+      <div class="brand-text">
+        <span>Anexo técnico &bull; Conferência da defasagem do consolidado 2026</span>
+      </div>
+    </div>
+    <div class="nav-tags">
+      <span class="badge badge-gold">Documento de conferência</span>
+      <a class="nav-link" href="diagnostico-estrategico-tektron.html">&larr; Voltar ao diagnóstico</a>
+    </div>
+  </header>
+
+  <div class="folha">
+      <nav class="indice" aria-label="Índice do anexo">
+        <p class="ix-titulo">Neste anexo</p>
+        <ol class="ix-lista">
+          <li><a href="#os-numeros-em-conferencia" data-alvo="os-numeros-em-conferencia">Os números em conferência</a></li>
+          <li><a href="#como-a-planilha-esta-estruturada" data-alvo="como-a-planilha-esta-estruturada">Como a planilha está estruturada</a></li>
+          <li><a href="#a-conferencia-servico-por-servico" data-alvo="a-conferencia-servico-por-servico">A conferência serviço por serviço</a></li>
+          <li><a href="#os-61-lancamentos-que-nao-fecham" data-alvo="os-61-lancamentos-que-nao-fecham">Os 61 lançamentos que não fecham</a></li>
+          <li><a href="#o-que-foi-tratado-antes-de-comparar" data-alvo="o-que-foi-tratado-antes-de-comparar">O que foi tratado antes de comparar</a></li>
+          <li><a href="#como-qualquer-pessoa-pode-conferir" data-alvo="como-qualquer-pessoa-pode-conferir">Como qualquer pessoa pode conferir</a></li>
+          <li><a href="#por-que-isso-importa-para-a-decisao" data-alvo="por-que-isso-importa-para-a-decisao">Por que isso importa para a decisão</a></li>
+        </ol>
+        <div class="ix-legenda">
+          <p>Documento de conferência aberta. Todos os números podem ser
+             refeitos a partir da planilha de origem.</p>
+        </div>
+      </nav>
+
+    <main class="corpo">
+
+    <section class="hero">
+      <div class="hero-eyebrow">Anexo técnico ao diagnóstico estratégico</div>
+      <h2 class="hero-title">Conferência da Defasagem do Consolidado 2026</h2>
+      <p class="hero-subtitle">
+        Demonstração aberta de como se apurou a diferença de R$ 19.228 entre o número que circulava
+        como referência financeira do setor e o valor real da carteira. Cada afirmação desta página
+        pode ser reconferida na planilha de origem, linha por linha.
+      </p>
+      <div class="hero-meta">
+        <div><strong>Arquivo auditado</strong><code>PROGRAMAÇÃO ANUAL 2026 - 4,26%.xlsx</code></div>
+        <div><strong>Extensão da conferência</strong>13 abas &bull; 1.093 linhas &bull; 9.946 células</div>
+        <div><strong>Planilha de apoio</strong><code>Conferencia_Defasagem_2026.xlsx</code></div>
+        <div><strong>Apuração</strong>17 de outubro de 2026</div>
+        <div><strong>Responsável</strong>Cléber Donato &mdash; Analista de Contratos e Serviços</div>
+      </div>
+    </section>
+
+    <section class="audit-alert-box">
+      <div class="audit-alert-title">
+        <span>&#9211;</span> <strong>A conclusão em uma frase</strong>
+      </div>
+      <p style="font-size: 0.92rem; color: #0F293C;">
+        A planilha herdada tem <strong>duas camadas que deveriam espelhar uma à outra e nunca foram
+        reconciliadas entre si</strong>. O consolidado divulgado foi montado a partir de uma delas.
+        A outra &mdash; a aba mestra, que é a que a operação usa no dia a dia &mdash; registra
+        R$ 19.228 a mais. Nenhuma das duas estava errada por inteiro: cada uma estava errada em
+        pontos diferentes.
+      </p>
+    </section>
+
+    <section class="card" id="os-numeros-em-conferencia">
+      <h3 class="section-title">Os números em conferência</h3>
+      <div class="metric-grid">
+        <div class="metric-tile"><b>187.363,85</b><span>(a) Soma real das linhas da aba mestra <code>2026</code></span></div>
+        <div class="metric-tile"><b>168.135,14</b><span>(b) Soma das abas por serviço</span></div>
+        <div class="metric-tile"><b>168.135,36</b><span>(c) O que a aba <code>valor total</code> informava</span></div>
+        <div class="metric-tile alerta"><b>19.228,49</b><span>Defasagem do consolidado divulgado &mdash; 11,4% a menos</span></div>
+        <div class="metric-tile alerta"><b>46.107,25</b><span>Divergência <em>bruta</em> entre as duas camadas</span></div>
+      </div>
+      <p class="fonte">
+        Valores em R$, competência de referência (mês cheio). As colunas (a) e (b) são somas apuradas
+        linha a linha nesta auditoria. A coluna (c) é transcrição literal da planilha de origem, sem
+        nenhum cálculo nosso.
+      </p>
+
+      <h4 class="sub-title" style="margin-top: 2rem;">Os dois últimos números medem coisas diferentes</h4>
+      <p class="p">
+        A defasagem e a divergência bruta saem das <em>mesmas</em> sete diferenças por serviço. O que
+        muda é como elas são somadas &mdash; e a diferença entre as duas leituras é de
+        <strong>R$ 26.878,54</strong>.
+      </p>
+
+      <div class="scroll-x" style="margin-bottom: 1.1rem;">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Serviço</th>
+              <th class="num">Diferença (a) &minus; (b)</th>
+              <th class="num">Soma sem sinal</th>
+              <th class="num">Soma com sinal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Caixa de gordura</td><td class="num">+4.801,90</td><td class="num">4.801,90</td><td class="num">+4.801,90</td></tr>
+            <tr><td>Caixa d'água</td><td class="num">+8.975,17</td><td class="num">8.975,17</td><td class="num">+8.975,17</td></tr>
+            <tr><td>Dedetização</td><td class="num">+3.319,00</td><td class="num">3.319,00</td><td class="num">+3.319,00</td></tr>
+            <tr style="background: #FDF0F0;"><td><strong>Prumadas</strong></td><td class="num" style="color: var(--vermelho); font-weight: 700;">&minus;13.439,27</td><td class="num">13.439,27</td><td class="num" style="color: var(--vermelho); font-weight: 700;">&minus;13.439,27</td></tr>
+            <tr><td>Jardim</td><td class="num">+2.836,88</td><td class="num">2.836,88</td><td class="num">+2.836,88</td></tr>
+            <tr><td>Piscinas</td><td class="num">+11.785,03</td><td class="num">11.785,03</td><td class="num">+11.785,03</td></tr>
+            <tr><td>Vidros em altura</td><td class="num">+950,00</td><td class="num">950,00</td><td class="num">+950,00</td></tr>
+            <tr class="total">
+              <td>Resultado</td><td class="num"></td>
+              <td class="num">46.107,25</td>
+              <td class="num">19.228,71</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul class="tl-items" style="margin-bottom: 1.25rem;">
+        <li><strong>Somando sem o sinal</strong> &mdash; R$ 46.107,25 &mdash; obtém-se todo o valor que
+            está registrado de forma diferente nas duas camadas. É quanto seria preciso corrigir para
+            que elas passassem a coincidir.</li>
+        <li><strong>Somando com o sinal</strong> &mdash; R$ 19.228,71 &mdash; os R$ 13.439,27 de
+            Prumadas entram negativos e abatem parte dos outros seis serviços. Sobra apenas o que o
+            consolidado chegou a mostrar.</li>
+      </ul>
+
+      <div class="nota">
+        <p class="nota-t">Por que a distinção importa para a decisão</p>
+        <p>
+          Imagine um caixa com R$ 1.000 a mais numa gaveta e R$ 1.000 a menos em outra. O fechamento
+          do dia bate. O total está certo e <strong>todas as gavetas estão erradas</strong>. Quem
+          confere apenas o total nunca descobre.
+        </p>
+        <p>
+          É a situação da planilha. <strong>O número líquido mede o erro do total; o número bruto mede
+          o erro da carteira.</strong> Os R$ 19.228 são um erro de referência, corrigível com um
+          ajuste no consolidado. Os R$ 46.107 indicam que a planilha não é confiável posto a posto, e
+          isso não se resolve com ajuste &mdash; exige reconciliação linha a linha.
+        </p>
+        <p>
+          <strong>A defasagem é o sintoma. A divergência bruta é o diagnóstico.</strong>
+        </p>
+      </div>
+    </section>
+
+    <section class="card" id="como-a-planilha-esta-estruturada">
+      <h3 class="section-title">Como a planilha está estruturada</h3>
+      <p class="p">
+        Entender a estrutura é o que torna a defasagem óbvia. A planilha opera em
+        <strong>duas camadas</strong>, mais um consolidado:
+      </p>
+      <ul class="tl-items" style="margin-bottom: 1.25rem;">
+        <li><strong>Camada 1 &mdash; a aba mestra <code>2026</code></strong>: cada linha é um
+            condomínio, com pares de colunas <em>EMPRESA + VALOR</em> para cada um dos 7 serviços.
+            É a visão por posto, e é a que a operação consulta para saber o que existe em cada
+            condomínio. <strong>405 lançamentos com valor.</strong></li>
+        <li><strong>Camada 2 &mdash; as 7 abas por serviço</strong> (<code>cx gordura 26</code>,
+            <code>cx dágua 26</code>, <code>Dedetização 26</code>, <code>Prumadas 26</code>,
+            <code>Jardim 26</code>, <code>Piscina 26</code>, <code>Vidros 26</code>): cada aba
+            detalha um serviço e traz o cálculo do reajuste de 4,26% linha a linha. É a visão por
+            especialidade. <strong>377 lançamentos com valor.</strong></li>
+        <li><strong>O consolidado &mdash; a aba <code>valor total</code></strong>: somatórios por
+            serviço. Era dela que saía o número divulgado à diretoria.</li>
+      </ul>
+      <p class="p">
+        As duas camadas descrevem a mesma carteira por ângulos diferentes, então deveriam somar o
+        mesmo valor. <strong>Somam 28 lançamentos e R$ 19.228 de diferença.</strong> E a aba
+        <code>valor total</code> reproduz apenas uma delas.
+      </p>
+    </section>
+
+    <section class="card" id="a-conferencia-servico-por-servico">
+      <h3 class="section-title">A conferência serviço por serviço</h3>
+      <p class="p">
+        Esta é a tabela central do documento. A coluna (c), em azul, foi transcrita da planilha de
+        origem. Comparando (b) com (c), fica visível que
+        <strong>o consolidado divulgado foi montado a partir das abas de serviço, não da aba
+        mestra</strong>: a diferença entre as duas é de R$ 0,22 &mdash; arredondamento.
+      </p>
+      <div class="scroll-x">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Serviço</th>
+              <th class="num">(a) Aba mestra <code>2026</code></th>
+              <th class="num">(b) Abas por serviço</th>
+              <th class="num">(c) Aba <code>valor total</code></th>
+              <th class="num">(a) &minus; (b)</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><strong>Caixa de gordura</strong></td>
+            <td class="num">37.513,75</td>
+            <td class="num">32.711,85</td>
+            <td class="num transcrito">32.712,08</td>
+            <td class="num" style="font-weight:700;color:#0F4C36;">+4.801,90</td>
+          </tr>
+          <tr>
+            <td><strong>Caixa d'água</strong></td>
+            <td class="num">50.062,06</td>
+            <td class="num">41.086,89</td>
+            <td class="num transcrito">41.086,89</td>
+            <td class="num" style="font-weight:700;color:#0F4C36;">+8.975,17</td>
+          </tr>
+          <tr>
+            <td><strong>Dedetização</strong></td>
+            <td class="num">6.974,90</td>
+            <td class="num">3.655,90</td>
+            <td class="num transcrito">3.655,90</td>
+            <td class="num" style="font-weight:700;color:#0F4C36;">+3.319,00</td>
+          </tr>
+          <tr class="invertido">
+            <td><strong>Prumadas</strong></td>
+            <td class="num">8.181,26</td>
+            <td class="num">21.620,53</td>
+            <td class="num transcrito">21.620,53</td>
+            <td class="num" style="font-weight:700;color:var(--danger);">&minus;13.439,27</td>
+          </tr>
+          <tr>
+            <td><strong>Jardim</strong></td>
+            <td class="num">27.154,03</td>
+            <td class="num">24.317,15</td>
+            <td class="num transcrito">24.317,13</td>
+            <td class="num" style="font-weight:700;color:#0F4C36;">+2.836,88</td>
+          </tr>
+          <tr>
+            <td><strong>Piscinas</strong></td>
+            <td class="num">50.655,27</td>
+            <td class="num">38.870,24</td>
+            <td class="num transcrito">38.870,25</td>
+            <td class="num" style="font-weight:700;color:#0F4C36;">+11.785,03</td>
+          </tr>
+          <tr>
+            <td><strong>Vidros em altura</strong></td>
+            <td class="num">6.822,58</td>
+            <td class="num">5.872,58</td>
+            <td class="num transcrito">5.872,58</td>
+            <td class="num" style="font-weight:700;color:#0F4C36;">+950,00</td>
+          </tr>
+          <tr class="total">
+            <td>TOTAL</td>
+            <td class="num">187.363,85</td>
+            <td class="num">168.135,14</td>
+            <td class="num transcrito">168.135,36</td>
+            <td class="num" style="color: var(--danger);">+19.228,71</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fonte">
+        A defasagem divulgada &mdash; R$ 19.228,49 &mdash; é a distância entre (a) e (c). Os
+        R$ 19.228,71 do rodapé são a distância entre as duas camadas apuradas. Os 22 centavos de
+        diferença entre os dois números são arredondamento das abas de serviço, e não um terceiro
+        achado.
+      </p>
+
+      <div class="nota">
+        <p class="nota-t">O achado mais relevante da tabela: Prumadas está invertido</p>
+        <p>
+          Em <strong>seis dos sete serviços</strong> a aba mestra registra <em>mais</em> do que as
+          abas de serviço. Em <strong>Prumadas a relação se inverte</strong>: a mestra registra
+          R$ 13.439,27 <em>a menos</em>.
+        </p>
+        <p>
+          As duas pontas se compensam parcialmente, e é exatamente isso que mascara o tamanho real
+          do problema. <strong>Divergência bruta</strong> é a soma das diferenças de cada serviço
+          <em>ignorando o sinal</em>: R$ 4.801,90 + R$ 8.975,17 + R$ 3.319,00 + R$ 13.439,27 +
+          R$ 2.836,88 + R$ 11.785,03 + R$ 950,00 = <strong>R$ 46.107,25</strong>. É o total de
+          valor que está registrado de forma diferente nas duas camadas &mdash; quanto seria preciso
+          corrigir para que elas passassem a coincidir.
+        </p>
+        <p>
+          Quando as diferenças são somadas <em>com</em> o sinal, os R$ 13.439,27 de Prumadas entram
+          como negativos e abatem parte dos outros seis. Sobram os <strong>R$ 19.228 líquidos</strong>,
+          que é o que aparecia no consolidado. <strong>O líquido mede o erro do total; o bruto mede o
+          erro da carteira.</strong> São R$ 26.878 de divergência que o total simplesmente não mostra.
+        </p>
+        <p>
+          <strong>A consequência prática:</strong> um consolidado pode fechar “perto do certo” no
+          total e estar errado em todas as linhas. Enquanto a conferência é feita apenas pelo total
+          geral, nenhum dos dois erros aparece &mdash; e nenhum dos dois é corrigido.
+        </p>
+      </div>
+
+      <h4 class="sub-title" style="margin-top: 2rem;">A causa da inversão: prumadas não é um serviço só</h4>
+      <p class="p">
+        A inversão tem explicação exata, e ela não é erro de digitação nem valor divergente.
+        <strong>Prumadas são três serviços distintos</strong> &mdash; gordura, esgoto e pluvial
+        &mdash; cada um com preço próprio. Na aba de serviço, cada componente ocupa uma linha, e o
+        escopo aparece junto ao nome do fornecedor. Mas o condomínio é escrito
+        <strong>apenas na primeira linha</strong>: as seguintes ficam com a célula vazia, como se
+        fossem células mescladas.
+      </p>
+
+      <div class="scroll-x" style="margin-bottom: 1.1rem;">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th class="num">Linha</th><th>Condomínio</th><th>Fornecedor</th>
+              <th class="num">Valor reajustado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="num mono-dim">6</td><td>Park dos Alpes</td><td>Royal &mdash; Gordura</td><td class="num">817,93</td></tr>
+            <tr style="background: #FDF0F0;"><td class="num mono-dim">7</td><td><em>(célula vazia)</em></td><td>Royal &mdash; Esgoto</td><td class="num">817,93</td></tr>
+            <tr style="background: #FDF0F0;"><td class="num mono-dim">8</td><td><em>(célula vazia)</em></td><td>Royal &mdash; Pluvial</td><td class="num">817,93</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="p">
+        Para quem olha na tela, é evidente que as três linhas são do Park dos Alpes. Para quem lê o
+        arquivo por programa, as linhas 7 e 8 são <strong>registros sem condomínio</strong> &mdash; e
+        um importador comum as descarta. O tratamento aplicado foi propagar o último nome visto para
+        baixo, de modo que a célula vazia herde o condomínio da linha anterior.
+      </p>
+
+      <div class="metric-grid" style="margin-bottom: 1.1rem;">
+        <div class="metric-tile"><b>22</b><span>Linhas na aba <code>Prumadas 26</code></span></div>
+        <div class="metric-tile"><b>10</b><span>Com o condomínio escrito &mdash; R$ 8.181,27</span></div>
+        <div class="metric-tile alerta"><b>12</b><span>Com a célula vazia &mdash; R$ 13.439,26</span></div>
+      </div>
+
+      <div class="verde">
+        <p class="nota-t">A conta fecha ao centavo</p>
+        <p>
+          A aba mestra tem <strong>uma única célula de prumadas por condomínio</strong>, e nela coube
+          somente o primeiro dos três componentes. Esgoto e pluvial existem apenas na aba de
+          detalhe. Por isso:
+        </p>
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.86rem; line-height: 1.9;">
+          linhas com condomínio escrito &nbsp;&nbsp;R$&nbsp;&nbsp;8.181,27 &nbsp;=&nbsp; o que a aba mestra registra<br>
+          linhas com a célula vazia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R$&nbsp;13.439,26 &nbsp;=&nbsp; a diferença apurada<br>
+          soma &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R$&nbsp;21.620,53 &nbsp;=&nbsp; o total da aba de serviço
+        </p>
+        <p>
+          Prumadas é a <strong>única aba com esse padrão</strong>. Nas outras seis, todas as linhas
+          têm o condomínio escrito, e por isso a mestra registra a mais em todas elas. É também o que
+          explica por que a inversão aparece em um único serviço: ali, um serviço de três componentes
+          tentou caber numa estrutura de planilha que previa um.
+        </p>
+      </div>
+    </section>
+
+    <section class="card" id="os-61-lancamentos-que-nao-fecham">
+      <h3 class="section-title">Os 61 lançamentos que não fecham</h3>
+      <p class="p">
+        A diferença não vem de um erro único de digitação: é o acúmulo de 61 lançamentos
+        divergentes, de três naturezas distintas. A tolerância aplicada foi de R$ 0,60, para que
+        centavos de arredondamento do reajuste não fossem contados como divergência.
+      </p>
+
+      <div class="metric-grid" style="margin-bottom: 1.5rem;">
+        <div class="metric-tile"><b>44</b><span>lançamentos existem <strong>só na aba mestra</strong><br>R$ 34.081,01</span></div>
+        <div class="metric-tile"><b>13</b><span>com <strong>valor diferente</strong> entre as abas<br>&minus;R$ 12.809,81</span></div>
+        <div class="metric-tile"><b>4</b><span>existem <strong>só na aba de serviço</strong><br>&minus;R$ 2.042,51</span></div>
+      </div>
+
+      <p class="p" style="margin-bottom: 0.8rem;">
+        Cada linha abaixo indica <strong>o número da linha de origem</strong> em cada aba, de modo
+        que a conferência seja direta: abrir a planilha da gestão anterior na linha indicada e
+        comparar. Ordenado por impacto financeiro.
+      </p>
+
+      <div class="filtros">
+        <button class="filtro" type="button" data-f="todos" aria-pressed="true">Todos (61)</button>
+        <button class="filtro" type="button" data-f="mestra" aria-pressed="false">Só na aba mestra (44)</button>
+        <button class="filtro" type="button" data-f="valor" aria-pressed="false">Valor divergente (13)</button>
+        <button class="filtro" type="button" data-f="servico" aria-pressed="false">Só na aba de serviço (4)</button>
+      </div>
+      <p class="contador" id="contador">Exibindo 61 de 61 lançamentos.</p>
+
+      <div class="scroll-x">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Natureza</th>
+              <th>Condomínio</th>
+              <th>Serviço</th>
+              <th class="num">Linha<br>na mestra</th>
+              <th class="num">Linha na<br>aba do serviço</th>
+              <th class="num">Valor na<br>mestra</th>
+              <th class="num">Valor na aba<br>do serviço</th>
+              <th class="num">Diferença</th>
+            </tr>
+          </thead>
+          <tbody id="corpo-div">
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>Tocantins</td>
+          <td>Prumadas</td>
+          <td class="num mono-dim">131</td>
+          <td class="num mono-dim">16</td>
+          <td class="num">1.310,80</td>
+          <td class="num">4.587,80</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;3.277,00</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>The One Exclusive Life</td>
+          <td>Prumadas</td>
+          <td class="num mono-dim">135</td>
+          <td class="num mono-dim">19</td>
+          <td class="num">873,87</td>
+          <td class="num">3.058,54</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;2.184,67</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>Jardim das Ravenallas</td>
+          <td>Prumadas</td>
+          <td class="num mono-dim">58</td>
+          <td class="num mono-dim">3</td>
+          <td class="num">630,97</td>
+          <td class="num">2.651,79</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;2.020,82</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Praça Sudoeste</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">100</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">2.000,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">2.000,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Arte Verde Marista</td>
+          <td>Piscinas</td>
+          <td class="num mono-dim">14</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.900,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.900,00</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>Solar de France</td>
+          <td>Prumadas</td>
+          <td class="num mono-dim">116</td>
+          <td class="num mono-dim">11</td>
+          <td class="num">1.402,16</td>
+          <td class="num">3.154,88</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;1.752,72</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Portal do Sol Garden</td>
+          <td>Piscinas</td>
+          <td class="num mono-dim">91</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.700,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.700,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Praça Sudoeste</td>
+          <td>Piscinas</td>
+          <td class="num mono-dim">100</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.700,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.700,00</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>Park dos Alpes</td>
+          <td>Prumadas</td>
+          <td class="num mono-dim">81</td>
+          <td class="num mono-dim">6</td>
+          <td class="num">817,93</td>
+          <td class="num">2.453,79</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;1.635,86</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Praça Sudoeste</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">100</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.600,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.600,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Praça Sudoeste</td>
+          <td>Jardim</td>
+          <td class="num mono-dim">100</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.400,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.400,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Casa Blanca lifestyle</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">22</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.379,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.379,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Copas do Bosque</td>
+          <td>Piscinas</td>
+          <td class="num mono-dim">28</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.360,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.360,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Arte Verde Marista</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">14</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.350,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.350,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Unique Residence</td>
+          <td>Piscinas</td>
+          <td class="num mono-dim">138</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.200,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.200,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Talk Marista</td>
+          <td>Piscinas</td>
+          <td class="num mono-dim">128</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.100,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.100,00</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>Terrazas Del Flamboyant</td>
+          <td>Prumadas</td>
+          <td class="num mono-dim">129</td>
+          <td class="num mono-dim">14</td>
+          <td class="num">1.092,33</td>
+          <td class="num">2.184,66</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;1.092,33</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Copas do Bosque</td>
+          <td>Jardim</td>
+          <td class="num mono-dim">28</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.000,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.000,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Unique Residence</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">138</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">1.000,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">1.000,00</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>Searas Bueno</td>
+          <td>Prumadas</td>
+          <td class="num mono-dim">111</td>
+          <td class="num mono-dim">9</td>
+          <td class="num">425,91</td>
+          <td class="num">1.410,23</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;984,32</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Arte Verde Marista</td>
+          <td>Jardim</td>
+          <td class="num mono-dim">14</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">950,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">950,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Torre de Rhodes</td>
+          <td>Vidros em altura</td>
+          <td class="num mono-dim">134</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">950,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">950,00</td>
+        </tr>
+        <tr data-t="servico">
+          <td><span class="tag tag-servico">Só na aba de serviço</span></td>
+          <td>Euroville Torre Ibiza</td>
+          <td>Jardim</td>
+          <td class="num mono-dim">—</td>
+          <td class="num mono-dim">18</td>
+          <td class="num">—</td>
+          <td class="num">939,32</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;939,32</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Casa Blanca lifestyle</td>
+          <td>Piscinas</td>
+          <td class="num mono-dim">22</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">875,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">875,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Casa Blanca lifestyle</td>
+          <td>Jardim</td>
+          <td class="num mono-dim">22</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">800,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">800,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Porto Ferrara</td>
+          <td>Piscinas</td>
+          <td class="num mono-dim">97</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">750,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">750,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Copas do Bosque</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">28</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">700,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">700,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Spazio Napole</td>
+          <td>Piscinas</td>
+          <td class="num mono-dim">123</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">700,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">700,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Praça Sudoeste</td>
+          <td>Dedetização</td>
+          <td class="num mono-dim">100</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">600,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">600,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Unique Residence</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">138</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">600,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">600,00</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>Goyazes</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">48</td>
+          <td class="num mono-dim">41</td>
+          <td class="num">1.200,00</td>
+          <td class="num">630,97</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">569,03</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Halley</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">49</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">550,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">550,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Spazio Napole</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">123</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">550,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">550,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Talk Marista</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">128</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">550,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">550,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Copas do Bosque</td>
+          <td>Dedetização</td>
+          <td class="num mono-dim">28</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">500,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">500,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>River Phoenix</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">103</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">500,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">500,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>River Phoenix</td>
+          <td>Piscinas</td>
+          <td class="num mono-dim">103</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">500,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">500,00</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>West House</td>
+          <td>Prumadas</td>
+          <td class="num mono-dim">146</td>
+          <td class="num mono-dim">22</td>
+          <td class="num">491,55</td>
+          <td class="num">983,10</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;491,55</td>
+        </tr>
+        <tr data-t="servico">
+          <td><span class="tag tag-servico">Só na aba de serviço</span></td>
+          <td>The One</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">—</td>
+          <td class="num mono-dim">103</td>
+          <td class="num">—</td>
+          <td class="num">477,01</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;477,01</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>The One Exclusive Life</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">135</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">477,01</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">477,01</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Copas do Bosque</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">28</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">450,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">450,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Talk Marista</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">128</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">450,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">450,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Halley</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">49</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">400,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">400,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Unique Residence</td>
+          <td>Dedetização</td>
+          <td class="num mono-dim">138</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">400,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">400,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Spazio Napole</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">123</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">382,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">382,00</td>
+        </tr>
+        <tr data-t="servico">
+          <td><span class="tag tag-servico">Só na aba de serviço</span></td>
+          <td>Asturias</td>
+          <td>Jardim</td>
+          <td class="num mono-dim">—</td>
+          <td class="num mono-dim">4</td>
+          <td class="num">—</td>
+          <td class="num">373,79</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;373,79</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>River Phoenix</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">103</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">350,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">350,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Arte Verde Marista</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">14</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">300,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">300,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>River Phoenix</td>
+          <td>Dedetização</td>
+          <td class="num mono-dim">103</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">300,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">300,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Spazio Napole</td>
+          <td>Dedetização</td>
+          <td class="num mono-dim">123</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">300,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">300,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Talk Marista</td>
+          <td>Dedetização</td>
+          <td class="num mono-dim">128</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">300,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">300,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Alegria</td>
+          <td>Dedetização</td>
+          <td class="num mono-dim">3</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">299,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">299,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Casa Blanca lifestyle</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">22</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">289,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">289,00</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>Alegria</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">3</td>
+          <td class="num mono-dim">2</td>
+          <td class="num">419,00</td>
+          <td class="num">701,08</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;282,08</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>Goyazes</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">48</td>
+          <td class="num mono-dim">40</td>
+          <td class="num">900,00</td>
+          <td class="num">636,02</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">263,98</td>
+        </tr>
+        <tr data-t="servico">
+          <td><span class="tag tag-servico">Só na aba de serviço</span></td>
+          <td>Cleveland</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">—</td>
+          <td class="num mono-dim">24</td>
+          <td class="num">—</td>
+          <td class="num">252,39</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;252,39</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Arte Verde Marista</td>
+          <td>Dedetização</td>
+          <td class="num mono-dim">14</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">220,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">220,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Casa Blanca lifestyle</td>
+          <td>Dedetização</td>
+          <td class="num mono-dim">22</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">200,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">200,00</td>
+        </tr>
+        <tr data-t="mestra">
+          <td><span class="tag tag-mestra">Só na aba mestra</span></td>
+          <td>Halley</td>
+          <td>Dedetização</td>
+          <td class="num mono-dim">49</td>
+          <td class="num mono-dim">—</td>
+          <td class="num">200,00</td>
+          <td class="num">—</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">200,00</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>Alegria</td>
+          <td>Caixa d&#x27;água</td>
+          <td class="num mono-dim">3</td>
+          <td class="num mono-dim">2</td>
+          <td class="num">2.499,00</td>
+          <td class="num">2.419,47</td>
+          <td class="num" style="font-weight:700;color:#0F4C36;">79,53</td>
+        </tr>
+        <tr data-t="valor">
+          <td><span class="tag tag-valor">Valor divergente</span></td>
+          <td>Atmosphere Front Park</td>
+          <td>Caixa de gordura</td>
+          <td class="num mono-dim">15</td>
+          <td class="num mono-dim">13</td>
+          <td class="num">397,27</td>
+          <td class="num">398,27</td>
+          <td class="num" style="font-weight:700;color:var(--danger);">&minus;1,00</td>
+        </tr>
+        </tbody>
+        </table>
+      </div>
+      <p class="fonte">
+        Diferença positiva significa valor a mais na aba mestra; negativa, valor a mais na aba de
+        serviço. Linhas marcadas como “Só na aba mestra” incluem o caso do
+        <em>Praça Sudoeste</em>, que soma R$ 7.300,00 na mestra e aparece zerado em todas as abas
+        de serviço.
+      </p>
+    </section>
+
+    <section class="card" id="o-que-foi-tratado-antes-de-comparar">
+      <h3 class="section-title">O que foi tratado antes de comparar</h3>
+      <p class="p">
+        A comparação direta entre as duas camadas produziria divergências falsas, porque a planilha
+        herdada não tem padronização de cadastro. Cinco tratamentos foram aplicados antes do
+        confronto, e cada um deles é, por si, um achado sobre o estado do controle:
+      </p>
+      <ul class="tl-items">
+        <li><strong>Normalização de grafias</strong> &mdash; <code>Universal Services</code> e
+            <code>Universal services</code>, <code>SEMPRE LIMPA</code> e <code>Sempre Limpa</code>
+            eram contados como empresas diferentes.</li>
+        <li><strong>Separação de escopo do nome</strong> &mdash; <code>TN - Gordura</code>,
+            <code>TN - Fluvial</code> e <code>TN esgoto</code> são a mesma empresa com escopos
+            distintos, e estavam inflando a contagem de fornecedores.</li>
+        <li><strong>Propagação de linhas compostas</strong> &mdash; em Prumadas, o condomínio aparece
+            só na primeira linha e os serviços seguintes ficam com a célula vazia; sem tratamento,
+            esses registros se perdem na soma.</li>
+        <li><strong>Descarte de duplicatas</strong> &mdash; a aba <code>Cópia de cx dágua 26</code>
+            replica a aba original com valores arredondados, e a aba <code>cx dágua 26</code> carrega
+            dois blocos de valores lado a lado para os mesmos postos.</li>
+        <li><strong>Exclusão de linhas de totalização</strong> &mdash; havia linhas de
+            <code>total</code> misturadas ao corpo de dados em Prumadas e Jardim, que dobravam a soma
+            se não filtradas.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="como-qualquer-pessoa-pode-conferir">
+      <h3 class="section-title">Como qualquer pessoa pode conferir</h3>
+
+      <div class="verde">
+        <p class="nota-t">A conferência de 30 segundos, sem abrir nenhum arquivo de apoio</p>
+        <p>
+          Na planilha de origem, selecionar a coluna de valor de <strong>Prumadas</strong> na aba
+          <code>2026</code> e comparar o somatório com o total da coluna <em>VALOR REAJUSTADO</em>
+          da aba <code>Prumadas 26</code>. A diferença de R$ 13.439,27 aparece na primeira
+          tentativa. O mesmo teste funciona para qualquer um dos outros seis serviços.
+        </p>
+      </div>
+
+      <h4 class="sub-title" style="margin-top: 1.5rem;">A conferência completa, lançamento por lançamento</h4>
+      <p class="p">
+        Nenhum número desta auditoria precisa ser aceito por confiança. A planilha
+        <code>Conferencia_Defasagem_2026.xlsx</code>, salva em <code>Docs internos\</code> ao lado
+        da planilha auditada, permite refazer todo o cálculo do zero:
+      </p>
+      <ol class="passos" style="margin-bottom: 1.25rem;">
+        <li><strong>Aba <code>RESUMO</code></strong> &mdash; a tabela desta página, construída com
+            <em>fórmulas vivas</em> (<code>SUMIF</code>) e não com valores digitados. Alterando
+            qualquer lançamento nas abas de apoio, os totais se recalculam sozinhos. É possível
+            testar: apagar uma linha e ver o total mudar.</li>
+        <li><strong>Abas <code>BASE_MESTRA</code> (405 lançamentos) e <code>BASE_SERVICO</code>
+            (377 lançamentos)</strong> &mdash; cada lançamento extraído da planilha original, com
+            condomínio, serviço, prestador, valor e <strong>o número da linha de onde foi
+            lido</strong>. É a matéria-prima da auditoria, aberta para inspeção.</li>
+        <li><strong>Aba <code>DIVERGENCIAS</code></strong> &mdash; os 61 lançamentos desta página,
+            com a mesma classificação e as mesmas referências de linha.</li>
+      </ol>
+      <p class="p">
+        O arquivo foi recalculado integralmente antes da entrega: <strong>36 fórmulas, zero
+        erros</strong>. Se os totais da aba <code>RESUMO</code> divergirem desta página em qualquer
+        centavo, é a página que está errada &mdash; a planilha é a fonte.
+      </p>
+    </section>
+
+    <section class="card" style="border-left: 5px solid var(--accent);" id="por-que-isso-importa-para-a-decisao">
+      <h3 class="section-title">Por que isso importa para a decisão</h3>
+      <p class="p">
+        A defasagem não é um erro de aritmética a ser corrigido e esquecido. Ela é a
+        <strong>consequência previsível de um controle em que o mesmo dado existe em dois lugares
+        sem ninguém reconciliando</strong>. Enquanto a estrutura for essa, o erro volta no mês
+        seguinte, com outros números.
+      </p>
+      <p class="p">
+        É o argumento central da arquitetura proposta no diagnóstico: <strong>fonte única de
+        verdade</strong>, com as visões por prestador, por condomínio e por serviço sendo
+        <em>recortes</em> do mesmo registro, e não cópias mantidas à mão. Quando as visões são
+        geradas, elas não podem divergir entre si &mdash; a divergência deixa de ser possível em
+        vez de ser caçada.
+      </p>
+      <p class="p" style="margin-bottom: 0;">
+        <a class="nav-link" style="color: var(--accent); background: #eff6ff; border-color: #bfdbfe; padding: 0.45rem 1rem; display: inline-block;" href="diagnostico-estrategico-tektron.html">&larr; Voltar ao diagnóstico estratégico</a>
+      </p>
+    </section>
+
+    </main>
+  </div>
+
+  <footer>
+    Grupo Tektron &bull; Anexo técnico ao Diagnóstico Estratégico de Quarteirizados<br>
+    Apuração de 17 de outubro de 2026 &bull; Cléber Donato, Analista de Contratos e Serviços
+  </footer>
+
+  <script>
+    (function () {
+      var botoes = Array.prototype.slice.call(document.querySelectorAll('.filtro'));
+      var linhas = Array.prototype.slice.call(document.querySelectorAll('#corpo-div tr'));
+      var contador = document.getElementById('contador');
+      function aplicar(f) {
+        var visiveis = 0;
+        linhas.forEach(function (tr) {
+          var mostra = (f === 'todos') || (tr.getAttribute('data-t') === f);
+          tr.style.display = mostra ? '' : 'none';
+          if (mostra) visiveis++;
+        });
+        botoes.forEach(function (b) {
+          b.setAttribute('aria-pressed', b.getAttribute('data-f') === f ? 'true' : 'false');
+        });
+        contador.textContent = 'Exibindo ' + visiveis + ' de ' + linhas.length + ' lançamentos.';
+      }
+      botoes.forEach(function (b) {
+        b.addEventListener('click', function () { aplicar(b.getAttribute('data-f')); });
+      });
+    })();
+  </script>
+
+
+  <script>
+    (function () {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.ix-lista a'));
+      if (!links.length) return;
+      var pares = links.map(function (a) {
+        return { link: a, sec: document.getElementById(a.getAttribute('data-alvo')) };
+      }).filter(function (p) { return p.sec; });
+      if (!pares.length) return;
+      var pendente = false;
+      function marcar() {
+        pendente = false;
+        var limite = window.scrollY + 150, atual = pares[0];
+        pares.forEach(function (p) {
+          if (p.sec.getBoundingClientRect().top + window.scrollY <= limite) atual = p;
+        });
+        pares.forEach(function (p) { p.link.classList.toggle('ativo', p === atual); });
+      }
+      function agendar() {
+        if (pendente) return;
+        pendente = true;
+        window.requestAnimationFrame(marcar);
+      }
+      window.addEventListener('scroll', agendar, { passive: true });
+      window.addEventListener('resize', agendar, { passive: true });
+      marcar();
+    })();
+  </script>
+
+</body>
+</html>
