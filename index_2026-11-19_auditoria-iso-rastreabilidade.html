@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparação para Auditoria ISO 9001 & Rastreabilidade de Registros | Grupo Tektron</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Marca Grupo Tektron */
+    --petroleo: #0F293C;
+    --petroleo-esc: #091825;
+    --petroleo-med: #1C4257;
+    --petroleo-cl: #3E6E8E;
+    --vermelho: #D10404;
+    --vermelho-esc: #A00303;
+    --verde: #16694A;
+    --verde-esc: #105038;
+    --amarelo: #B45309;
+
+    /* Superfícies */
+    --papel: #FBF7F3;
+    --papel-fundo: #F2EBE3;
+    --branco: #ffffff;
+
+    /* Tinta */
+    --tinta: #16212B;
+    --tinta-med: #4C5862;
+    --tinta-fraca: #78838D;
+    --linha: #E2DAD1;
+    --linha-forte: #C9BDB0;
+
+    /* Compatibilidade semântica */
+    --primary: var(--petroleo);
+    --primary-light: var(--petroleo-med);
+    --accent: var(--vermelho);
+    --accent-hover: var(--vermelho-esc);
+    --success: var(--verde);
+    --success-bg: #EDF6F1;
+    --warning: var(--amarelo);
+    --warning-bg: #FDF6EC;
+    --danger: var(--vermelho);
+    --danger-bg: #FDF0F0;
+    --bg: var(--papel);
+    --card-bg: var(--branco);
+    --text-main: var(--tinta);
+    --text-muted: var(--tinta-med);
+    --border: var(--linha);
+    --shadow-sm: none;
+    --shadow-md: 0 2px 8px rgb(15 41 60 / 0.07);
+    --shadow-lg: 0 10px 34px rgb(15 41 60 / 0.13);
+
+    /* Tipografia */
+    --font-heading: 'Archivo', system-ui, sans-serif;
+    --font-body: 'Source Serif 4', Georgia, serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Layout */
+    --maxw: 1100px;
+    --header-h: 72px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--bg);
+    color: var(--text-main);
+    line-height: 1.75;
+    font-size: 19px;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(15, 41, 60, 0.03) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 400px 400px;
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    z-index: 1000; transform-origin: left; transform: scaleX(0);
+    transition: transform 0.1s linear;
+  }
+
+  /* Skip link for accessibility */
+  .skip-link {
+    position: absolute; top: -100%; left: 1rem;
+    background: var(--primary); color: #fff; padding: 0.75rem 1.25rem;
+    border-radius: 0 0 8px 8px; z-index: 9999; font-weight: 600;
+    text-decoration: none; transition: top 0.2s;
+  }
+  .skip-link:focus { top: 0; }
+
+  /* Top Navigation (Tektron style) */
+  .navbar {
+    background: rgba(15, 41, 60, 0.96);
+    backdrop-filter: blur(12px);
+    color: #fff;
+    padding: 1rem 2rem;
+    position: sticky; top: 0; z-index: 50;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .brand { display: flex; align-items: center; gap: 0.75rem; }
+  .brand-mark { background: #fff; border-radius: 7px; padding: 0.3rem 0.6rem; line-height: 0; flex-shrink: 0; }
+  .brand-mark svg { height: 30px; width: auto; display: block; }
+  .brand-text { padding-left: 0.9rem; border-left: 1px solid rgba(255,255,255,0.2); }
+  .brand-text strong { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; }
+  .brand-text span { font-size: 0.75rem; opacity: 0.85; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+  .nav-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+    padding: 0.5rem 1rem; border-radius: 6px; transition: all 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(255,255,255,0.12); }
+
+  main { max-width: var(--maxw); margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+  section { margin-bottom: 4.5rem; scroll-margin-top: 100px; }
+
+  .section-header { margin-bottom: 2.5rem; text-align: center; }
+  .section-header h2 {
+    font-family: var(--font-heading); font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700;
+    color: var(--primary); margin-bottom: 0.75rem; letter-spacing: -0.02em;
+  }
+  .section-header h2::after {
+    content: ''; display: block; width: 60px; height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    margin: 1rem auto 0; border-radius: 2px;
+  }
+  .section-header p { color: var(--text-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
+
+  /* Grid */
+  .grid { display: grid; gap: 1.5rem; }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+  /* Card base */
+  .card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
+    padding: 2rem; box-shadow: var(--shadow-md);
+    transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden;
+  }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .card h3 {
+    font-family: var(--font-heading); font-size: 1.25rem; font-weight: 600; color: var(--primary);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .card h3 svg { width: 22px; height: 22px; color: var(--accent); flex-shrink: 0; }
+  .card p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; }
+  .card ul { padding-left: 1.25rem; color: var(--text-muted); line-height: 1.7; }
+  .card li { margin-bottom: 0.5rem; }
+  .card .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+  .card .tag {
+    padding: 0.35rem 0.85rem; background: rgba(15, 41, 60, 0.06); color: var(--primary-light);
+    font-size: 0.75rem; font-weight: 500; border-radius: 100px; border: 1px solid rgba(15, 41, 60, 0.12);
+  }
+  .card .status { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 100px; font-size: 0.85rem; font-weight: 600; margin-top: 1rem; }
+  .card .status.ok { background: var(--success-bg); color: var(--success); border: 1px solid rgba(22, 105, 74, 0.2); }
+  .card .status.warn { background: var(--warning-bg); color: var(--warning); border: 1px solid rgba(180, 83, 9, 0.2); }
+  .card .status.danger { background: var(--danger-bg); color: var(--danger); border: 1px solid rgba(209, 4, 4, 0.2); }
+
+  /* KPI Cards */
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+  .kpi {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; text-align: center;
+    box-shadow: var(--shadow-md); transition: transform 0.2s; position: relative;
+  }
+  .kpi:hover { transform: translateY(-4px); }
+  .kpi::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--primary); }
+  .kpi.ok::before { background: var(--success); }
+  .kpi.warn::before { background: var(--warning); }
+  .kpi.danger::before { background: var(--danger); }
+  .kpi .value { font-family: var(--font-heading); font-size: 3rem; font-weight: 800; color: var(--primary); line-height: 1; }
+  .kpi.ok .value { color: var(--success); }
+  .kpi.warn .value { color: var(--warning); }
+  .kpi.danger .value { color: var(--danger); }
+  .kpi .label { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.5rem; font-weight: 500; }
+
+  /* Alert Box */
+  .alert-box {
+    background: linear-gradient(135deg, var(--danger-bg), var(--warning-bg));
+    border: 1px solid rgba(209, 4, 4, 0.2); border-radius: 16px; padding: 2rem; margin: 2rem 0;
+    display: flex; gap: 1.5rem; align-items: flex-start;
+  }
+  .alert-box svg { width: 28px; height: 28px; color: var(--danger); flex-shrink: 0; margin-top: 0.25rem; }
+  .alert-box .content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: var(--danger); margin-bottom: 0.5rem; }
+  .alert-box .content p { color: var(--text-muted); line-height: 1.7; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--primary), var(--accent)); opacity: 0.3; }
+  .timeline-item { position: relative; padding-bottom: 2.5rem; display: flex; gap: 1.5rem; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-marker {
+    position: absolute; left: -2rem; top: 0.25rem; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--card-bg); border: 4px solid var(--primary); box-shadow: 0 0 0 4px var(--bg); flex-shrink: 0; z-index: 1;
+  }
+  .timeline-marker.ok { border-color: var(--success); }
+  .timeline-marker.warn { border-color: var(--warning); }
+  .timeline-marker.danger { border-color: var(--danger); }
+  .timeline-marker.accent { border-color: var(--accent); }
+  .timeline-content { flex: 1; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow-sm); }
+  .timeline-content h4 { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.5rem; }
+  .timeline-content p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.65; }
+  .timeline-content .time { font-family: var(--font-heading); font-size: 0.75rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; display: block; }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; border-radius: 12px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--primary); color: #fff; font-family: var(--font-heading); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(15, 41, 60, 0.03); }
+  .pill { display: inline-block; padding: 0.25em 0.85em; border-radius: 100px; font-size: 0.75rem; font-weight: 700; color: #fff; }
+  .p-ok { background: var(--success); }
+  .p-warn { background: var(--warning); }
+  .p-danger { background: var(--danger); }
+
+  /* Quote */
+  .quote {
+    border-left: 4px solid var(--accent); padding-left: 1.5rem; margin: 2rem 0; font-style: italic;
+    color: var(--text-muted); font-family: var(--font-body); font-size: 1.15rem; line-height: 1.7;
+  }
+  .quote cite { display: block; margin-top: 1rem; font-style: normal; font-size: 0.9rem; color: var(--accent); font-weight: 600; }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 0.75rem; transition: all 0.2s; }
+  .checklist li:hover { border-color: var(--accent); box-shadow: var(--shadow-md); }
+  .checklist input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--primary); flex-shrink: 0; margin-top: 0.15rem; }
+  .checklist label { cursor: pointer; color: var(--text-main); font-size: 1rem; line-height: 1.6; }
+  .checklist li.done { opacity: 0.6; background: var(--success-bg); }
+  .checklist li.done label { text-decoration: line-through; color: var(--text-muted); }
+
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-med) 60%, var(--primary-light) 100%);
+    color: #fff; padding: 6rem 2rem 4rem; text-align: center; margin: -3rem -2rem 3rem; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero .badge {
+    display: inline-block; padding: 0.5rem 1.25rem; background: rgba(255,255,255,0.15); color: #fff;
+    font-family: var(--font-heading); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    border-radius: 100px; margin-bottom: 1.5rem; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2);
+  }
+  .hero h1 { font-family: var(--font-heading); font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.2; max-width: 900px; margin: 0 auto 1.5rem; letter-spacing: -0.02em; }
+  .hero h1 span { color: #fff; background: linear-gradient(135deg, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; color: rgba(255,255,255,0.85); font-size: 1rem; }
+  .hero .meta span { display: flex; align-items: center; gap: 0.5rem; }
+  .hero .meta svg { width: 18px; height: 18px; opacity: 0.8; }
+
+  /* Footer */
+  .footer-note { text-align: center; padding: 3rem 2rem; color: var(--text-muted); font-size: 0.95rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+  .footer-note strong { color: var(--text-main); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    body { font-size: 17px; line-height: 1.7; }
+    .hero { padding: 4rem 1.5rem 3rem; margin: -2rem -1.5rem 2rem; }
+    main { padding: 2rem 1.5rem 4rem; }
+    section { margin-bottom: 3.5rem; }
+    .card { padding: 1.5rem; }
+    .timeline { padding-left: 1.5rem; }
+    .timeline-marker { left: -1.5rem; width: 14px; height: 14px; border-width: 3px; }
+    .kpi .value { font-size: 2.25rem; }
+    .alert-box { flex-direction: column; gap: 1rem; }
+    .navbar { padding: 1rem; }
+    .nav-links { width: 100%; justify-content: center; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+<nav class="navbar" role="navigation" aria-label="Navegação principal">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="120" height="40" rx="8" fill="#0F293C"/>
+        <text x="60" y="28" text-anchor="middle" font-family="Archivo, sans-serif" font-size="22" font-weight="800" fill="#D10404">TEKTRON</text>
+      </svg>
+    </div>
+    <div class="brand-text">
+      <strong>Grupo Tektron</strong>
+      <br><span>Gestão de Quarteirizados</span>
+    </div>
+  </div>
+  <div class="nav-links" role="menubar">
+    <a href="#resumo" role="menuitem">Resumo</a>
+    <a href="#riscos" role="menuitem">Riscos</a>
+    <a href="#plano-acao" role="menuitem">Plano de Ação</a>
+    <a href="#auditor-foco" role="menuitem">Foco do Auditor</a>
+    <a href="#documentos" role="menuitem">Documentos</a>
+    <a href="#condominios" role="menuitem">Condomínios</a>
+    <a href="#projetos-melhoria" role="menuitem">Melhorias</a>
+    <a href="#checklist-final" role="menuitem">Checklist</a>
+  </div>
+</nav>
+
+<div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+
+<main id="main-content">
+  <header class="hero" role="banner">
+    <span class="badge">Reunião 19/11/2026 • 1h 47min • Preparação Auditoria ISO 9001</span>
+    <h1>Preparação para Auditoria <span>ISO 9001</span> & Rastreabilidade de Registros</h1>
+    <div class="meta">
+      <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg> Auditoria de Supervisão</span>
+      <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Duração: 1h 47min 46s</span>
+      <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg> Locutores: 3 (Gestão + Qualidade + Prestador)</span>
+    </div>
+  </header>
+
+  <section id="resumo" aria-labelledby="resumo-title">
+    <div class="section-header">
+      <h2 id="resumo-title">Resumo Executivo</h2>
+      <p>Reunião de alinhamento para a auditoria de supervisão ISO 9001, focada na gestão de quarteirizados: rastreabilidade de registros, controle de documentos, avaliação de fornecedores e mitigação de não conformidades.</p>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi"><div class="value">15–20 min</div><div class="label">Tempo estimado da auditoria no setor</div></div>
+      <div class="kpi ok"><div class="value">12</div><div class="label">Prestadoras mapeadas para demonstração</div></div>
+      <div class="kpi"><div class="value">3</div><div class="label">Condomínios prioritários para amostragem</div></div>
+      <div class="kpi warn"><div class="value">15 dias</div><div class="label">Prazo para ação corretiva se NC</div></div>
+    </div>
+
+    <div class="card" style="background: linear-gradient(135deg, rgba(15,41,60,0.03), rgba(209,4,4,0.03))">
+      <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Foco Principal do Auditor</h3>
+      <p>A auditoria de supervisão <strong>não avalia estrutura documental</strong> (formulários, procedimentos), mas sim a <strong>maturidade do controle operacional</strong>:</p>
+      <ul style="margin-top:1rem; color:var(--text-muted); line-height:1.8">
+        <li>Como é feita a <strong>seleção e qualificação</strong> de fornecedores quarteirizados</li>
+        <li>Registro da <strong>avaliação de satisfação do cliente</strong> (condomínios)</li>
+        <li>Controle de <strong>recebimento do serviço in loco</strong> (OS assinada, avaliação de execução)</li>
+        <li><strong>Rastreabilidade</strong> dos registros: onde estão, como se busca, tempo de retenção</li>
+        <li>Evidência de <strong>comunicação aos fornecedores</strong> de que são avaliados</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">Auditoria de Supervisão</span>
+        <span class="tag">ISO 9001:2015</span>
+        <span class="tag">Requisito 8.4</span>
+        <span class="tag">Maturidade de Processo</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="riscos" aria-labelledby="riscos-title">
+    <div class="section-header">
+      <h2 id="riscos-title">Riscos & Não Conformidades Identificadas</h2>
+      <p>Pontos sensíveis que podem gerar NCs leves ou graves durante a auditoria</p>
+    </div>
+
+    <div class="alert-box" role="alert">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      <div class="content">
+        <h4>Documentos 2026 Ausentes no Drive (Risco Alto)</h4>
+        <p>OSs, notas fiscais e boletos de 2026 não encontrados nas pastas de prestadoras (ex.: TN, Royal). A ex-gestora (Morgana) tinha acesso ao Drive corporativo e pode ter apagado arquivos. Não há backup automático do Google Drive configurado. Recuperação depende de solicitação ao administrador do domínio (Murilo) junto ao Google — processo incerto e demorado.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> NC Grave Potencial: Segurança do Trabalho</h3>
+        <p>Precedente de limpeza de caixa d'água com funcionário sem cinto de segurança e sem documentação (ASO, EPI). Se recursar na auditoria, configura NC grave por risco à vida — impacta certificação e imagem da empresa.</p>
+        <div class="status danger">Risco Alto</div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> NCs Leves: Rastreabilidade & Numeração</h3>
+        <p>Formulários antigos com numeração incorreta (ex.: ano 2025 no código RE em vez de sequencial 001, 002...). Pasta ISO compartilhada com estrutura legada (organização do Marcos) divergente da nova. Falta de padronização no nome dos arquivos (RE vs X vs ZR3).</p>
+        <div class="status warn">Risco Médio</div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Avaliação de Fornecedores Incompleta</h3>
+        <p>Planilha de avaliação (notas 5, 8, 10) existe mas não está sendo preenchida consistentemente em 2026. Dayane (Financeiro) preenche baseado em ligações informais, sem registro formal. Critério "nota 8 ou 10" para acionar avaliação não está documentado no procedimento atual.</p>
+        <div class="status warn">Risco Médio</div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Dossiês de Funcionários de Prestadoras</h3>
+        <p>TN, Grupo Fibra e outras prestadoras com funcionários próprios: faltam ASO, EPI, CTPS organizados na pasta "Documentação Obrigatória". Auditor vai pedir dossiê de pelo menos uma prestadora com equipe própria.</p>
+        <div class="status warn">Risco Médio</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="plano-acao" aria-labelledby="plano-title">
+    <div class="section-header">
+      <h2 id="plano-title">Plano de Ação Imediato (Pré-Auditoria)</h2>
+      <p>Passos priorizados para mitigar riscos antes da visita do auditor (certificado vence 12 ou 17/12)</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker ok"></div>
+        <div class="timeline-content">
+          <span class="time">Até 22/11 (Sexta)</span>
+          <h4>Simulação de Auditoria Interna</h4>
+          <p>Selecionar 3-4 condomínios (Praça Sudoeste, Luci, Talca Marista + 1) e 4 prestadoras (TN, Royal, H2O, Master). Testar busca completa: qualificação → OS → NF → Boleto → Avaliação. Cronometrar tempo de recuperação de cada documento.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <span class="time">Até 24/11 (Domingo)</span>
+          <h4>Recuperação de Documentos 2026 (Drive)</h4>
+          <p>Acionar Murilo (admin do domínio) para solicitar ao Google recuperação de arquivos apagados da pasta "Gestão Anterior / Legado". Paralelamente, solicitar às prestadoras (TN, Royal, etc.) reenvio de OSs, NFs e boletos de 2026 via WhatsApp/e-mail — registrar evidência de solicitação.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker accent"></div>
+        <div class="timeline-content">
+          <span class="time">Até 25/11 (Segunda)</span>
+          <h4>Padronização de Formulários (RE / X / ZR3)</h4>
+          <p>Revisar todos os formulários originais na pasta "RER Originais" conforme DS-013 (Informação Documentada). Aplicar numeração sequencial correta (001, 002...), revisão atual, e publicar novas versões. Tornar versões antigas "Obsoletas" com data de vigência.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker warn"></div>
+        <div class="timeline-content">
+          <span class="time">Até 26/11 (Terça)</span>
+          <h4>Evidências de Avaliação de Fornecedores</h4>
+          <p>Formalizar com Dayane (Financeiro) o preenchimento da planilha de avaliação (notas 5/8/10) para 2026. Registrar critério: "Avaliação baseada em OS assinada + NF conforme + feedback do zelador/condomínio". Criar carta/termo de ciência para envio às prestadoras informando que são avaliadas periodicamente.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker danger"></div>
+        <div class="timeline-content">
+          <span class="time">Até 28/11 (Quinta)</span>
+          <h4>Dossiês de Prestadoras com Equipe Própria</h4>
+          <p>Completar pasta "Documentação Obrigatória" de TN, Grupo Fibra, H2O: ASO, EPI, CTPS, CNDs válidas. Verificar validade de PGR/PCMSO/Alvará. Marcar itens vencidos/pendentes no painel da aba PRESTADORES (vermelho/amarelo).</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <span class="time">29/11 a 05/12</span>
+          <h4>Organização da Pasta ISO Compartilhada</h4>
+          <p>Criar subpasta "Cleber - Quarteirizados" dentro da pasta ISO. Mover estrutura validada para lá. Manter cópia no Drive corporativo (backup). Documentar no procedimento "Supervisão de Quarteirizados" o caminho exato de armazenamento, recuperação, retenção (mínimo 5 anos para docs legais, 3 anos para KPIs).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="auditor-foco" aria-labelledby="auditor-title">
+    <div class="section-header">
+      <h2 id="auditor-title">O Que o Auditor Vai Perguntar (Roteiro de Defesa)</h2>
+      <p>Baseado na experiência do auditor (Coronel Campos) e nos requisitos da ISO 9001:2015 — Seção 8.4</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg> Seleção & Qualificação de Fornecedores</h3>
+        <p><strong>Pergunta:</strong> "Como vocês selecionam e qualificam um novo prestador quarteirizado?"</p>
+        <p><strong>Resposta:</strong> Critérios documentados no procedimento: CNDs válidas, Alvará, PGR/PCMSO, capacidade técnica (dossiê funcionários), proposta comercial avaliada pelo Comercial (Alessandro/Pablo), aprovação da Diretoria. Evidência: pasta "Documentação Obrigatória" no Drive + planilha PRESTADORES.</p>
+        <div class="tags"><span class="tag">Critérios Documentados</span><span class="tag">Evidência no Drive</span></div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> Avaliação de Desempenho (Req. 8.4.2)</h3>
+        <p><strong>Pergunta:</strong> "Como monitoram a performance dos prestadores? Onde está registrado?"</p>
+        <p><strong>Resposta:</strong> Planilha de avaliação mensal (notas 5/8/10) preenchida pelo Financeiro (Dayane) baseada em: OS assinada pelo zelador + NF/boleto conforme + feedback do condomínio. Critério: nota ≥8 = aprovado; <8 = fornecedor crítico (RE-003). Evidência: aba EVENTOS_QUALIDADE + planilha Financeiro.</p>
+        <div class="tags"><span class="tag">Notas 5/8/10</span><span class="tag">RE-003 Crítico</span></div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> Rastreabilidade de Registros (Req. 7.5.2)</h3>
+        <p><strong>Pergunta:</strong> "Mostre-me a OS de setembro/2026 do condomínio Talca Marista para dedetização. Como você acha?"</p>
+        <p><strong>Resposta:</strong> Demonstrar busca na pasta ISO compartilhada → Quarteirizados → Dedetização → Prestadora → Ano → Mês → OS. Explicar numeração RE (sequencial), retenção 5 anos, backup diário às 18h. Se não encontrar no Drive, mostrar solicitação formal ao prestador + evidência de comunicação.</p>
+        <div class="tags"><span class="tag">Pasta ISO (Backup)</span><span class="tag">Drive (Cópia)</span></div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg> Comunicação & Ciência dos Fornecedores</h3>
+        <p><strong>Pergunta:</strong> "Os prestadores sabem que são avaliados? Como são informados?"</p>
+        <p><strong>Resposta:</strong> Envio de termo de ciência/carta formal (WhatsApp com confirmação de leitura + e-mail) informando critérios de avaliação, periodicidade, consequências de nota <8. Evidência: print de "visualizado" no WhatsApp + registro no ClickUp tarefa "Comunicação Avaliação Fornecedores".</p>
+        <div class="tags"><span class="tag">Termo de Ciência</span><span class="tag">WhatsApp + E-mail</span></div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> Não Conformidades & Ações Corretivas (Req. 10.2)</h3>
+        <p><strong>Pergunta:</strong> "Houve NCs recentes? Como trataram? Houve ação corretiva eficaz?"</p>
+        <p><strong>Resposta:</strong> Citar NCs leves de rastreabilidade (numeração, pastas) — ação: revisão de formulários, padronização, treinamento. NC grave anterior (segurança trabalho) — ação: exigência de ASO/EPI/cintos, verificação in loco. Mostrar registro no ClickUp + aba EVENTOS_QUALIDADE.</p>
+        <div class="tags"><span class="tag">ClickUp Tracking</span><span class="tag">EVENTOS_QUALIDADE</span></div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> Satisfação do Cliente (Req. 9.1.2)</h3>
+        <p><strong>Pergunta:</strong> "Como medem a satisfação dos condomínios com os serviços prestados?"</p>
+        <p><strong>Resposta:</strong> Avaliação indireta via feedback do zelador/síndico no momento da OS (assinatura + observações). Projeto para implementar pesquisa formal (telefone/WhatsApp) em 2027. Dayane já faz ligações informais — registrar isso como evidência temporária.</p>
+        <div class="tags"><span class="tag">Feedback In Loco</span><span class="tag">Projeto 2027</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="documentos" aria-labelledby="documentos-title">
+    <div class="section-header">
+      <h2 id="documentos-title">Estrutura Documental & Numeração (DS-013 / RE / X / ZR3)</h2>
+      <p>Padronização acordada para eliminar divergências atuais</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Campo</th><th>Formato</th><th>Exemplo</th><th>Regra</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Código do Registro (RE)</td><td>RE + 3 dígitos sequenciais</td><td>RE-001, RE-002, RE-003</td><td>Sequencial por departamento; não reinicia por ano</td></tr>
+          <tr><td>Tipo de Documento (X)</td><td>X + 3 dígitos</td><td>X-001 (OS), X-002 (NF), X-003 (Boleto)</td><td>Fixo por tipo de formulário original</td></tr>
+          <tr><td>Número da OS</td><td>AAAA-MM-XXX</td><td>2026-11-015</td><td>Ano-Mês-Sequencial do mês</td></tr>
+          <tr><td>Nome do Arquivo</td><td>{TIPO}_{PRESTADORA}_{CLIENTE}_{SERVIÇO}_{AAAA-MM-DD}</td><td>OS_TN_TalcaMarista_Dedetizacao_2026-11-15.pdf</td><td>Rastreável sem abrir o arquivo</td></tr>
+          <tr><td>Pasta ISO (Rede)</td><td>/ISO/Quarteirizados/{SERVIÇO}/{PRESTADORA}/{ANO}/{MÊS}/</td><td>/ISO/Quarteirizados/Dedetizacao/TN/2026/11/</td><td>Backup diário 18h; acesso restrito ao responsável + Diretoria</td></tr>
+          <tr><td>Pasta Drive (Cópia)</td><td>/Tektron/Quarteirizados/{ANO}/{COMPETÊNCIA}/{PRESTADORA}/</td><td>/Tektron/Quarteirizados/2026/2026-11/TN/</td><td>Cópia de trabalho; sincronização manual semanal</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:2rem">
+      <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> Regras de Retenção (Conforme Procedimento "Controle de Registro")</h3>
+      <div class="grid grid-3" style="margin-top:1rem">
+        <div style="padding:1rem; background:rgba(15,41,60,0.03); border-radius:10px; border:1px solid var(--border)">
+          <strong style="color:var(--primary)">5 anos</strong><br>
+          <small style="color:var(--text-muted)">Documentos legais: CNDs, Contratos, Alvarás, ASO, EPI, PGR, PCMSO, NFs fiscais</small>
+        </div>
+        <div style="padding:1rem; background:rgba(15,41,60,0.03); border-radius:10px; border:1px solid var(--border)">
+          <strong style="color:var(--primary)">3 anos</strong><br>
+          <small style="color:var(--text-muted)">Registros operacionais: OSs, Folhas de ponto, Boletos, Avaliações de execução, KPIs</small>
+        </div>
+        <div style="padding:1rem; background:rgba(15,41,60,0.03); border-radius:10px; border:1px solid var(--border)">
+          <strong style="color:var(--primary)">2 anos</strong><br>
+          <small style="color:var(--text-muted)">Documentos de suporte: E-mails de comunicação, WhatsApp prints, Planilhas de trabalho temporárias</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="condominios" aria-labelledby="condominios-title">
+    <div class="section-header">
+      <h2 id="condominios-title">Condomínios & Prestadoras Prioritários para Amostragem</h2>
+      <p>Seleção baseada em proximidade geográfica, variedade de serviços e histórico de execução recente</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Talca Marista (Setor Marista)</h3>
+        <p><strong>Zelador:</strong> Novo, organizado, fez inventário do condomínio. Referência positiva.</p>
+        <p><strong>Serviços:</strong> Caixa d'água (semestral - última jul/26), Dedetização (trimestral - última out/26), Caixa de gordura (mensal - última out/26).</p>
+        <p><strong>Prestadoras:</strong> TN (dedetização/gordura), Royal (água).</p>
+        <div class="status ok">Alta probabilidade</div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Praça Sudoeste</h3>
+        <p><strong>Perfil:</strong> Condomínio próximo, acesso fácil. Histórico de serviços variados.</p>
+        <p><strong>Serviços prováveis:</strong> Jardim, Piscina, Dedetização, Caixa de gordura.</p>
+        <p><strong>Prestadoras:</strong> H2O (piscina), Master (jardim), TN (dedetização/gordura).</p>
+        <div class="status ok">Alta probabilidade</div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Luci (Setor Sul)</h3>
+        <p><strong>Perfil:</strong> Próximo, bom acesso. Serviços de rotina.</p>
+        <p><strong>Serviços:</strong> Caixa d'água, Dedetização, Jardim.</p>
+        <p><strong>Prestadoras:</strong> Royal (água), TN (dedetização), Sempre Limpa (jardim).</p>
+        <div class="status ok">Alta probabilidade</div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Business (Reserva)</h3>
+        <p><strong>Perfil:</strong> Apenas caixa d'água e dedetização. Troca de administração em andamento — nova síndica moradora.</p>
+        <p><strong>Oportunidade:</strong> Prestador (TN) pode usar reforço de dedetização como porta de entrada para relacionamento comercial.</p>
+        <div class="status warn">Reserva estratégica</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:2rem">
+      <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> Prestadoras que Devem Estar com Documentação Completa</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Prestadora</th><th>Serviços</th><th>Condomínios</th><th>Documentação Crítica</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>TN</td><td>Caixa gordura, Caixa d'água, Dedetização</td><td>12 condomínios</td><td>ASO/EPI funcionários, CNDs, PGR/PCMSO</td><td><span class="status warn">Pendente</span></td></tr>
+            <tr><td>Royal Prime</td><td>Caixa d'água, Dedetização</td><td>8 condomínios</td><td>Alvará, CNDs, Certificados funcionários</td><td><span class="status warn">Parcial</span></td></tr>
+            <tr><td>H2O</td><td>Piscina</td><td>15 condomínios</td><td>ASO/EPI (piscineiros), CNDs, NR-10/33/35</td><td><span class="status ok">OK</span></td></tr>
+            <tr><td>Master</td><td>Jardim</td><td>10 condomínios</td><td>CNDs, EPI (jardineiros), PGR</td><td><span class="status warn">Parcial</span></td></tr>
+            <tr><td>Grupo Fibra</td><td>Vidros em altura</td><td>5 condomínios</td><td>NR-35, ASO trabalho em altura, EPI completo</td><td><span class="status danger">Crítico</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="projetos-melhoria" aria-labelledby="projetos-title">
+    <div class="section-header">
+      <h2 id="projetos-title">Projetos de Melhoria Pós-Auditoria (2027)</h2>
+      <p>Oportunidades identificadas durante a preparação — não são exigências da auditoria atual, mas geram valor sustentável</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg> Sistema Next — Gestão Integrada</h3>
+        <p>Substituir planilhas dispersas por sistema único (web + mobile) com: cadastro de condomínios/prestadoras, programação automática, OS digital com assinatura, NF/boleto upload, avaliação automática, dashboard KPIs. Requer projeto formal 5W2H, fases de teste, homologação, treinamento. Responsável: Cleber + TI (Horácio).</p>
+        <div class="tags"><span class="tag">5W2H Obrigatório</span><span class="tag">Fases: Teste→Homolog→Treino</span></div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Padronização Total de Formulários</h3>
+        <p>Revisar todos os formulários originais (pasta RER Originais) conforme DS-013. Nova numeração RE sequencial, layout único, campos de busca (cliente, serviço, nº OS) no corpo do formulário — não apenas no cabeçalho. Versão antiga → Obsoleta. Comunicação formal às prestadoras e equipe interna.</p>
+        <div class="tags"><span class="tag">DS-013</span><span class="tag">Busca no Corpo</span></div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg> Avaliação de Satisfação Formal (Cliente)</h3>
+        <p>Implementar pesquisa trimestral por WhatsApp/telefone para síndicos/zeladores: pontualidade, qualidade, cordialidade, limpeza. Notas 1-10. Integrar ao sistema Next. Substituir ligações informais da Dayane por processo auditável.</p>
+        <div class="tags"><span class="tag">Requisito 9.1.2</span><span class="tag">Trimestral</span></div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg> Backup Automatizado Google Drive → ISO</h3>
+        <p>Configurar sincronização automática (via Apps Script ou RPA) da pasta ISO compartilhada para Drive corporativo (conta cleber.donato@grupotektron.com.br) com versionamento. Eliminar risco de perda por exclusão acidental/dolosa. Backup diário 18h já existe na rede ISO — estender para Drive.</p>
+        <div class="tags"><span class="tag">Apps Script / RPA</span><span class="tag">Versionamento</span></div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> Gestão de Substituições (Planilha Automatizada)</h3>
+        <p>Planilha da Edilaine (substituições de faltosos) já automatizada com: total por posto/tomadora, % do total, filtros por supervisor, conferência de valores fora da tabela, motivo (treinamento, falta, férias), data fora do período. Expandir para todas as supervisoras. IA para leitura de OSs escaneadas → preenchimento automático.</p>
+        <div class="tags"><span class="tag">IA + OCR</span><span class="tag">Filtros Dinâmicos</span></div>
+      </div>
+      <div class="card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg> Cotação Paramétrica (Preço por Unidade Física)</h3>
+        <p>Meta do projeto: reduzir custo 30% sobre baseline. Migrar de cotação caso a caso para preço paramétrico (mediana/Q1/Q3 por m², m³, unidade). Qualidade reativa → confirmação antecipada (aviso D-4, verificação D-3, cobrança D-1). Aplicar regra: gordura + água na mesma prestadora (dedetização como cortesia condicionada).</p>
+        <div class="tags"><span class="tag">Meta -30%</span><span class="tag">Paramétrico</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="checklist-final" aria-labelledby="checklist-title">
+    <div class="section-header">
+      <h2 id="checklist-title">Checklist Final — Dia da Auditoria</h2>
+      <p>Verificação rápida na manhã da auditoria</p>
+    </div>
+
+    <ul class="checklist" role="list">
+      <li><input type="checkbox" id="c1"><label for="c1">Pasta ISO compartilhada acessível e organizada (subpasta "Cleber - Quarteirizados")</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">Drive corporativo sincronizado (cópia dos documentos 2026 recuperados)</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">4 prestadoras preparadas para demonstração (TN, Royal, H2O, Master) com pastas completas</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">3 condomínios selecionados com histórico de serviços 2026 (Talca Marista, Praça Sudoeste, Luci)</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">Planilha de avaliação de fornecedores 2026 preenchida (Dayane) + termo de ciência enviado às prestadoras</label></li>
+      <li><input type="checkbox" id="c6"><label for="c6">Formulários originais revisados (RE sequencial) + versões antigas marcadas "Obsoleta"</label></li>
+      <li><input type="checkbox" id="c7"><label for="c7">Dossiês de funcionários das prestadoras com equipe própria (TN, Grupo Fibra, H2O) completos</label></li>
+      <li><input type="checkbox" id="c8"><label for="c8">Evidências de comunicação formal (WhatsApp visualizado + e-mail) para todas as prestadoras</label></li>
+      <li><input type="checkbox" id="c9"><label for="c9">ClickUp atualizado: tarefas de NCs, eventos de qualidade, comunicações</label></li>
+      <li><input type="checkbox" id="c10"><label for="c10">Agenda do dia bloqueada: 15h antes + 15h depois da auditoria para preparação/registro</label></li>
+      <li><input type="checkbox" id="c11"><label for="c11">Notebook carregado, acesso ao Drive/ISO/ClickUp testado, segunda tela se possível</label></li>
+      <li><input type="checkbox" id="c12"><label for="c12">Contato do Coronel (Diretoria) e Murilo (admin Drive) à mão para emergências</label></li>
+    </ul>
+  </section>
+
+  <footer class="footer-note" role="contentinfo">
+    <p>Dashboard gerado a partir da transcrição da reunião de 19/11/2026 (Plaud AI) • Preparação para Auditoria de Supervisão ISO 9001:2015</p>
+    <p><strong>Responsável:</strong> Cléber Donato — Analista de Contratos e Serviços (Quarteirizados) • <strong>Diretoria:</strong> Coronel Désio Campos Filho</p>
+    <p style="margin-top:1rem; font-size:0.85rem; opacity:0.7">Grupo Tektron • Gestão de Quarteirizados • Novembro 2026</p>
+  </footer>
+</main>
+
+<script>
+  // Progress bar
+  const progressBar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+    progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+  }, { passive: true });
+
+  // Checklist persistence
+  document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => {
+    const saved = localStorage.getItem('audit-checklist-' + cb.id);
+    if (saved === 'true') { cb.checked = true; cb.closest('li').classList.add('done'); }
+    cb.addEventListener('change', () => {
+      cb.closest('li').classList.toggle('done', cb.checked);
+      localStorage.setItem('audit-checklist-' + cb.id, cb.checked);
+    });
+  });
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('main section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-100px 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  // Smooth scroll for nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', link.getAttribute('href'));
+      }
+    });
+  });
+</script>
+</body>
+</html>
